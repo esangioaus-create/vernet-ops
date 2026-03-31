@@ -1,0 +1,17 @@
+{
+  "name": "vernet-ops",
+  "version": "2.0.0",
+  "description": "Plateforme de communication opérationnelle - B Signature Hôtels & Resorts",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.3",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
+    "socket.io": "^4.7.4"
+  }
+}
