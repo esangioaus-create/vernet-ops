@@ -12,16 +12,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-/* ── THEME TOKENS ─────────────────────────────────────────────────────── */
-:root {
-  --gold:#c9a84c;--gold-light:#e8c87a;--gold-dim:#8a6e30;--gold-ultra-dim:#2a2010;
-  --transition: .2s cubic-bezier(.4,0,.2,1);
-  --r:10px;--r2:14px;--r3:20px;
-  --sidebar-w:230px;
-  --font: 'Inter', -apple-system, sans-serif;
-}
-
-[data-theme="dark"] {
+[data-theme="dark"]{
   --bg:#0a0908;--bg2:#111009;--bg3:#18160f;--bg4:#201d14;--bg5:#28251a;
   --text:#ede5d0;--text2:#a89878;--text3:#6b5c3e;--text4:#3d3020;
   --border:#201d14;--border2:#2e2a1e;--border3:#3d3828;
@@ -29,11 +20,10 @@
   --green:#4a9460;--green-bg:#0d1f14;--green-dim:#1e4a2a;
   --blue:#4a80c8;--blue-bg:#0d1520;
   --orange:#c87830;--orange-bg:#1f1408;
-  --shadow: 0 4px 24px rgba(0,0,0,.5);
-  --shadow-sm: 0 2px 8px rgba(0,0,0,.4);
+  --gold:#c9a84c;--gold-light:#e8c87a;--gold-dim:#8a6e30;--gold-ultra-dim:#2a2010;
+  --shadow:0 4px 24px rgba(0,0,0,.5);--shadow-sm:0 2px 8px rgba(0,0,0,.4);
 }
-
-[data-theme="light"] {
+[data-theme="light"]{
   --bg:#f5f0e8;--bg2:#ffffff;--bg3:#faf7f2;--bg4:#f0ebe0;--bg5:#e8e2d5;
   --text:#1a1510;--text2:#5a4e38;--text3:#8a7a60;--text4:#c0b090;
   --border:#e0d8c8;--border2:#d0c8b5;--border3:#bfb5a0;
@@ -41,13 +31,14 @@
   --green:#2a7a48;--green-bg:#f0faf4;--green-dim:#c8ecd8;
   --blue:#2a60a8;--blue-bg:#f0f5ff;
   --orange:#a85020;--orange-bg:#fff5ee;
-  --shadow: 0 4px 24px rgba(0,0,0,.1);
-  --shadow-sm: 0 2px 8px rgba(0,0,0,.08);
+  --gold:#b8922a;--gold-light:#d4a840;--gold-dim:#8a6e30;--gold-ultra-dim:#f5edd8;
+  --shadow:0 4px 24px rgba(0,0,0,.1);--shadow-sm:0 2px 8px rgba(0,0,0,.08);
 }
 
+:root{--transition:.2s cubic-bezier(.4,0,.2,1);--r:10px;--r2:14px;--r3:20px;--sidebar-w:230px;--font:'Inter',-apple-system,sans-serif}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;overflow:hidden;-webkit-font-smoothing:antialiased}
 
-/* ── LOGIN ───────────────────────────────────────────────────────────── */
+/* LOGIN */
 #login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100}
 #login-screen.hidden{display:none}
 .login-wrap{width:100%;max-width:360px;padding:20px}
@@ -60,66 +51,62 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .login-field label{display:block;font-size:11px;font-weight:600;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
 .login-field input{width:100%;padding:11px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:14px;font-family:var(--font);outline:none;transition:var(--transition)}
 .login-field input:focus{border-color:var(--gold-dim);background:var(--bg4)}
-.login-btn{width:100%;padding:12px;background:var(--gold);color:#0a0908;font-weight:700;font-size:14px;letter-spacing:.5px;border:none;border-radius:var(--r);cursor:pointer;transition:var(--transition);margin-top:6px;font-family:var(--font)}
-.login-btn:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,.3)}
-.login-btn:active{transform:translateY(0)}
+.login-btn{width:100%;padding:12px;background:var(--gold);color:#0a0908;font-weight:700;font-size:14px;border:none;border-radius:var(--r);cursor:pointer;transition:var(--transition);margin-top:6px;font-family:var(--font)}
+.login-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
 .login-error{color:var(--red);font-size:12px;text-align:center;margin-top:10px;min-height:18px;font-weight:500}
 .login-theme{position:absolute;top:16px;right:16px}
 
-/* ── APP LAYOUT ──────────────────────────────────────────────────────── */
+/* APP */
 #app{display:flex;height:100vh;overflow:hidden}
 #app.hidden{display:none}
 
 /* Sidebar */
-#sidebar{width:var(--sidebar-w);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;transition:var(--transition)}
+#sidebar{width:var(--sidebar-w);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
 .sb-header{padding:20px 16px 16px;border-bottom:1px solid var(--border)}
 .sb-hotel{font-size:13px;font-weight:700;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sb-user{font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sb-badge{display:inline-block;padding:1px 6px;background:var(--gold-ultra-dim);border:1px solid var(--gold-dim);border-radius:8px;font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-top:6px}
 .sb-nav{flex:1;padding:10px 0;overflow-y:auto}
 .nav-section{padding:16px 18px 5px;font-size:10px;font-weight:700;color:var(--text4);letter-spacing:2px;text-transform:uppercase}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;color:var(--text3);transition:var(--transition);border-left:2px solid transparent;user-select:none;border-radius:0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;color:var(--text3);transition:var(--transition);border-left:2px solid transparent;user-select:none}
 .nav-item:hover{background:var(--bg3);color:var(--text)}
 .nav-item.active{background:var(--gold-ultra-dim);color:var(--gold);border-left-color:var(--gold)}
-.nav-item .ico{font-size:14px;width:18px;text-align:center;flex-shrink:0;opacity:.8}
+.nav-item .ico{font-size:14px;width:18px;text-align:center;flex-shrink:0}
 .nav-item .lbl{font-size:13px;font-weight:500}
 .nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
 .sb-footer{padding:14px 16px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center}
 .theme-toggle{width:34px;height:34px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:var(--transition);flex-shrink:0}
-.theme-toggle:hover{border-color:var(--gold-dim);background:var(--bg4)}
+.theme-toggle:hover{border-color:var(--gold-dim)}
 .logout-btn{flex:1;padding:8px;background:transparent;border:1px solid var(--border2);border-radius:var(--r);color:var(--text3);cursor:pointer;font-size:12px;font-weight:500;transition:var(--transition);font-family:var(--font)}
 .logout-btn:hover{border-color:var(--red-dim);color:var(--red)}
 
 /* Main */
-#main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 #topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
 #topbar-title{font-size:15px;font-weight:700;color:var(--text)}
 #topbar-date{margin-left:auto;font-size:12px;color:var(--text3);font-weight:500}
 #topbar-actions{display:flex;gap:8px}
 #content{flex:1;overflow-y:auto;padding:22px}
 
-/* ── COMPONENTS ──────────────────────────────────────────────────────── */
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:20px;margin-bottom:14px;transition:var(--transition)}
+/* Components */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:20px;margin-bottom:14px}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .card-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
-.page-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .page-title{font-size:18px;font-weight:700;color:var(--text)}
-
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 
-/* Stats */
 .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px;text-align:center;transition:var(--transition)}
 .stat-card:hover{border-color:var(--border2);box-shadow:var(--shadow-sm)}
-.stat-val{font-size:30px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.stat-val{font-size:30px;font-weight:700;line-height:1}
 .stat-label{font-size:10px;font-weight:600;color:var(--text3);margin-top:6px;letter-spacing:1px;text-transform:uppercase}
 
 /* Buttons */
-.btn{padding:8px 16px;border-radius:var(--r);border:none;cursor:pointer;font-size:13px;font-weight:600;transition:var(--transition);display:inline-flex;align-items:center;gap:6px;font-family:var(--font);white-space:nowrap}
+.btn{padding:8px 16px;border-radius:var(--r);border:none;cursor:pointer;font-size:13px;font-weight:600;transition:var(--transition);display:inline-flex;align-items:center;gap:6px;font-family:var(--font);white-space:nowrap;text-decoration:none}
 .btn:active{transform:translateY(1px)}
-.btn-gold{background:var(--gold);color:#0a0908}.btn-gold:hover{background:var(--gold-light);box-shadow:0 4px 12px rgba(201,168,76,.25)}
+.btn-gold{background:var(--gold);color:#0a0908}.btn-gold:hover{background:var(--gold-light)}
 .btn-outline{background:transparent;border:1.5px solid var(--border2);color:var(--text2)}.btn-outline:hover{border-color:var(--gold-dim);color:var(--text);background:var(--bg3)}
 .btn-danger{background:var(--red-bg);color:var(--red);border:1.5px solid var(--red-dim)}.btn-danger:hover{background:var(--red);color:#fff}
 .btn-green{background:var(--green-bg);color:var(--green);border:1.5px solid var(--green-dim)}.btn-green:hover{background:var(--green);color:#fff}
@@ -133,7 +120,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .field input,.field textarea,.field select{width:100%;padding:10px 13px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:13px;outline:none;transition:var(--transition);font-family:var(--font)}
 .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold-dim);background:var(--bg4)}
 .field textarea{resize:vertical;min-height:80px;line-height:1.6}
-.field select option{background:var(--bg3)}
+.field select option{background:var(--bg3);color:var(--text)}
 .fields-row{display:grid;gap:12px}
 .fields-row.c2{grid-template-columns:1fr 1fr}
 .fields-row.c3{grid-template-columns:1fr 1fr 1fr}
@@ -165,9 +152,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .list-item-actions{display:flex;gap:6px;flex-shrink:0;align-items:flex-start}
 
 /* Modal */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:var(--transition)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:var(--transition)}
 .modal-overlay.visible{opacity:1;pointer-events:all}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:28px;width:520px;max-width:94vw;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow);transform:translateY(8px);transition:var(--transition)}
+.modal{background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--r3);padding:28px;width:540px;max-width:94vw;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow);transform:translateY(8px);transition:var(--transition)}
 .modal-overlay.visible .modal{transform:translateY(0)}
 .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
 .modal-title{font-size:16px;font-weight:700;color:var(--gold)}
@@ -181,17 +168,17 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .channel-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;font-size:12px;font-weight:600;transition:var(--transition);font-family:var(--font)}
 .channel-btn:hover{border-color:var(--gold-dim);color:var(--text)}
 .channel-btn.active{background:var(--gold);color:#0a0908;border-color:var(--gold)}
-#chat-messages{flex:1;overflow-y:auto;background:var(--bg3);border-radius:var(--r2);padding:16px;display:flex;flex-direction:column;gap:10px;min-height:100px;border:1px solid var(--border)}
+#chat-messages{flex:1;overflow-y:auto;background:var(--bg3);border-radius:var(--r2);padding:16px;display:flex;flex-direction:column;gap:10px;border:1px solid var(--border)}
 .chat-msg{display:flex;flex-direction:column;max-width:75%}
 .chat-msg.own{align-self:flex-end;align-items:flex-end}
 .chat-bubble{padding:9px 13px;border-radius:14px;background:var(--bg4);font-size:13px;line-height:1.5;border:1px solid var(--border)}
-.chat-msg.own .chat-bubble{background:var(--gold-ultra-dim);border-color:var(--gold-dim);color:var(--text)}
+.chat-msg.own .chat-bubble{background:var(--gold-ultra-dim);border-color:var(--gold-dim)}
 .chat-meta{font-size:10px;color:var(--text3);margin-top:3px}
 .chat-input-row{display:flex;gap:8px}
 .chat-input-row input{flex:1;padding:10px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:13px;outline:none;transition:var(--transition);font-family:var(--font)}
 .chat-input-row input:focus{border-color:var(--gold-dim)}
 
-/* Critical alert banner */
+/* Critical alert */
 .critical-banner{background:var(--red-bg);border:1px solid var(--red-dim);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;display:flex;align-items:center;gap:10px;animation:slide-in .3s ease}
 @keyframes slide-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 .critical-dot{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
@@ -219,13 +206,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .tbl tr:hover td{background:var(--bg3)}
 .amount{font-weight:700;color:var(--gold);font-family:monospace;font-size:13px}
 
-/* Briefing editor */
+/* Briefing */
 #briefing-editor{width:100%;min-height:220px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:14px;line-height:1.8;padding:16px;resize:vertical;outline:none;font-family:var(--font);transition:var(--transition)}
 #briefing-editor:focus{border-color:var(--gold-dim)}
 .briefing-content{font-size:14px;line-height:1.8;color:var(--text);white-space:pre-wrap}
 .briefing-date{font-size:11px;color:var(--text3);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
 
-/* User management */
+/* Users */
 .user-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;display:flex;align-items:center;gap:14px;transition:var(--transition);margin-bottom:8px}
 .user-card:hover{border-color:var(--border2);background:var(--bg4)}
 .user-avatar{width:38px;height:38px;border-radius:10px;background:var(--gold-ultra-dim);border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--gold);flex-shrink:0}
@@ -240,65 +227,20 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 #toast.success{border-color:var(--green-dim);color:var(--green)}
 #toast.error{border-color:var(--red-dim);color:var(--red)}
 
-/* Utils */
 .empty-state{text-align:center;padding:48px 20px;color:var(--text3)}
 .empty-ico{font-size:36px;margin-bottom:12px;opacity:.5}
 .empty-txt{font-size:14px}
 .divider{height:1px;background:var(--border);margin:16px 0}
-.text-gold{color:var(--gold)}
-.text-muted{color:var(--text3)}
 .pill{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:var(--bg4);border-radius:20px;font-size:11px;color:var(--text3);border:1px solid var(--border)}
-.scroll-area{overflow-y:auto}
+@keyframes fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fade-up .3s ease forwards}
 
-/* Responsive */
 @media(max-width:768px){
   #sidebar{display:none;position:fixed;inset:0 auto 0 0;z-index:150;width:260px}
   #sidebar.open{display:flex}
   .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
   .fields-row.c2,.fields-row.c3{grid-template-columns:1fr}
   #content{padding:14px}
-}
-
-/* Animations */
-@keyframes fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.fade-up{animation:fade-up .3s ease forwards}
-/* Colle ce bloc DANS index.html, juste avant </style> */
-
-/* Dark mode explicit overrides for inputs/selects inside modals */
-[data-theme="dark"] .modal,
-[data-theme="dark"] .field input,
-[data-theme="dark"] .field textarea,
-[data-theme="dark"] .field select {
-  background: #18160f;
-  color: #ede5d0;
-  border-color: #2e2a1e;
-}
-
-[data-theme="dark"] .field input:focus,
-[data-theme="dark"] .field textarea:focus,
-[data-theme="dark"] .field select:focus {
-  border-color: #8a6e30;
-  background: #201d14;
-}
-
-[data-theme="dark"] .modal {
-  background: #111009;
-  border-color: #2e2a1e;
-}
-
-[data-theme="dark"] .upload-zone {
-  border-color: #2e2a1e;
-  color: #6b5c3e;
-}
-
-[data-theme="dark"] .attach-item {
-  background: #18160f;
-  border-color: #2e2a1e;
-}
-
-[data-theme="dark"] select option {
-  background: #18160f;
-  color: #ede5d0;
 }
 </style>
 </head>
@@ -345,7 +287,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
       <div class="nav-item admin-only" style="display:none" onclick="navigate('users')"><span class="ico">👥</span><span class="lbl">Utilisateurs</span></div>
     </nav>
     <div class="sb-footer">
-      <button class="theme-toggle" onclick="toggleTheme()" title="Thème clair/sombre" id="theme-btn">🌙</button>
+      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">🌙</button>
       <button class="logout-btn" onclick="doLogout()">Déconnexion</button>
     </div>
   </div>
@@ -373,760 +315,394 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 </div>
 
 <div id="toast"></div>
-
 <script src="/socket.io/socket.io.js"></script>
 <script>
-// ── STATE ──────────────────────────────────────────────────────────────────
-let currentUser = null;
-let socket = null;
-let currentPage = 'dashboard';
-let currentChatService = 'general';
-let currentTheme = localStorage.getItem('theme') || 'dark';
+let currentUser=null,socket=null,currentPage='dashboard',currentChatService='general';
+let currentTheme=localStorage.getItem('theme')||'dark';
 
-// ── THEME ──────────────────────────────────────────────────────────────────
-function applyTheme(t) {
-  currentTheme = t;
-  document.documentElement.setAttribute('data-theme', t);
-  localStorage.setItem('theme', t);
-  const ico = t === 'dark' ? '☀️' : '🌙';
-  document.querySelectorAll('#theme-btn').forEach(b => b.textContent = ico);
-}
-
-function toggleTheme() { applyTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+function applyTheme(t){currentTheme=t;document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);const ico=t==='dark'?'☀️':'🌙';document.querySelectorAll('#theme-btn').forEach(b=>b.textContent=ico);}
+function toggleTheme(){applyTheme(currentTheme==='dark'?'light':'dark');}
 applyTheme(currentTheme);
 
-// ── AUTH ──────────────────────────────────────────────────────────────────
-async function doLogin() {
-  const u = document.getElementById('login-user').value.trim();
-  const p = document.getElementById('login-pass').value;
-  const err = document.getElementById('login-error');
-  err.textContent = '';
-  try {
-    currentUser = await api('/api/auth/login', 'POST', { username: u, password: p });
-    startApp();
-  } catch(e) { err.textContent = e.message || 'Erreur de connexion'; }
+async function doLogin(){
+  const u=document.getElementById('login-user').value.trim();
+  const p=document.getElementById('login-pass').value;
+  const err=document.getElementById('login-error');err.textContent='';
+  try{currentUser=await api('/api/auth/login','POST',{username:u,password:p});startApp();}
+  catch(e){err.textContent=e.message||'Erreur de connexion';}
 }
+async function doLogout(){await api('/api/auth/logout','POST').catch(()=>{});currentUser=null;if(socket)socket.disconnect();document.getElementById('app').classList.add('hidden');document.getElementById('login-screen').classList.remove('hidden');document.getElementById('login-pass').value='';}
+async function checkAuth(){try{currentUser=await api('/api/auth/me');startApp();}catch{}}
 
-async function doLogout() {
-  await api('/api/auth/logout', 'POST').catch(() => {});
-  currentUser = null;
-  if (socket) socket.disconnect();
-  document.getElementById('app').classList.add('hidden');
-  document.getElementById('login-screen').classList.remove('hidden');
-  document.getElementById('login-pass').value = '';
-}
-
-async function checkAuth() {
-  try { currentUser = await api('/api/auth/me'); startApp(); } catch {}
-}
-
-// ── APP START ─────────────────────────────────────────────────────────────
-function startApp() {
+function startApp(){
   document.getElementById('login-screen').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
-  document.getElementById('sb-hotel').textContent = currentUser.hotel_name || 'B Signature';
-  document.getElementById('sb-user').textContent = currentUser.display_name;
-  document.getElementById('sb-badge').innerHTML = `<span class="sb-badge">${roleLabel(currentUser.role)}</span>`;
+  document.getElementById('sb-hotel').textContent=currentUser.hotel_name||'B Signature';
+  document.getElementById('sb-user').textContent=currentUser.display_name;
+  document.getElementById('sb-badge').innerHTML=`<span class="sb-badge">${roleLabel(currentUser.role)}</span>`;
+  if(currentUser.role==='super_admin')document.querySelectorAll('.admin-only').forEach(el=>el.style.display='');
+  initSocket();updateDate();setInterval(updateDate,60000);navigate('dashboard');loadBadges();setInterval(loadBadges,30000);
+}
+function updateDate(){const d=new Date();const days=['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'];const months=['jan','fév','mars','avr','mai','juin','juil','août','sep','oct','nov','déc'];document.getElementById('topbar-date').textContent=`${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;}
+function roleLabel(r){return{super_admin:'Super Admin',hotel_admin:'Admin',chef_service:'Chef svc.',equipe:'Équipe'}[r]||r;}
+function serviceLbl(s){return{general:'Général',reception:'Réception',housekeeping:'HK',fb:'F&B',maintenance:'Maint.',direction:'Direction'}[s]||(s||'—');}
+function priorityLbl(p){return{low:'Faible',medium:'Moyenne',high:'Haute',urgent:'Urgent',critical:'Critique'}[p]||p;}
 
-  if (['super_admin'].includes(currentUser.role)) {
-    document.querySelectorAll('.admin-only').forEach(el => el.style.display = '');
-  }
-
-  initSocket();
-  updateDate();
-  setInterval(updateDate, 60000);
-  navigate('dashboard');
-  loadBadges();
-  setInterval(loadBadges, 30000);
+function initSocket(){
+  socket=io();
+  socket.on('new_alert',a=>{toast(`⚠ ${a.title}`,a.priority==='critical'?'error':'');loadBadges();if(['dashboard','alerts'].includes(currentPage))navigate(currentPage);});
+  socket.on('alert_resolved',()=>{loadBadges();if(['dashboard','alerts'].includes(currentPage))navigate(currentPage);});
+  socket.on('new_announcement',a=>{toast(`📢 ${a.title}`);if(currentPage==='announcements')navigate('announcements');});
+  socket.on('chat_message',msg=>{if(currentPage==='chat'&&msg.service===currentChatService)appendChatMsg(msg);});
+  socket.on('new_deduction',d=>{if(['hotel_admin','chef_service','super_admin'].includes(currentUser.role)){toast(`🧾 ${d.client_name} — ${parseFloat(d.amount).toFixed(2)} €`);loadBadges();}if(currentPage==='deductions')navigate('deductions');});
+  socket.on('deduction_reviewed',()=>{loadBadges();if(currentPage==='deductions')navigate('deductions');});
+  socket.on('new_maintenance',m=>{toast(`🔧 ${m.location}`);if(currentPage==='maintenance')navigate('maintenance');});
+}
+async function loadBadges(){
+  try{const a=await api('/api/alerts?active=1');const ab=document.getElementById('badge-alerts');ab.textContent=a.length;ab.style.display=a.length?'':'none';}catch{}
+  try{if(['hotel_admin','chef_service','super_admin'].includes(currentUser.role)){const d=await api('/api/deductions?status=pending');const db2=document.getElementById('badge-deductions');db2.textContent=d.length;db2.style.display=d.length?'':'none';}}catch{}
 }
 
-function updateDate() {
-  const d = new Date();
-  const days = ['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'];
-  const months = ['jan','fév','mars','avr','mai','juin','juil','août','sep','oct','nov','déc'];
-  document.getElementById('topbar-date').textContent =
-    `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+function navigate(page){
+  currentPage=page;
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const found=[...document.querySelectorAll('.nav-item')].find(el=>el.getAttribute('onclick')===`navigate('${page}')`);
+  if(found)found.classList.add('active');
+  const titles={dashboard:'Dashboard',briefing:'Briefing quotidien',alerts:'Alertes urgentes',announcements:'Annonces',chat:'Chat',deductions:'Déductions',handovers:'Passations de service',maintenance:'Maintenance',users:'Gestion des utilisateurs'};
+  document.getElementById('topbar-title').textContent=titles[page]||page;
+  document.getElementById('topbar-actions').innerHTML='';
+  const pages={dashboard,briefing,alerts,announcements,chat,deductions,handovers,maintenance,users};
+  if(pages[page])pages[page]();
 }
 
-function roleLabel(r) {
-  return {super_admin:'Super Admin',hotel_admin:'Admin',chef_service:'Chef svc.',equipe:'Équipe'}[r] || r;
-}
-function serviceLbl(s) {
-  return {general:'Général',reception:'Réception',housekeeping:'HK',fb:'F&B',maintenance:'Maint.',direction:'Direction'}[s] || (s||'—');
-}
-function priorityLbl(p) {
-  return {low:'Faible',medium:'Moyenne',high:'Haute',high:'Haute',urgent:'Urgent',critical:'Critique'}[p] || p;
-}
-
-// ── SOCKET ────────────────────────────────────────────────────────────────
-function initSocket() {
-  socket = io();
-  socket.on('new_alert', (a) => {
-    toast(`⚠ ${a.title}`, a.priority === 'critical' ? 'error' : '');
-    loadBadges();
-    if (['dashboard','alerts'].includes(currentPage)) navigate(currentPage);
-  });
-  socket.on('alert_resolved', () => { loadBadges(); if (['dashboard','alerts'].includes(currentPage)) navigate(currentPage); });
-  socket.on('new_announcement', (a) => { toast(`📢 ${a.title}`); if (currentPage === 'announcements') navigate('announcements'); });
-  socket.on('chat_message', (msg) => {
-    if (currentPage === 'chat' && msg.service === currentChatService) appendChatMsg(msg);
-  });
-  socket.on('new_deduction', (d) => {
-    if (['hotel_admin','chef_service','super_admin'].includes(currentUser.role)) {
-      toast(`🧾 Déduction : ${d.client_name} — ${parseFloat(d.amount).toFixed(2)} €`);
-      loadBadges();
-    }
-    if (currentPage === 'deductions') navigate('deductions');
-  });
-  socket.on('deduction_reviewed', () => { loadBadges(); if (currentPage === 'deductions') navigate('deductions'); });
-  socket.on('new_maintenance', (m) => { toast(`🔧 ${m.location}`); if (currentPage === 'maintenance') navigate('maintenance'); });
-}
-
-async function loadBadges() {
-  try {
-    const alerts = await api('/api/alerts?active=1');
-    const ab = document.getElementById('badge-alerts');
-    ab.textContent = alerts.length; ab.style.display = alerts.length ? '' : 'none';
-    if (['hotel_admin','chef_service','super_admin'].includes(currentUser.role)) {
-      const deds = await api('/api/deductions?status=pending');
-      const db2 = document.getElementById('badge-deductions');
-      db2.textContent = deds.length; db2.style.display = deds.length ? '' : 'none';
-    }
-  } catch {}
-}
-
-// ── NAVIGATION ────────────────────────────────────────────────────────────
-function navigate(page) {
-  currentPage = page;
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  const found = [...document.querySelectorAll('.nav-item')].find(el => el.getAttribute('onclick') === `navigate('${page}')`);
-  if (found) found.classList.add('active');
-  const titles = {dashboard:'Dashboard',briefing:'Briefing quotidien',alerts:'Alertes urgentes',announcements:'Annonces',chat:'Chat',deductions:'Déductions',handovers:'Passations de service',maintenance:'Maintenance',users:'Gestion des utilisateurs'};
-  document.getElementById('topbar-title').textContent = titles[page] || page;
-  document.getElementById('topbar-actions').innerHTML = '';
-  const pages = {dashboard,briefing,alerts,announcements,chat,deductions,handovers,maintenance,users};
-  if (pages[page]) pages[page]();
-}
-
-// ── DASHBOARD ─────────────────────────────────────────────────────────────
-async function dashboard() {
-  const c = document.getElementById('content');
-  c.innerHTML = '<div class="text-muted" style="padding:20px">Chargement...</div>';
-  try {
-    const [activeAlerts, todayBriefing, dedSummary, anns, maint] = await Promise.all([
-      api('/api/alerts?active=1'), api('/api/briefings'),
-      api('/api/deductions/summary'), api('/api/announcements'),
-      api('/api/maintenance?status=open')
-    ]);
-
-    let html = '<div class="fade-up">';
-
-    // Critical banners
-    activeAlerts.filter(a => a.priority === 'critical').forEach(a => {
-      html += `<div class="critical-banner"><div class="critical-dot"></div><div class="critical-text"><div class="critical-title">⚠ CRITIQUE — ${esc(a.title)}</div><div class="critical-msg">${esc(a.message)}</div></div><button class="btn btn-sm btn-outline" onclick="resolveAlert(${a.id})">Résoudre</button></div>`;
-    });
-
-    // Stats
-    html += `<div class="grid-4" style="margin-bottom:16px">
-      <div class="stat-card"><div class="stat-val" style="color:${activeAlerts.length > 0 ? 'var(--red)' : 'var(--green)'}">${activeAlerts.length}</div><div class="stat-label">Alertes actives</div></div>
-      <div class="stat-card"><div class="stat-val" style="color:${(dedSummary.pending||0) > 0 ? 'var(--orange)' : 'var(--text3)'}">${dedSummary.pending||0}</div><div class="stat-label">Déductions en attente</div></div>
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+async function dashboard(){
+  const c=document.getElementById('content');c.innerHTML='<div class="text-muted" style="padding:20px">Chargement...</div>';
+  try{
+    const [activeAlerts,todayBriefing,dedSummary,anns,maint]=await Promise.all([api('/api/alerts?active=1'),api('/api/briefings'),api('/api/deductions/summary'),api('/api/announcements'),api('/api/maintenance?status=open')]);
+    let html='<div class="fade-up">';
+    activeAlerts.filter(a=>a.priority==='critical').forEach(a=>{html+=`<div class="critical-banner"><div class="critical-dot"></div><div class="critical-text"><div class="critical-title">⚠ CRITIQUE — ${esc(a.title)}</div><div class="critical-msg">${esc(a.message)}</div></div><button class="btn btn-sm btn-outline" onclick="resolveAlert(${a.id})">Résoudre</button></div>`;});
+    html+=`<div class="grid-4" style="margin-bottom:16px">
+      <div class="stat-card"><div class="stat-val" style="color:${activeAlerts.length>0?'var(--red)':'var(--green)'}">${activeAlerts.length}</div><div class="stat-label">Alertes actives</div></div>
+      <div class="stat-card"><div class="stat-val" style="color:${(dedSummary.pending||0)>0?'var(--orange)':'var(--text3)'}">${dedSummary.pending||0}</div><div class="stat-label">Déductions en attente</div></div>
       <div class="stat-card"><div class="stat-val">${maint.length}</div><div class="stat-label">Maintenance ouverte</div></div>
       <div class="stat-card"><div class="stat-val" style="color:var(--gold)">${(dedSummary.total_approved_amount||0).toFixed(0)} €</div><div class="stat-label">Déductions approuvées</div></div>
-    </div>`;
+    </div><div class="grid-2">`;
+    html+=`<div class="card"><div class="card-header"><div class="card-title">📋 Briefing du jour</div><button class="btn btn-outline btn-sm" onclick="navigate('briefing')">Voir →</button></div>`;
+    if(todayBriefing){const prev=todayBriefing.content.length>220?todayBriefing.content.substring(0,220)+'…':todayBriefing.content;html+=`<div class="briefing-content">${esc(prev)}</div><div class="briefing-date" style="margin-top:10px">Par ${esc(todayBriefing.author_name||'—')}</div>`;}
+    else html+=`<div class="empty-state" style="padding:20px"><div class="empty-ico">📋</div><div class="empty-txt">Aucun briefing aujourd'hui</div></div>`;
+    html+=`</div><div class="card"><div class="card-header"><div class="card-title">📢 Annonces</div><button class="btn btn-outline btn-sm" onclick="navigate('announcements')">Voir →</button></div>`;
+    if(!anns.length)html+=`<div class="empty-state" style="padding:20px"><div class="empty-ico">📢</div><div class="empty-txt">Aucune annonce</div></div>`;
+    else html+=anns.slice(0,3).map(a=>`<div class="list-item" style="cursor:default"><div class="list-item-body"><div class="list-item-title">${a.pinned?'📌 ':''}${esc(a.title)}</div><div class="list-item-sub">${esc(a.content.substring(0,80))}${a.content.length>80?'…':''}</div></div></div>`).join('');
+    html+=`</div></div></div>`;c.innerHTML=html;
+  }catch{c.innerHTML=`<div class="empty-state"><div class="empty-ico">⚠</div><div>Erreur de chargement</div></div>`;}
+}
 
-    html += '<div class="grid-2">';
+// ── BRIEFING ──────────────────────────────────────────────────────────────────
+async function briefing(){
+  const c=document.getElementById('content');const canEdit=['hotel_admin','super_admin','chef_service'].includes(currentUser.role);
+  try{
+    const [current,recent]=await Promise.all([api('/api/briefings'),api('/api/briefings/recent')]);
+    let html='<div class="grid-2 fade-up">';
+    html+=`<div class="card"><div class="card-header"><div class="card-title">📋 Aujourd'hui</div>${canEdit?'<button class="btn btn-gold btn-sm" onclick="saveBriefing()">💾 Enregistrer</button>':''}</div>`;
+    if(canEdit)html+=`<textarea id="briefing-editor" placeholder="Saisissez le briefing du jour…">${current?esc(current.content):''}</textarea>`;
+    else html+=current?`<div class="briefing-date">Par ${esc(current.author_name||'—')}</div><div class="briefing-content">${esc(current.content)}</div>`:`<div class="empty-state" style="padding:20px"><div class="empty-ico">📋</div><div>Aucun briefing</div></div>`;
+    html+=`</div><div class="card"><div class="card-header"><div class="card-title">Historique</div></div>`;
+    if(!recent.length)html+=`<div class="empty-state" style="padding:20px"><div>Aucun historique</div></div>`;
+    else html+=recent.map(b=>`<div class="list-item" style="cursor:pointer" onclick="showBriefingDetail('${esc(b.date)}',\`${esc(b.content).replace(/`/g,'\\`')}\`,'${esc(b.author_name||'')}')"><div class="list-item-body"><div class="list-item-title">${formatDateFr(b.date)}</div><div class="list-item-sub">${esc(b.content.substring(0,80))}${b.content.length>80?'…':''}</div><div class="list-item-meta"><span>Par ${esc(b.author_name||'—')}</span></div></div></div>`).join('');
+    html+=`</div></div>`;c.innerHTML=html;
+  }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
+}
+async function saveBriefing(){const content=document.getElementById('briefing-editor')?.value.trim();if(!content){toast('Contenu vide','error');return;}try{await api('/api/briefings','POST',{content});toast('Briefing enregistré ✓','success');}catch(e){toast(e.message,'error');}}
+function showBriefingDetail(date,content,author){openModal(`Briefing — ${formatDateFr(date)}`,`<div class="briefing-date">Par ${esc(author||'—')}</div><div class="briefing-content" style="margin-top:12px">${esc(content)}</div>`,[]);}
 
-    // Briefing
-    html += `<div class="card"><div class="card-header"><div class="card-title">📋 Briefing du jour</div><button class="btn btn-outline btn-sm" onclick="navigate('briefing')">Voir →</button></div>`;
-    if (todayBriefing) {
-      const prev = todayBriefing.content.length > 220 ? todayBriefing.content.substring(0,220)+'…' : todayBriefing.content;
-      html += `<div class="briefing-content">${esc(prev)}</div><div class="briefing-date" style="margin-top:10px">Par ${esc(todayBriefing.author_name||'—')}</div>`;
-    } else {
-      html += `<div class="empty-state" style="padding:20px"><div class="empty-ico">📋</div><div class="empty-txt">Aucun briefing aujourd'hui</div></div>`;
+// ── ALERTS ────────────────────────────────────────────────────────────────────
+async function alerts(){
+  const c=document.getElementById('content');const canCreate=['hotel_admin','super_admin','chef_service'].includes(currentUser.role);
+  document.getElementById('topbar-actions').innerHTML=canCreate?`<button class="btn btn-gold btn-sm" onclick="openAlertModal()">+ Alerte</button>`:'';
+  try{
+    const list=await api('/api/alerts');let html='<div class="fade-up">';
+    if(!list.length)html+=`<div class="empty-state"><div class="empty-ico">✅</div><div class="empty-txt">Aucune alerte</div></div>`;
+    else{const active=list.filter(a=>!a.resolved_at);const resolved=list.filter(a=>a.resolved_at);
+      if(active.length){html+=`<div class="card"><div class="card-title" style="margin-bottom:14px">Actives</div>`;html+=active.map(a=>alertItem(a,canCreate)).join('');html+=`</div>`;}
+      if(resolved.length){html+=`<div class="card"><div class="card-title" style="margin-bottom:14px">Résolues</div>`;html+=resolved.slice(0,8).map(a=>alertItem(a,false)).join('');html+=`</div>`;}
     }
-    html += `</div>`;
-
-    // Annonces
-    html += `<div class="card"><div class="card-header"><div class="card-title">📢 Annonces</div><button class="btn btn-outline btn-sm" onclick="navigate('announcements')">Voir →</button></div>`;
-    if (!anns.length) {
-      html += `<div class="empty-state" style="padding:20px"><div class="empty-ico">📢</div><div class="empty-txt">Aucune annonce</div></div>`;
-    } else {
-      html += anns.slice(0,3).map(a => `<div class="list-item" style="cursor:default"><div class="list-item-body"><div class="list-item-title">${a.pinned?'📌 ':''}${esc(a.title)}</div><div class="list-item-sub">${esc(a.content.substring(0,80))}${a.content.length>80?'…':''}</div></div></div>`).join('');
-    }
-    html += `</div></div>`;
-
-    // Alertes actives (non critiques)
-    const nonCritical = activeAlerts.filter(a => a.priority !== 'critical');
-    if (nonCritical.length) {
-      html += `<div class="card"><div class="card-header"><div class="card-title">🔴 Alertes actives</div><button class="btn btn-outline btn-sm" onclick="navigate('alerts')">Gérer →</button></div>`;
-      html += nonCritical.slice(0,3).map(a => `<div class="list-item"><div class="list-item-body"><div class="list-item-title">${esc(a.title)}<span class="badge badge-${a.priority}">${priorityLbl(a.priority)}</span></div><div class="list-item-sub">${esc(a.message)}</div></div></div>`).join('');
-      html += `</div>`;
-    }
-
-    html += '</div>';
-    c.innerHTML = html;
-  } catch(e) { c.innerHTML = `<div class="empty-state"><div class="empty-ico">⚠</div><div>Erreur de chargement</div></div>`; }
+    html+='</div>';c.innerHTML=html;
+  }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
 }
+function alertItem(a,canResolve){return `<div class="list-item"><div class="list-item-body"><div class="list-item-title">${esc(a.title)}<span class="badge badge-${a.priority}">${priorityLbl(a.priority)}</span>${a.resolved_at?'<span class="badge badge-done">Résolue</span>':''}</div><div class="list-item-sub">${esc(a.message)}</div><div class="list-item-meta"><span>${esc(a.author_name||'—')}</span><span>${formatDate(a.created_at)}</span></div></div>${canResolve&&!a.resolved_at?`<div class="list-item-actions"><button class="btn btn-green btn-sm" onclick="resolveAlert(${a.id})">✓ Résoudre</button></div>`:''}</div>`;}
+async function resolveAlert(id){try{await api(`/api/alerts/${id}/resolve`,'PATCH',{});toast('Alerte résolue ✓','success');}catch(e){toast(e.message,'error');}}
+function openAlertModal(){openModal('Nouvelle alerte',`<div class="field"><label>Titre</label><input id="m-at" placeholder="Ex: Ascenseur HS"></div><div class="field"><label>Message</label><textarea id="m-am"></textarea></div><div class="field"><label>Priorité</label><select id="m-ap"><option value="low">Faible</option><option value="medium" selected>Moyenne</option><option value="high">Haute</option><option value="critical">🔴 CRITIQUE</option></select></div>`,[{label:'Envoyer',cls:'btn-gold',action:async()=>{const title=document.getElementById('m-at').value.trim();const message=document.getElementById('m-am').value.trim();const priority=document.getElementById('m-ap').value;if(!title||!message){toast('Titre et message requis','error');return;}await api('/api/alerts','POST',{title,message,priority});closeModal();toast('Alerte envoyée ✓','success');}}]);}
 
-// ── BRIEFING ──────────────────────────────────────────────────────────────
-async function briefing() {
-  const c = document.getElementById('content');
-  const canEdit = ['hotel_admin','super_admin','chef_service'].includes(currentUser.role);
-  try {
-    const [current, recent] = await Promise.all([api('/api/briefings'), api('/api/briefings/recent')]);
-    let html = '<div class="grid-2 fade-up">';
-    html += `<div class="card"><div class="card-header"><div class="card-title">📋 Aujourd'hui</div>${canEdit ? '<button class="btn btn-gold btn-sm" onclick="saveBriefing()">💾 Enregistrer</button>' : ''}</div>`;
-    if (canEdit) {
-      html += `<textarea id="briefing-editor" placeholder="Saisissez le briefing du jour…">${current ? esc(current.content) : ''}</textarea>`;
-    } else {
-      html += current
-        ? `<div class="briefing-date">Par ${esc(current.author_name||'—')}</div><div class="briefing-content">${esc(current.content)}</div>`
-        : `<div class="empty-state" style="padding:20px"><div class="empty-ico">📋</div><div>Aucun briefing</div></div>`;
-    }
-    html += `</div><div class="card"><div class="card-header"><div class="card-title">Historique</div></div>`;
-    if (!recent.length) {
-      html += `<div class="empty-state" style="padding:20px"><div>Aucun historique</div></div>`;
-    } else {
-      html += recent.map(b => `<div class="list-item" style="cursor:pointer" onclick="showBriefingDetail('${esc(b.date)}',\`${esc(b.content).replace(/`/g,'\\`')}\`,'${esc(b.author_name||'')}')"><div class="list-item-body"><div class="list-item-title">${formatDateFr(b.date)}</div><div class="list-item-sub">${esc(b.content.substring(0,80))}${b.content.length>80?'…':''}</div><div class="list-item-meta"><span>Par ${esc(b.author_name||'—')}</span></div></div></div>`).join('');
-    }
-    html += `</div></div>`;
-    c.innerHTML = html;
-  } catch { c.innerHTML = '<div class="empty-state">Erreur</div>'; }
+// ── ANNOUNCEMENTS ─────────────────────────────────────────────────────────────
+async function announcements(){
+  const c=document.getElementById('content');const canCreate=['hotel_admin','super_admin','chef_service'].includes(currentUser.role);
+  document.getElementById('topbar-actions').innerHTML=canCreate?`<button class="btn btn-gold btn-sm" onclick="openAnnModal()">+ Annonce</button>`:'';
+  try{
+    const list=await api('/api/announcements');let html='<div class="fade-up">';
+    if(!list.length)html+=`<div class="empty-state"><div class="empty-ico">📢</div><div class="empty-txt">Aucune annonce</div></div>`;
+    else html+=list.map(a=>`<div class="card" style="padding:16px 18px"><div style="display:flex;align-items:flex-start;gap:12px"><div style="flex:1"><div style="font-size:14px;font-weight:600;margin-bottom:8px">${a.pinned?'📌 ':''}${esc(a.title)}</div><div style="font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap">${esc(a.content)}</div><div style="font-size:11px;color:var(--text3);margin-top:10px">Par ${esc(a.author_name||'—')} · ${formatDate(a.created_at)}</div></div>${canCreate?`<button class="btn btn-ghost btn-xs" onclick="deleteAnn(${a.id})">✕</button>`:''}</div></div>`).join('');
+    html+='</div>';c.innerHTML=html;
+  }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
 }
+function openAnnModal(){openModal('Nouvelle annonce',`<div class="field"><label>Titre</label><input id="m-ant"></div><div class="field"><label>Contenu</label><textarea id="m-anc" style="min-height:100px"></textarea></div><div class="fields-row c2"><div class="field"><label>Épingler</label><select id="m-anp"><option value="0">Non</option><option value="1">Oui</option></select></div><div class="field"><label>Expiration</label><input type="date" id="m-ane"></div></div>`,[{label:'Publier',cls:'btn-gold',action:async()=>{const title=document.getElementById('m-ant').value.trim();const content=document.getElementById('m-anc').value.trim();if(!title||!content){toast('Titre et contenu requis','error');return;}await api('/api/announcements','POST',{title,content,pinned:document.getElementById('m-anp').value==='1',expires_at:document.getElementById('m-ane').value||null});closeModal();toast('Annonce publiée ✓','success');}}]);}
+async function deleteAnn(id){if(!confirm('Supprimer ?'))return;await api(`/api/announcements/${id}`,'DELETE');navigate('announcements');}
 
-async function saveBriefing() {
-  const content = document.getElementById('briefing-editor')?.value.trim();
-  if (!content) { toast('Contenu vide', 'error'); return; }
-  try { await api('/api/briefings','POST',{content}); toast('Briefing enregistré ✓','success'); } catch(e) { toast(e.message,'error'); }
-}
-
-function showBriefingDetail(date, content, author) {
-  openModal(`Briefing — ${formatDateFr(date)}`, `<div class="briefing-date">Par ${esc(author||'—')}</div><div class="briefing-content" style="margin-top:12px">${esc(content)}</div>`, []);
-}
-
-// ── ALERTS ────────────────────────────────────────────────────────────────
-async function alerts() {
-  const c = document.getElementById('content');
-  const canCreate = ['hotel_admin','super_admin','chef_service'].includes(currentUser.role);
-  document.getElementById('topbar-actions').innerHTML = canCreate ? `<button class="btn btn-gold btn-sm" onclick="openAlertModal()">+ Alerte</button>` : '';
-  try {
-    const list = await api('/api/alerts');
-    let html = '<div class="fade-up">';
-    if (!list.length) {
-      html += `<div class="empty-state"><div class="empty-ico">✅</div><div class="empty-txt">Aucune alerte</div></div>`;
-    } else {
-      const active = list.filter(a => !a.resolved_at);
-      const resolved = list.filter(a => a.resolved_at);
-      if (active.length) {
-        html += `<div class="card"><div class="card-title" style="margin-bottom:14px">Actives</div>`;
-        html += active.map(a => alertItem(a, canCreate)).join('');
-        html += `</div>`;
-      }
-      if (resolved.length) {
-        html += `<div class="card"><div class="card-title" style="margin-bottom:14px">Résolues récemment</div>`;
-        html += resolved.slice(0,8).map(a => alertItem(a, false)).join('');
-        html += `</div>`;
-      }
-    }
-    html += '</div>';
-    c.innerHTML = html;
-  } catch { c.innerHTML = '<div class="empty-state">Erreur</div>'; }
-}
-
-function alertItem(a, canResolve) {
-  return `<div class="list-item"><div class="list-item-body"><div class="list-item-title">${esc(a.title)}<span class="badge badge-${a.priority}">${priorityLbl(a.priority)}</span>${a.resolved_at?'<span class="badge badge-done">Résolue</span>':''}</div><div class="list-item-sub">${esc(a.message)}</div><div class="list-item-meta"><span>${esc(a.author_name||'—')}</span><span>${formatDate(a.created_at)}</span>${a.resolved_at?`<span>Résolue par ${esc(a.resolver_name||'—')}</span>`:''}</div></div>${canResolve&&!a.resolved_at?`<div class="list-item-actions"><button class="btn btn-green btn-sm" onclick="resolveAlert(${a.id})">✓ Résoudre</button></div>`:''}</div>`;
-}
-
-async function resolveAlert(id) {
-  try { await api(`/api/alerts/${id}/resolve`,'PATCH',{}); toast('Alerte résolue ✓','success'); } catch(e) { toast(e.message,'error'); }
-}
-
-function openAlertModal() {
-  openModal('Nouvelle alerte',
-    `<div class="field"><label>Titre</label><input id="m-at" placeholder="Ex: Ascenseur HS"></div>
-     <div class="field"><label>Message</label><textarea id="m-am"></textarea></div>
-     <div class="field"><label>Priorité</label><select id="m-ap"><option value="low">Faible</option><option value="medium" selected>Moyenne</option><option value="high">Haute</option><option value="critical">🔴 CRITIQUE</option></select></div>`,
-    [{label:'Envoyer',cls:'btn-gold',action:async()=>{
-      const title=document.getElementById('m-at').value.trim();
-      const message=document.getElementById('m-am').value.trim();
-      const priority=document.getElementById('m-ap').value;
-      if(!title||!message){toast('Titre et message requis','error');return;}
-      await api('/api/alerts','POST',{title,message,priority});
-      closeModal();toast('Alerte envoyée ✓','success');
-    }}]
-  );
-}
-
-// ── ANNOUNCEMENTS ─────────────────────────────────────────────────────────
-async function announcements() {
-  const c = document.getElementById('content');
-  const canCreate = ['hotel_admin','super_admin','chef_service'].includes(currentUser.role);
-  document.getElementById('topbar-actions').innerHTML = canCreate ? `<button class="btn btn-gold btn-sm" onclick="openAnnModal()">+ Annonce</button>` : '';
-  try {
-    const list = await api('/api/announcements');
-    let html = '<div class="fade-up">';
-    if (!list.length) {
-      html += `<div class="empty-state"><div class="empty-ico">📢</div><div class="empty-txt">Aucune annonce</div></div>`;
-    } else {
-      html += list.map(a => `<div class="card" style="padding:16px 18px"><div style="display:flex;align-items:flex-start;gap:12px"><div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:14px;font-weight:600">${a.pinned?'📌 ':''}${esc(a.title)}</span></div><div style="font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap">${esc(a.content)}</div><div style="font-size:11px;color:var(--text3);margin-top:10px">Par ${esc(a.author_name||'—')} · ${formatDate(a.created_at)}</div></div>${canCreate?`<button class="btn btn-ghost btn-xs" onclick="deleteAnn(${a.id})">✕</button>`:''}</div></div>`).join('');
-    }
-    html += '</div>';
-    c.innerHTML = html;
-  } catch { c.innerHTML = '<div class="empty-state">Erreur</div>'; }
-}
-
-function openAnnModal() {
-  openModal('Nouvelle annonce',
-    `<div class="field"><label>Titre</label><input id="m-ant"></div>
-     <div class="field"><label>Contenu</label><textarea id="m-anc" style="min-height:100px"></textarea></div>
-     <div class="fields-row c2"><div class="field"><label>Épingler</label><select id="m-anp"><option value="0">Non</option><option value="1">Oui</option></select></div><div class="field"><label>Expiration</label><input type="date" id="m-ane"></div></div>`,
-    [{label:'Publier',cls:'btn-gold',action:async()=>{
-      const title=document.getElementById('m-ant').value.trim();
-      const content=document.getElementById('m-anc').value.trim();
-      if(!title||!content){toast('Titre et contenu requis','error');return;}
-      await api('/api/announcements','POST',{title,content,pinned:document.getElementById('m-anp').value==='1',expires_at:document.getElementById('m-ane').value||null});
-      closeModal();toast('Annonce publiée ✓','success');
-    }}]
-  );
-}
-
-async function deleteAnn(id) {
-  if(!confirm('Supprimer ?')) return;
-  await api(`/api/announcements/${id}`,'DELETE');
-  navigate('announcements');
-}
-
-// ── CHAT ──────────────────────────────────────────────────────────────────
-async function chat() {
-  const c = document.getElementById('content');
-  const services = await api('/api/chat/services');
-  c.innerHTML = `<div id="chat-container"><div class="chat-channels">${services.map(s=>`<button class="channel-btn ${s.id===currentChatService?'active':''}" onclick="switchChannel('${s.id}')">${s.label}</button>`).join('')}</div><div id="chat-messages"><div class="text-muted" style="padding:12px">Chargement…</div></div><div class="chat-input-row"><input type="text" id="chat-input" placeholder="Message…" onkeydown="if(event.key==='Enter')sendChat()"><button class="btn btn-gold" onclick="sendChat()">Envoyer</button></div></div>`;
+// ── CHAT ──────────────────────────────────────────────────────────────────────
+async function chat(){
+  const c=document.getElementById('content');const services=await api('/api/chat/services');
+  c.innerHTML=`<div id="chat-container"><div class="chat-channels">${services.map(s=>`<button class="channel-btn ${s.id===currentChatService?'active':''}" onclick="switchChannel('${s.id}')">${s.label}</button>`).join('')}</div><div id="chat-messages"><div class="text-muted" style="padding:12px">Chargement…</div></div><div class="chat-input-row"><input type="text" id="chat-input" placeholder="Message…" onkeydown="if(event.key==='Enter')sendChat()"><button class="btn btn-gold" onclick="sendChat()">Envoyer</button></div></div>`;
   loadChatMessages();
 }
+async function loadChatMessages(){const box=document.getElementById('chat-messages');if(!box)return;try{const msgs=await api(`/api/chat/messages?service=${currentChatService}&limit=60`);box.innerHTML='';if(!msgs.length){box.innerHTML='<div class="empty-state"><div>Aucun message</div></div>';return;}msgs.forEach(m=>appendChatMsg(m));box.scrollTop=box.scrollHeight;}catch{box.innerHTML='<div class="empty-state">Erreur</div>';}}
+function appendChatMsg(msg){const box=document.getElementById('chat-messages');if(!box)return;const own=msg.user_id===currentUser.id;const d=document.createElement('div');d.className=`chat-msg ${own?'own':''}`;d.innerHTML=`<div class="chat-bubble">${esc(msg.message)}</div><div class="chat-meta">${own?'':`<strong>${esc(msg.author_name)}</strong> · `}${formatDate(msg.created_at)}</div>`;box.appendChild(d);box.scrollTop=box.scrollHeight;}
+async function switchChannel(svc){currentChatService=svc;document.querySelectorAll('.channel-btn').forEach(b=>{const map={general:'Général',reception:'Réception',housekeeping:'HK',fb:'F&B',maintenance:'Maint.',direction:'Direction'};b.classList.toggle('active',b.textContent.trim()===(map[svc]||svc));});await loadChatMessages();}
+function sendChat(){const input=document.getElementById('chat-input');const msg=input?.value.trim();if(!msg||!socket)return;socket.emit('chat_message',{service:currentChatService,message:msg});input.value='';}
 
-async function loadChatMessages() {
-  const box = document.getElementById('chat-messages');
-  if (!box) return;
-  try {
-    const msgs = await api(`/api/chat/messages?service=${currentChatService}&limit=60`);
-    box.innerHTML = '';
-    if (!msgs.length) { box.innerHTML = '<div class="empty-state"><div>Aucun message</div></div>'; return; }
-    msgs.forEach(m => appendChatMsg(m));
-    box.scrollTop = box.scrollHeight;
-  } catch { box.innerHTML = '<div class="empty-state">Erreur</div>'; }
-}
-
-function appendChatMsg(msg) {
-  const box = document.getElementById('chat-messages');
-  if (!box) return;
-  const own = msg.user_id === currentUser.id;
-  const d = document.createElement('div');
-  d.className = `chat-msg ${own?'own':''}`;
-  d.innerHTML = `<div class="chat-bubble">${esc(msg.message)}</div><div class="chat-meta">${own?'':`<strong>${esc(msg.author_name)}</strong> · `}${formatDate(msg.created_at)}</div>`;
-  box.appendChild(d);
-  box.scrollTop = box.scrollHeight;
-}
-
-async function switchChannel(svc) {
-  currentChatService = svc;
-  document.querySelectorAll('.channel-btn').forEach(b => {
-    const svcs = {general:'Général',reception:'Réception',housekeeping:'HK',fb:'F&B',maintenance:'Maint.',direction:'Direction'};
-    b.classList.toggle('active', b.textContent.trim() === (svcs[svc]||svc));
-  });
-  await loadChatMessages();
-}
-
-function sendChat() {
-  const input = document.getElementById('chat-input');
-  const msg = input?.value.trim();
-  if (!msg || !socket) return;
-  socket.emit('chat_message', { service: currentChatService, message: msg });
-  input.value = '';
-}
-
-// ── DEDUCTIONS ────────────────────────────────────────────────────────────
-async function deductions() {
-  const c = document.getElementById('content');
-  const canReview = ['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('topbar-actions').innerHTML = `<button class="btn btn-gold btn-sm" onclick="openDedModal()">+ Déduction</button>`;
-  try {
-    const [list, summary] = await Promise.all([api(`/api/deductions?date=${today}`), api('/api/deductions/summary')]);
-    let html = `<div class="fade-up"><div class="grid-3" style="margin-bottom:16px">
+// ── DEDUCTIONS ────────────────────────────────────────────────────────────────
+async function deductions(){
+  const c=document.getElementById('content');const canReview=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);const today=new Date().toISOString().split('T')[0];
+  document.getElementById('topbar-actions').innerHTML=`<button class="btn btn-outline btn-sm" onclick="openZipExport()">📦 Export ZIP</button><button class="btn btn-gold btn-sm" onclick="openDedModal()">+ Déduction</button>`;
+  try{
+    const [list,summary]=await Promise.all([api(`/api/deductions?date=${today}`),api('/api/deductions/summary')]);
+    let html=`<div class="fade-up"><div class="grid-3" style="margin-bottom:16px">
       <div class="stat-card"><div class="stat-val" style="color:var(--orange)">${summary.pending||0}</div><div class="stat-label">En attente</div></div>
       <div class="stat-card"><div class="stat-val" style="color:var(--green)">${summary.approved||0}</div><div class="stat-label">Approuvées</div></div>
       <div class="stat-card"><div class="stat-val" style="color:var(--gold)">${(summary.total_approved_amount||0).toFixed(2)} €</div><div class="stat-label">Montant approuvé</div></div>
-    </div>`;
-
-    html += `<div class="card" style="padding:0;overflow:hidden">`;
-    if (!list.length) {
-      html += `<div class="empty-state" style="padding:40px"><div class="empty-ico">🧾</div><div class="empty-txt">Aucune déduction aujourd'hui</div></div>`;
-    } else {
-      html += `<table class="tbl"><thead><tr><th>Client</th><th>Ch.</th><th>Montant</th><th>Code</th><th>Service</th><th>Motif</th><th>PJ</th><th>Statut</th><th>Par</th>${canReview?'<th>Actions</th>':''}</tr></thead><tbody>`;
-      html += list.map(d => `<tr>
+    </div><div class="card" style="padding:0;overflow:hidden">`;
+    if(!list.length)html+=`<div class="empty-state" style="padding:40px"><div class="empty-ico">🧾</div><div class="empty-txt">Aucune déduction aujourd'hui</div></div>`;
+    else{
+      html+=`<table class="tbl"><thead><tr><th>Client</th><th>Ch.</th><th>Montant</th><th>Code</th><th>Service</th><th>Motif</th><th>PJ</th><th>Statut</th><th>Par</th>${canReview?'<th>Actions</th>':''}</tr></thead><tbody>`;
+      html+=list.map(d=>`<tr>
         <td><strong>${esc(d.client_name)}</strong></td>
         <td>${esc(d.room)}</td>
         <td class="amount">−${parseFloat(d.amount).toFixed(2)} €</td>
         <td><code style="font-size:10px;color:var(--text3)">${esc(d.opera_code||'—')}</code></td>
         <td>${serviceLbl(d.service)}</td>
-        <td style="max-width:180px"><span title="${esc(d.reason)}" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(d.reason)}</span>${d.review_comment?`<span style="font-size:10px;color:var(--text3)">💬 ${esc(d.review_comment)}</span>`:''}</td>
-        <td><button class="btn btn-ghost btn-xs" onclick="showAttachments(${d.id},'${esc(d.client_name)}')" title="Pièces jointes">${d.attachment_count>0?`📎 ${d.attachment_count}`:'📎'}</button></td>
+        <td style="max-width:160px"><span title="${esc(d.reason)}" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(d.reason)}</span>${d.review_comment?`<span style="font-size:10px;color:var(--text3)">💬 ${esc(d.review_comment)}</span>`:''}</td>
+        <td style="white-space:nowrap">
+          <button class="btn btn-ghost btn-xs" onclick="showAttachments(${d.id},'${esc(d.client_name)}')" title="Pièces jointes">${d.attachment_count>0?`📎 ${d.attachment_count}`:'📎'}</button>
+          <a href="/api/deductions/${d.id}/pdf" target="_blank" class="btn btn-ghost btn-xs" title="Export PDF">📄</a>
+        </td>
         <td><span class="badge badge-${d.status}">${{pending:'En attente',approved:'Approuvée',rejected:'Refusée'}[d.status]}</span></td>
         <td><span class="pill">${esc(d.creator_name||'—')}</span></td>
         ${canReview?`<td>${d.status==='pending'?`<div style="display:flex;gap:4px"><button class="btn btn-green btn-xs" onclick="reviewDed(${d.id},'approved')">✓</button><button class="btn btn-danger btn-xs" onclick="reviewDed(${d.id},'rejected')">✕</button></div>`:`<span class="text-muted" style="font-size:11px">${esc(d.reviewer_name||'—')}</span>`}</td>`:''}
       </tr>`).join('');
-      html += `</tbody></table>`;
+      html+=`</tbody></table>`;
     }
-    html += `</div></div>`;
-    c.innerHTML = html;
-  } catch(e) { c.innerHTML = '<div class="empty-state">Erreur</div>'; }
+    html+=`</div></div>`;c.innerHTML=html;
+  }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
 }
 
-function openDedModal() {
-  const today = new Date().toISOString().split('T')[0];
+function openDedModal(){
+  const today=new Date().toISOString().split('T')[0];
   openModal('Nouvelle demande de déduction',
     `<div class="fields-row c2"><div class="field"><label>Date</label><input type="date" id="m-dd" value="${today}"></div><div class="field"><label>N° Chambre</label><input id="m-dr" placeholder="304"></div></div>
      <div class="field"><label>Nom client</label><input id="m-dc" placeholder="DUPONT Jean"></div>
      <div class="fields-row c3"><div class="field"><label>Montant (€)</label><input type="number" id="m-da" step="0.01" min="0" placeholder="0.00"></div><div class="field"><label>Code Opera</label><input id="m-dco" placeholder="7001"></div><div class="field"><label>Service</label><select id="m-ds"><option value="">—</option><option value="reception">Réception</option><option value="fb">F&B</option><option value="housekeeping">HK</option><option value="direction">Direction</option></select></div></div>
-     <div class="field"><label>Motif *</label><textarea id="m-dre" style="min-height:80px" placeholder="Motif précis de la déduction…"></textarea></div>
-     <div class="field"><label>Notes</label><textarea id="m-dn" style="min-height:50px"></textarea></div>
-     <div class="field"><label>Pièce jointe (JPG, PNG, PDF — max 5Mo)</label><div class="upload-zone" id="upload-zone"><input type="file" id="m-file" accept=".jpg,.jpeg,.png,.pdf" onchange="PreviewFiles(this)"><div class="ico">📎</div><div class="txt">Cliquer ou glisser un fichier</div></div><div id="file-preview"></div></div>`,
-    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Soumettre',cls:'btn-gold',action:submitDed}]
+     <div class="field"><label>Motif *</label><textarea id="m-dre" style="min-height:80px" placeholder="Motif précis — conservé pour archivage comptable…"></textarea></div>
+     <div class="field"><label>Notes</label><textarea id="m-dn" style="min-height:50px" placeholder="Références, numéro folio Opera…"></textarea></div>
+     <div class="field"><label>Pièces jointes — JPG, PNG, PDF — 100 Mo max — plusieurs fichiers possibles</label>
+       <div class="upload-zone"><input type="file" id="m-files" accept=".jpg,.jpeg,.png,.pdf" multiple onchange="previewFiles(this)"><div class="ico">📎</div><div class="txt">Cliquer ou glisser des fichiers (folio, justificatif, email…)</div></div>
+       <div id="files-preview"></div>
+     </div>`,
+    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Soumettre la demande',cls:'btn-gold',action:submitDed}]
   );
 }
 
-function PreviewFiles(input) {
-  const file = input.files[0];
-  if (!file) return;
-  document.getElementById('file-preview').innerHTML = `<div class="attach-item" style="margin-top:8px"><span class="ico">${file.type==='application/pdf'?'📄':'🖼'}</span><span class="name">${esc(file.name)}</span><span class="size">${(file.size/1024).toFixed(0)} Ko</span></div>`;
+function previewFiles(input){
+  const files=Array.from(input.files);const preview=document.getElementById('files-preview');
+  if(!files.length){preview.innerHTML='';return;}
+  preview.innerHTML=`<div class="attach-list" style="margin-top:8px">${files.map(f=>`<div class="attach-item"><span class="ico">${f.type==='application/pdf'?'📄':'🖼'}</span><span class="name">${esc(f.name)}</span><span class="size">${(f.size/1024/1024).toFixed(1)} Mo</span></div>`).join('')}</div>`;
 }
 
-async function submitDed() {
+async function submitDed(){
   const client_name=document.getElementById('m-dc').value.trim();
   const room=document.getElementById('m-dr').value.trim();
   const amount=document.getElementById('m-da').value;
   const reason=document.getElementById('m-dre').value.trim();
   if(!client_name||!room||!amount||!reason){toast('Champs obligatoires manquants','error');return;}
-  try {
-    const ded = await api('/api/deductions','POST',{
-      client_name,room,amount,reason,
-      opera_code:document.getElementById('m-dco').value.trim(),
-      service:document.getElementById('m-ds').value,
-      notes:document.getElementById('m-dn').value.trim(),
-      date:document.getElementById('m-dd').value
-    });
-    // Upload file if present
-    const fileInput = document.getElementById('m-file');
-    if (fileInput?.files[0]) {
-      const fd = new FormData();
-      fd.append('file', fileInput.files[0]);
-      await fetch(`/api/deductions/${ded.id}/attachments`, {
-        method:'POST', body:fd, credentials:'same-origin'
-      });
+  try{
+    const ded=await api('/api/deductions','POST',{client_name,room,amount,reason,opera_code:document.getElementById('m-dco').value.trim(),service:document.getElementById('m-ds').value,notes:document.getElementById('m-dn').value.trim(),date:document.getElementById('m-dd').value});
+    const fileInput=document.getElementById('m-files');
+    if(fileInput?.files.length>0){
+      const fd=new FormData();
+      Array.from(fileInput.files).forEach(f=>fd.append('files',f));
+      await fetch(`/api/deductions/${ded.id}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});
     }
     closeModal();toast('Demande soumise ✓','success');
-  } catch(e) { toast(e.message,'error'); }
+  }catch(e){toast(e.message,'error');}
 }
 
-async function reviewDed(id, status) {
-  const comment = status === 'rejected' ? prompt('Motif du refus (optionnel) :') : null;
-  try {
-    await api(`/api/deductions/${id}/review`,'PATCH',{status,review_comment:comment});
-    toast(status==='approved'?'Approuvée ✓':'Refusée','success');
-  } catch(e) { toast(e.message,'error'); }
-}
-
-async function showAttachments(dedId, clientName) {
-  const atts = await api(`/api/deductions/${dedId}/attachments`);
-  const canReview = ['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
-  openModal(`Pièces jointes — ${esc(clientName)}`,
-    atts.length === 0
-      ? `<div class="empty-state"><div class="empty-ico">📎</div><div>Aucune pièce jointe</div></div>
-         <div class="field" style="margin-top:16px"><label>Ajouter une pièce jointe</label><div class="upload-zone"><input type="file" id="m-att-file" accept=".jpg,.jpeg,.png,.pdf"><div class="ico">📎</div><div class="txt">JPG, PNG ou PDF — max 5Mo</div></div></div>`
-      : `<div class="attach-list">${atts.map(a => `<div class="attach-item"><span class="ico">${a.mimetype==='application/pdf'?'📄':'🖼'}</span><span class="name">${esc(a.filename)}</span><span class="size">${(a.size/1024).toFixed(0)} Ko</span><a href="/api/deductions/attachments/${a.id}" target="_blank" class="btn btn-outline btn-xs">Voir</a>${canReview?`<button class="btn btn-danger btn-xs" onclick="deleteAttachment(${a.id})">✕</button>`:''}</div>`).join('')}</div>
-         <div class="field" style="margin-top:16px"><label>Ajouter</label><div class="upload-zone"><input type="file" id="m-att-file" accept=".jpg,.jpeg,.png,.pdf"><div class="ico">📎</div><div class="txt">JPG, PNG ou PDF</div></div></div>`,
-    [{label:'Fermer',cls:'btn-outline',action:closeModal},{label:'Uploader',cls:'btn-gold',action:async()=>{
-      const f = document.getElementById('m-att-file')?.files[0];
-      if(!f){toast('Sélectionnez un fichier','error');return;}
-      const fd = new FormData(); fd.append('file',f);
-      const r = await fetch(`/api/deductions/${dedId}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});
-      if(r.ok){closeModal();toast('Fichier uploadé ✓','success');navigate('deductions');}
-      else toast('Erreur upload','error');
-    }}]
-  );
-}
-
-async function deleteAttachment(id) {
-  if(!confirm('Supprimer ce fichier ?')) return;
-  await api(`/api/deductions/attachments/${id}`,'DELETE');
-  toast('Fichier supprimé','success');
-  closeModal();
-}
-
-// ── HANDOVERS ─────────────────────────────────────────────────────────────
-async function handovers() {
-  const c = document.getElementById('content');
-  document.getElementById('topbar-actions').innerHTML = `<button class="btn btn-gold btn-sm" onclick="openHandoverModal()">+ Passation</button>`;
-  const today = new Date().toISOString().split('T')[0];
-  try {
-    const list = await api(`/api/handovers?date=${today}`);
-    let html = '<div class="fade-up">';
-    [{id:'matin',lbl:'☀️ Matin'},{id:'apres_midi',lbl:'🌤 Après-midi'},{id:'nuit',lbl:'🌙 Nuit'}].forEach(shift => {
-      const items = list.filter(h => h.shift === shift.id);
-      html += `<div class="card"><div class="card-header"><div class="card-title">${shift.lbl}</div></div>`;
-      if (!items.length) { html += `<div class="text-muted" style="font-size:13px">Aucune passation</div>`; }
-      else { items.forEach(h => { html += `<div class="list-item"><div class="list-item-body"><div class="list-item-title">${serviceLbl(h.service)}</div><div style="font-size:13px;color:var(--text2);line-height:1.7;margin-top:6px;white-space:pre-wrap">${esc(h.content)}</div><div class="list-item-meta"><span>Par ${esc(h.author_name||'—')}</span><span>${formatDate(h.created_at)}</span></div></div></div>`; }); }
-      html += `</div>`;
-    });
-    html += '</div>';
-    c.innerHTML = html;
-  } catch { c.innerHTML = '<div class="empty-state">Erreur</div>'; }
-}
-
-function openHandoverModal() {
-  openModal('Nouvelle passation',
-    `<div class="fields-row c2"><div class="field"><label>Shift</label><select id="m-hos"><option value="matin">Matin</option><option value="apres_midi">Après-midi</option><option value="nuit">Nuit</option></select></div><div class="field"><label>Service</label><select id="m-hosv"><option value="reception">Réception</option><option value="housekeeping">Housekeeping</option><option value="fb">F&B</option><option value="maintenance">Maintenance</option><option value="general">Général</option></select></div></div>
-     <div class="field"><label>Contenu</label><textarea id="m-hoc" style="min-height:120px" placeholder="Informations à transmettre…"></textarea></div>`,
-    [{label:'Enregistrer',cls:'btn-gold',action:async()=>{
-      const content=document.getElementById('m-hoc').value.trim();
-      if(!content){toast('Contenu requis','error');return;}
-      await api('/api/handovers','POST',{content,shift:document.getElementById('m-hos').value,service:document.getElementById('m-hosv').value});
-      closeModal();toast('Passation enregistrée ✓','success');navigate('handovers');
-    }}]
-  );
-}
-
-// ── MAINTENANCE ───────────────────────────────────────────────────────────
-async function maintenance() {
-  const c = document.getElementById('content');
-  const canUpdate = ['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
-  document.getElementById('topbar-actions').innerHTML = `<button class="btn btn-gold btn-sm" onclick="openMaintModal()">+ Bon de travaux</button>`;
-  try {
-    const list = await api('/api/maintenance');
-    let html = '<div class="fade-up">';
-    const open = list.filter(m => m.status !== 'done');
-    const done = list.filter(m => m.status === 'done');
-    if (!open.length) { html += `<div class="empty-state"><div class="empty-ico">✅</div><div class="empty-txt">Aucun ticket ouvert</div></div>`; }
-    else {
-      html += `<div class="card"><div class="card-header"><div class="card-title">En cours / Ouverts</div></div>`;
-      html += open.map(m => maintItem(m, canUpdate)).join('');
-      html += `</div>`;
-    }
-    if (done.length) {
-      html += `<div class="card"><div class="card-header"><div class="card-title">Résolus récemment</div></div>`;
-      html += done.slice(0,5).map(m => maintItem(m, false)).join('');
-      html += `</div>`;
-    }
-    html += '</div>';
-    c.innerHTML = html;
-  } catch { c.innerHTML = '<div class="empty-state">Erreur</div>'; }
-}
-
-function maintItem(m, canUpdate) {
-  return `<div class="list-item"><div class="list-item-body"><div class="list-item-title">${esc(m.location)}<span class="badge badge-${m.priority}">${priorityLbl(m.priority)}</span><span class="badge badge-${m.status}">${{open:'Ouvert',in_progress:'En cours',done:'Résolu'}[m.status]}</span></div><div class="list-item-sub">${esc(m.description)}</div><div class="list-item-meta"><span>Par ${esc(m.creator_name||'—')}</span><span>${formatDate(m.created_at)}</span>${m.assignee_name?`<span>→ ${esc(m.assignee_name)}</span>`:''}</div></div>${canUpdate&&m.status!=='done'?`<div class="list-item-actions">${m.status==='open'?`<button class="btn btn-outline btn-sm" onclick="updateMaint(${m.id},'in_progress')">En cours</button>`:''}<button class="btn btn-green btn-sm" onclick="updateMaint(${m.id},'done')">✓ Résolu</button></div>`:''}</div>`;
-}
-
-function openMaintModal() {
-  openModal('Nouveau bon de travaux',
-    `<div class="field"><label>Lieu</label><input id="m-ml" placeholder="Ch. 302, Cuisine, Lobby…"></div>
-     <div class="field"><label>Description</label><textarea id="m-md"></textarea></div>
-     <div class="field"><label>Priorité</label><select id="m-mp"><option value="low">Faible</option><option value="medium" selected>Moyenne</option><option value="high">Haute</option><option value="urgent">🔴 Urgent</option></select></div>`,
-    [{label:'Créer',cls:'btn-gold',action:async()=>{
-      const location=document.getElementById('m-ml').value.trim();
-      const description=document.getElementById('m-md').value.trim();
-      if(!location||!description){toast('Lieu et description requis','error');return;}
-      await api('/api/maintenance','POST',{location,description,priority:document.getElementById('m-mp').value});
-      closeModal();toast('Bon créé ✓','success');navigate('maintenance');
-    }}]
-  );
-}
-
-async function updateMaint(id, status) {
-  try { await api(`/api/maintenance/${id}`,'PATCH',{status}); toast(status==='done'?'Résolu ✓':'Mis à jour','success'); } catch(e) { toast(e.message,'error'); }
-}
-
-// ── USERS ─────────────────────────────────────────────────────────────────
-async function users() {
-  if (currentUser.role !== 'super_admin') { navigate('dashboard'); return; }
-  const c = document.getElementById('content');
-  document.getElementById('topbar-actions').innerHTML = `<button class="btn btn-gold btn-sm" onclick="openCreateUserModal()">+ Utilisateur</button>`;
-  try {
-    const [list, hotels] = await Promise.all([api('/api/admin/users'), api('/api/admin/hotels')]);
-    // Group by hotel
-    const groups = {};
-    list.forEach(u => {
-      const key = u.hotel_name || 'Super Admin';
-      if (!groups[key]) groups[key] = [];
-      groups[key].push(u);
-    });
-
-    let html = '<div class="fade-up">';
-    Object.entries(groups).forEach(([hotel, members]) => {
-      html += `<div class="card"><div class="card-header"><div class="card-title">🏨 ${esc(hotel)}</div><span class="pill">${members.length} compte${members.length>1?'s':''}</span></div>`;
-      html += members.map(u => `<div class="user-card ${u.active?'':'user-inactive'}">
-        <div class="user-avatar">${esc(u.display_name[0]||'?')}</div>
-        <div class="user-info">
-          <div class="user-name">${esc(u.display_name)}</div>
-          <div class="user-meta">
-            <span class="badge badge-${u.role}">${roleLabel(u.role)}</span>
-            ${u.service?`<span class="pill">${serviceLbl(u.service)}</span>`:''}
-            <span style="font-size:10px">@${esc(u.username)}</span>
-            ${!u.active?'<span style="color:var(--red);font-size:11px">Inactif</span>':''}
-            ${u.last_login?`<span>Dernière connexion : ${formatDate(u.last_login)}</span>`:''}
-          </div>
-        </div>
-        <div class="list-item-actions">
-          <button class="btn btn-outline btn-sm" onclick="openEditUserModal(${JSON.stringify(u).replace(/"/g,'&quot;')})">Modifier</button>
-          ${u.active?`<button class="btn btn-danger btn-xs" onclick="disableUser(${u.id})">Désactiver</button>`:`<button class="btn btn-green btn-xs" onclick="enableUser(${u.id})">Réactiver</button>`}
-        </div>
-      </div>`).join('');
-      html += `</div>`;
-    });
-    html += '</div>';
-    c.innerHTML = html;
-  } catch(e) { c.innerHTML = '<div class="empty-state">Erreur</div>'; console.error(e); }
-}
-
-async function openCreateUserModal() {
-  const hotels = await api('/api/admin/hotels');
-  const hotelOpts = hotels.map(h => `<option value="${h.id}">${esc(h.name)}</option>`).join('');
-  openModal('Créer un utilisateur',
-    `<div class="fields-row c2">
-       <div class="field"><label>Identifiant *</label><input id="m-uu" placeholder="prenom.nom"></div>
-       <div class="field"><label>Nom affiché *</label><input id="m-un" placeholder="Prénom NOM"></div>
-     </div>
-     <div class="field"><label>Mot de passe * (min 8 car.)</label><input type="password" id="m-upw" placeholder="••••••••"></div>
-     <div class="fields-row c2">
-       <div class="field"><label>Rôle *</label>
-         <select id="m-ur" onchange="toggleHotelField()">
-           <option value="equipe">Équipe</option>
-           <option value="chef_service">Chef de service</option>
-           <option value="hotel_admin">Admin Hôtel</option>
-           <option value="super_admin">Super Admin</option>
-         </select>
-       </div>
-       <div class="field"><label>Service</label>
-         <select id="m-usv"><option value="">—</option><option value="reception">Réception</option><option value="housekeeping">Housekeeping</option><option value="fb">F&B</option><option value="maintenance">Maintenance</option><option value="direction">Direction</option></select>
-       </div>
-     </div>
-     <div class="field" id="hotel-field"><label>Hôtel *</label><select id="m-uh">${hotelOpts}</select></div>`,
-    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Créer le compte',cls:'btn-gold',action:async()=>{
-      const username=document.getElementById('m-uu').value.trim();
-      const display_name=document.getElementById('m-un').value.trim();
-      const password=document.getElementById('m-upw').value;
-      const role=document.getElementById('m-ur').value;
-      const service=document.getElementById('m-usv').value;
-      const hotel_id=document.getElementById('m-uh')?.value;
-      try {
-        await api('/api/admin/users','POST',{username,password,display_name,role,service,hotel_id});
-        closeModal();toast('Compte créé ✓','success');navigate('users');
-      } catch(e){toast(e.message,'error');}
-    }}]
-  );
-}
-
-function toggleHotelField() {
-  const role = document.getElementById('m-ur')?.value;
-  const hf = document.getElementById('hotel-field');
-  if (hf) hf.style.display = role === 'super_admin' ? 'none' : '';
-}
-
-async function openEditUserModal(u) {
-  const hotels = await api('/api/admin/hotels');
-  const hotelOpts = hotels.map(h => `<option value="${h.id}" ${h.id==u.hotel_id?'selected':''}>${esc(h.name)}</option>`).join('');
-  openModal(`Modifier — ${esc(u.display_name)}`,
-    `<div class="fields-row c2">
-       <div class="field"><label>Nom affiché</label><input id="m-en" value="${esc(u.display_name)}"></div>
-       <div class="field"><label>Nouveau mdp (laisser vide)</label><input type="password" id="m-epw" placeholder="••••••••"></div>
-     </div>
-     <div class="fields-row c2">
-       <div class="field"><label>Rôle</label>
-         <select id="m-er">
-           ${['equipe','chef_service','hotel_admin','super_admin'].map(r=>`<option value="${r}" ${r===u.role?'selected':''}>${roleLabel(r)}</option>`).join('')}
-         </select>
-       </div>
-       <div class="field"><label>Service</label>
-         <select id="m-esv"><option value="">—</option>${['reception','housekeeping','fb','maintenance','direction'].map(s=>`<option value="${s}" ${s===u.service?'selected':''}>${serviceLbl(s)}</option>`).join('')}</select>
-       </div>
-     </div>
-     <div class="field"><label>Hôtel</label><select id="m-eh">${hotelOpts}</select></div>`,
-    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Enregistrer',cls:'btn-gold',action:async()=>{
-      const body={display_name:document.getElementById('m-en').value,role:document.getElementById('m-er').value,service:document.getElementById('m-esv').value,hotel_id:document.getElementById('m-eh').value};
-      const pw=document.getElementById('m-epw').value;
-      if(pw) body.password=pw;
-      try{await api(`/api/admin/users/${u.id}`,'PATCH',body);closeModal();toast('Modifié ✓','success');navigate('users');}
+function reviewDed(id,status){
+  const action=status==='approved'?'Approuver':'Refuser';
+  const cls=status==='approved'?'btn-green':'btn-danger';
+  openModal(`${action} la déduction`,
+    `${status==='rejected'?`<div class="field"><label>Motif du refus</label><textarea id="m-rv-comment" style="min-height:60px" placeholder="Expliquez le motif du refus…"></textarea></div>`:''}
+     <div class="field">
+       <label>Signature électronique *</label>
+       <input id="m-rv-sig" placeholder="Tapez votre nom complet pour signer" autocomplete="name">
+       <div style="font-size:11px;color:var(--text3);margin-top:6px">Cette signature horodatée est archivée comme preuve de validation — valeur de contrôle interne.</div>
+     </div>`,
+    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:action,cls,action:async()=>{
+      const sig=document.getElementById('m-rv-sig').value.trim();
+      const comment=document.getElementById('m-rv-comment')?.value.trim()||'';
+      if(!sig){toast('Signature requise','error');return;}
+      try{await api(`/api/deductions/${id}/review`,'PATCH',{status,review_comment:comment,signature:sig});closeModal();toast(status==='approved'?'Approuvée et archivée ✓':'Refusée','success');}
       catch(e){toast(e.message,'error');}
     }}]
   );
 }
 
-async function disableUser(id) {
-  if(!confirm('Désactiver ce compte ?')) return;
-  await api(`/api/admin/users/${id}`,'PATCH',{active:false});
-  toast('Compte désactivé','success');navigate('users');
+async function showAttachments(dedId,clientName){
+  const atts=await api(`/api/deductions/${dedId}/attachments`);
+  const canManage=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
+  openModal(`Pièces jointes — ${esc(clientName)}`,
+    `${atts.length===0?`<div class="empty-state" style="padding:20px"><div class="empty-ico">📎</div><div>Aucune pièce jointe</div></div>`:
+    `<div class="attach-list">${atts.map(a=>`<div class="attach-item"><span class="ico">${a.mimetype==='application/pdf'?'📄':'🖼'}</span><span class="name">${esc(a.filename)}</span><span class="size">${(a.size/1024).toFixed(0)} Ko</span><a href="/api/deductions/attachments/${a.id}" target="_blank" class="btn btn-outline btn-xs">Voir</a>${canManage?`<button class="btn btn-danger btn-xs" onclick="deleteAttachment(${a.id})">✕</button>`:''}</div>`).join('')}</div>`}
+     <div class="field" style="margin-top:16px"><label>Ajouter des fichiers</label>
+       <div class="upload-zone"><input type="file" id="m-att-files" accept=".jpg,.jpeg,.png,.pdf" multiple><div class="ico">📎</div><div class="txt">JPG, PNG ou PDF — 100 Mo max</div></div>
+     </div>`,
+    [{label:'Fermer',cls:'btn-outline',action:closeModal},{label:'Uploader',cls:'btn-gold',action:async()=>{
+      const f=document.getElementById('m-att-files')?.files;
+      if(!f||f.length===0){toast('Sélectionnez au moins un fichier','error');return;}
+      const fd=new FormData();Array.from(f).forEach(fi=>fd.append('files',fi));
+      const r=await fetch(`/api/deductions/${dedId}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});
+      if(r.ok){closeModal();toast('Fichier(s) uploadé(s) ✓','success');navigate('deductions');}
+      else toast('Erreur upload','error');
+    }}]
+  );
 }
 
-async function enableUser(id) {
-  await api(`/api/admin/users/${id}`,'PATCH',{active:true});
-  toast('Compte réactivé ✓','success');navigate('users');
+async function deleteAttachment(id){if(!confirm('Supprimer ce fichier ?'))return;await api(`/api/deductions/attachments/${id}`,'DELETE');toast('Fichier supprimé','success');closeModal();}
+
+function openZipExport(){
+  const now=new Date();const month=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  openModal('Export mensuel — Archivage comptable',
+    `<div class="field"><label>Mois à exporter</label><input type="month" id="m-exp-month" value="${month}"></div>
+     <div style="font-size:12px;color:var(--text3);margin-top:8px;line-height:1.7;background:var(--bg3);padding:12px;border-radius:var(--r)">
+       📦 Le ZIP contient :<br>
+       · Un fichier CSV récapitulatif de toutes les déductions<br>
+       · Un dossier par déduction avec ses pièces jointes<br>
+       · Prêt pour archivage ou transmission au commissaire aux comptes
+     </div>`,
+    [{label:'Fermer',cls:'btn-outline',action:closeModal},{label:'Télécharger le ZIP',cls:'btn-gold',action:()=>{
+      const m=document.getElementById('m-exp-month').value;
+      if(!m){toast('Mois requis','error');return;}
+      window.open(`/api/deductions/export/zip?month=${m}`,'_blank');closeModal();
+    }}]
+  );
 }
 
-// ── MODAL ─────────────────────────────────────────────────────────────────
-function openModal(title, body, buttons) {
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-body').innerHTML = body;
-  const footer = document.getElementById('modal-footer');
-  footer.innerHTML = '';
-  buttons.forEach(b => {
-    const btn = document.createElement('button');
-    btn.className = `btn ${b.cls}`;
-    btn.textContent = b.label;
-    btn.onclick = b.action;
-    footer.appendChild(btn);
-  });
+// ── HANDOVERS ─────────────────────────────────────────────────────────────────
+async function handovers(){
+  const c=document.getElementById('content');document.getElementById('topbar-actions').innerHTML=`<button class="btn btn-gold btn-sm" onclick="openHandoverModal()">+ Passation</button>`;
+  const today=new Date().toISOString().split('T')[0];
+  try{
+    const list=await api(`/api/handovers?date=${today}`);let html='<div class="fade-up">';
+    [{id:'matin',lbl:'☀️ Matin'},{id:'apres_midi',lbl:'🌤 Après-midi'},{id:'nuit',lbl:'🌙 Nuit'}].forEach(shift=>{
+      const items=list.filter(h=>h.shift===shift.id);
+      html+=`<div class="card"><div class="card-header"><div class="card-title">${shift.lbl}</div></div>`;
+      if(!items.length)html+=`<div class="text-muted" style="font-size:13px">Aucune passation</div>`;
+      else items.forEach(h=>{html+=`<div class="list-item"><div class="list-item-body"><div class="list-item-title">${serviceLbl(h.service)}</div><div style="font-size:13px;color:var(--text2);line-height:1.7;margin-top:6px;white-space:pre-wrap">${esc(h.content)}</div><div class="list-item-meta"><span>Par ${esc(h.author_name||'—')}</span><span>${formatDate(h.created_at)}</span></div></div></div>`;});
+      html+=`</div>`;
+    });
+    html+='</div>';c.innerHTML=html;
+  }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
+}
+function openHandoverModal(){openModal('Nouvelle passation',`<div class="fields-row c2"><div class="field"><label>Shift</label><select id="m-hos"><option value="matin">Matin</option><option value="apres_midi">Après-midi</option><option value="nuit">Nuit</option></select></div><div class="field"><label>Service</label><select id="m-hosv"><option value="reception">Réception</option><option value="housekeeping">Housekeeping</option><option value="fb">F&B</option><option value="maintenance">Maintenance</option><option value="general">Général</option></select></div></div><div class="field"><label>Contenu</label><textarea id="m-hoc" style="min-height:120px" placeholder="Informations à transmettre…"></textarea></div>`,[{label:'Enregistrer',cls:'btn-gold',action:async()=>{const content=document.getElementById('m-hoc').value.trim();if(!content){toast('Contenu requis','error');return;}await api('/api/handovers','POST',{content,shift:document.getElementById('m-hos').value,service:document.getElementById('m-hosv').value});closeModal();toast('Passation enregistrée ✓','success');navigate('handovers');}}]);}
+
+// ── MAINTENANCE ───────────────────────────────────────────────────────────────
+async function maintenance(){
+  const c=document.getElementById('content');const canUpdate=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
+  document.getElementById('topbar-actions').innerHTML=`<button class="btn btn-gold btn-sm" onclick="openMaintModal()">+ Bon de travaux</button>`;
+  try{
+    const list=await api('/api/maintenance');let html='<div class="fade-up">';
+    const open=list.filter(m=>m.status!=='done');const done=list.filter(m=>m.status==='done');
+    if(!open.length)html+=`<div class="empty-state"><div class="empty-ico">✅</div><div class="empty-txt">Aucun ticket ouvert</div></div>`;
+    else{html+=`<div class="card"><div class="card-header"><div class="card-title">En cours / Ouverts</div></div>`;html+=open.map(m=>maintItem(m,canUpdate)).join('');html+=`</div>`;}
+    if(done.length){html+=`<div class="card"><div class="card-header"><div class="card-title">Résolus récemment</div></div>`;html+=done.slice(0,5).map(m=>maintItem(m,false)).join('');html+=`</div>`;}
+    html+='</div>';c.innerHTML=html;
+  }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
+}
+function maintItem(m,canUpdate){return `<div class="list-item"><div class="list-item-body"><div class="list-item-title">${esc(m.location)}<span class="badge badge-${m.priority}">${priorityLbl(m.priority)}</span><span class="badge badge-${m.status}">${{open:'Ouvert',in_progress:'En cours',done:'Résolu'}[m.status]}</span></div><div class="list-item-sub">${esc(m.description)}</div><div class="list-item-meta"><span>Par ${esc(m.creator_name||'—')}</span><span>${formatDate(m.created_at)}</span>${m.assignee_name?`<span>→ ${esc(m.assignee_name)}</span>`:''}</div></div>${canUpdate&&m.status!=='done'?`<div class="list-item-actions">${m.status==='open'?`<button class="btn btn-outline btn-sm" onclick="updateMaint(${m.id},'in_progress')">En cours</button>`:''}<button class="btn btn-green btn-sm" onclick="updateMaint(${m.id},'done')">✓ Résolu</button></div>`:''}</div>`;}
+function openMaintModal(){openModal('Nouveau bon de travaux',`<div class="field"><label>Lieu</label><input id="m-ml" placeholder="Ch. 302, Cuisine, Lobby…"></div><div class="field"><label>Description</label><textarea id="m-md"></textarea></div><div class="field"><label>Priorité</label><select id="m-mp"><option value="low">Faible</option><option value="medium" selected>Moyenne</option><option value="high">Haute</option><option value="urgent">🔴 Urgent</option></select></div>`,[{label:'Créer',cls:'btn-gold',action:async()=>{const location=document.getElementById('m-ml').value.trim();const description=document.getElementById('m-md').value.trim();if(!location||!description){toast('Lieu et description requis','error');return;}await api('/api/maintenance','POST',{location,description,priority:document.getElementById('m-mp').value});closeModal();toast('Bon créé ✓','success');navigate('maintenance');}}]);}
+async function updateMaint(id,status){try{await api(`/api/maintenance/${id}`,'PATCH',{status});toast(status==='done'?'Résolu ✓':'Mis à jour','success');}catch(e){toast(e.message,'error');}}
+
+// ── USERS ─────────────────────────────────────────────────────────────────────
+async function users(){
+  if(currentUser.role!=='super_admin'){navigate('dashboard');return;}
+  const c=document.getElementById('content');document.getElementById('topbar-actions').innerHTML=`<button class="btn btn-gold btn-sm" onclick="openCreateUserModal()">+ Utilisateur</button>`;
+  try{
+    const [list,hotels]=await Promise.all([api('/api/admin/users'),api('/api/admin/hotels')]);
+    const groups={};list.forEach(u=>{const key=u.hotel_name||'Super Admin';if(!groups[key])groups[key]=[];groups[key].push(u);});
+    let html='<div class="fade-up">';
+    Object.entries(groups).forEach(([hotel,members])=>{
+      html+=`<div class="card"><div class="card-header"><div class="card-title">🏨 ${esc(hotel)}</div><span class="pill">${members.length} compte${members.length>1?'s':''}</span></div>`;
+      html+=members.map(u=>`<div class="user-card ${u.active?'':'user-inactive'}"><div class="user-avatar">${esc(u.display_name[0]||'?')}</div><div class="user-info"><div class="user-name">${esc(u.display_name)}</div><div class="user-meta"><span class="badge badge-${u.role}">${roleLabel(u.role)}</span>${u.service?`<span class="pill">${serviceLbl(u.service)}</span>`:''}<span style="font-size:10px">@${esc(u.username)}</span>${!u.active?'<span style="color:var(--red);font-size:11px">Inactif</span>':''}${u.last_login?`<span>Dernière connexion : ${formatDate(u.last_login)}</span>`:''}</div></div><div class="list-item-actions"><button class="btn btn-outline btn-sm" onclick='openEditUserModal(${JSON.stringify(u)})'>Modifier</button>${u.active?`<button class="btn btn-danger btn-xs" onclick="disableUser(${u.id})">Désactiver</button>`:`<button class="btn btn-green btn-xs" onclick="enableUser(${u.id})">Réactiver</button>`}</div></div>`).join('');
+      html+=`</div>`;
+    });
+    html+='</div>';c.innerHTML=html;
+  }catch(e){c.innerHTML='<div class="empty-state">Erreur</div>';console.error(e);}
+}
+
+async function openCreateUserModal(){
+  const hotels=await api('/api/admin/hotels');const hotelOpts=hotels.map(h=>`<option value="${h.id}">${esc(h.name)}</option>`).join('');
+  openModal('Créer un utilisateur',
+    `<div class="fields-row c2"><div class="field"><label>Identifiant *</label><input id="m-uu" placeholder="prenom.nom"></div><div class="field"><label>Nom affiché *</label><input id="m-un" placeholder="Prénom NOM"></div></div>
+     <div class="field"><label>Mot de passe * (min 8 caractères)</label><input type="password" id="m-upw" placeholder="••••••••"></div>
+     <div class="fields-row c2"><div class="field"><label>Rôle *</label><select id="m-ur" onchange="toggleHotelField()"><option value="equipe">Équipe</option><option value="chef_service">Chef de service</option><option value="hotel_admin">Admin Hôtel</option><option value="super_admin">Super Admin</option></select></div><div class="field"><label>Service</label><select id="m-usv"><option value="">—</option><option value="reception">Réception</option><option value="housekeeping">Housekeeping</option><option value="fb">F&B</option><option value="maintenance">Maintenance</option><option value="direction">Direction</option></select></div></div>
+     <div class="field" id="hotel-field"><label>Hôtel *</label><select id="m-uh">${hotelOpts}</select></div>`,
+    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Créer le compte',cls:'btn-gold',action:async()=>{
+      const username=document.getElementById('m-uu').value.trim();const display_name=document.getElementById('m-un').value.trim();const password=document.getElementById('m-upw').value;const role=document.getElementById('m-ur').value;const service=document.getElementById('m-usv').value;const hotel_id=document.getElementById('m-uh')?.value;
+      try{await api('/api/admin/users','POST',{username,password,display_name,role,service,hotel_id});closeModal();toast('Compte créé ✓','success');navigate('users');}
+      catch(e){toast(e.message,'error');}
+    }}]
+  );
+}
+function toggleHotelField(){const role=document.getElementById('m-ur')?.value;const hf=document.getElementById('hotel-field');if(hf)hf.style.display=role==='super_admin'?'none':'';}
+
+async function openEditUserModal(u){
+  const hotels=await api('/api/admin/hotels');const hotelOpts=hotels.map(h=>`<option value="${h.id}" ${h.id==u.hotel_id?'selected':''}>${esc(h.name)}</option>`).join('');
+  openModal(`Modifier — ${esc(u.display_name)}`,
+    `<div class="fields-row c2"><div class="field"><label>Nom affiché</label><input id="m-en" value="${esc(u.display_name)}"></div><div class="field"><label>Nouveau mot de passe (laisser vide)</label><input type="password" id="m-epw" placeholder="••••••••"></div></div>
+     <div class="fields-row c2"><div class="field"><label>Rôle</label><select id="m-er">${['equipe','chef_service','hotel_admin','super_admin'].map(r=>`<option value="${r}" ${r===u.role?'selected':''}>${roleLabel(r)}</option>`).join('')}</select></div><div class="field"><label>Service</label><select id="m-esv"><option value="">—</option>${['reception','housekeeping','fb','maintenance','direction'].map(s=>`<option value="${s}" ${s===u.service?'selected':''}>${serviceLbl(s)}</option>`).join('')}</select></div></div>
+     <div class="field"><label>Hôtel</label><select id="m-eh">${hotelOpts}</select></div>`,
+    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Enregistrer',cls:'btn-gold',action:async()=>{
+      const body={display_name:document.getElementById('m-en').value,role:document.getElementById('m-er').value,service:document.getElementById('m-esv').value,hotel_id:document.getElementById('m-eh').value};const pw=document.getElementById('m-epw').value;if(pw)body.password=pw;
+      try{await api(`/api/admin/users/${u.id}`,'PATCH',body);closeModal();toast('Modifié ✓','success');navigate('users');}
+      catch(e){toast(e.message,'error');}
+    }}]
+  );
+}
+async function disableUser(id){if(!confirm('Désactiver ce compte ?'))return;await api(`/api/admin/users/${id}`,'PATCH',{active:false});toast('Désactivé','success');navigate('users');}
+async function enableUser(id){await api(`/api/admin/users/${id}`,'PATCH',{active:true});toast('Réactivé ✓','success');navigate('users');}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function openModal(title,body,buttons){
+  document.getElementById('modal-title').textContent=title;document.getElementById('modal-body').innerHTML=body;
+  const footer=document.getElementById('modal-footer');footer.innerHTML='';
+  buttons.forEach(b=>{const btn=document.createElement('button');btn.className=`btn ${b.cls}`;btn.textContent=b.label;btn.onclick=b.action;footer.appendChild(btn);});
   document.getElementById('modal-overlay').classList.add('visible');
 }
+function closeModal(){document.getElementById('modal-overlay').classList.remove('visible');}
+function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
 
-function closeModal() { document.getElementById('modal-overlay').classList.remove('visible'); }
-function closeModalOutside(e) { if (e.target === document.getElementById('modal-overlay')) closeModal(); }
-
-// ── UTILS ─────────────────────────────────────────────────────────────────
-async function api(url, method='GET', body=null) {
-  const opts = {method, headers:{'Content-Type':'application/json'}, credentials:'same-origin'};
-  if (body) opts.body = JSON.stringify(body);
-  const r = await fetch(url, opts);
-  const data = await r.json();
-  if (!r.ok) throw new Error(data.error || 'Erreur réseau');
-  return data;
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+async function api(url,method='GET',body=null){
+  const opts={method,headers:{'Content-Type':'application/json'},credentials:'same-origin'};
+  if(body)opts.body=JSON.stringify(body);
+  const r=await fetch(url,opts);const data=await r.json();
+  if(!r.ok)throw new Error(data.error||'Erreur réseau');return data;
 }
-
-function esc(str) {
-  if (!str) return '';
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function formatDate(dt) {
-  if (!dt) return '—';
-  const d = new Date(dt);
-  return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-}
-
-function formatDateFr(s) {
-  if (!s) return '—';
-  const [y,m,d] = s.split('-');
-  return `${parseInt(d)} ${['','janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'][parseInt(m)]} ${y}`;
-}
+function esc(str){if(!str)return '';return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function formatDate(dt){if(!dt)return '—';const d=new Date(dt);return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
+function formatDateFr(s){if(!s)return '—';const [y,m,d]=s.split('-');return `${parseInt(d)} ${['','janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'][parseInt(m)]} ${y}`;}
 
 let _toast;
-function toast(msg, type='') {
-  const el = document.getElementById('toast');
-  el.textContent = msg; el.className = `show ${type}`;
-  clearTimeout(_toast);
-  _toast = setTimeout(() => el.className = '', 3500);
-}
+function toast(msg,type=''){const el=document.getElementById('toast');el.textContent=msg;el.className=`show ${type}`;clearTimeout(_toast);_toast=setTimeout(()=>el.className='',3500);}
 
-// ── INIT ──────────────────────────────────────────────────────────────────
-document.getElementById('login-pass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+document.getElementById('login-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 checkAuth();
 </script>
 </body>
