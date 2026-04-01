@@ -7,29 +7,20 @@ const DB_PATH = path.join(__dirname, 'vernet_ops.db');
 let _sqlJs = null;
 let _db = null;
 
-// ── Compatibility wrapper (mimics better-sqlite3 synchronous API) ──────────
-
 class Statement {
-  constructor(dbRef, sql) {
-    this.dbRef = dbRef;
-    this.sql = sql;
-  }
-
+  constructor(dbRef, sql) { this.dbRef = dbRef; this.sql = sql; }
   _params(args) {
     if (args.length === 0) return [];
     if (args.length === 1 && Array.isArray(args[0])) return args[0];
     return args;
   }
-
   run(...args) {
     const params = this._params(args);
     this.dbRef().run(this.sql, params);
     save();
     const r = this.dbRef().exec('SELECT last_insert_rowid() as id');
-    const lastInsertRowid = r[0]?.values[0][0] ?? 0;
-    return { lastInsertRowid };
+    return { lastInsertRowid: r[0]?.values[0][0] ?? 0 };
   }
-
   get(...args) {
     const params = this._params(args);
     const stmt = this.dbRef().prepare(this.sql);
@@ -39,7 +30,6 @@ class Statement {
     stmt.free();
     return row;
   }
-
   all(...args) {
     const params = this._params(args);
     const stmt = this.dbRef().prepare(this.sql);
@@ -52,16 +42,9 @@ class Statement {
 }
 
 class DB {
-  prepare(sql) {
-    return new Statement(() => _db, sql);
-  }
-
-  exec(sql) {
-    _db.run(sql);
-    save();
-  }
-
-  pragma() {} // no-op, sql.js doesn't need pragmas for WAL
+  prepare(sql) { return new Statement(() => _db, sql); }
+  exec(sql) { _db.run(sql); save(); }
+  pragma() {}
 }
 
 function save() {
@@ -74,14 +57,11 @@ const db = new DB();
 async function init() {
   const initSqlJs = require('sql.js');
   _sqlJs = await initSqlJs();
-
   if (fs.existsSync(DB_PATH)) {
-    const buf = fs.readFileSync(DB_PATH);
-    _db = new _sqlJs.Database(buf);
+    _db = new _sqlJs.Database(fs.readFileSync(DB_PATH));
   } else {
     _db = new _sqlJs.Database();
   }
-
   createTables();
   const hotelCount = db.prepare('SELECT COUNT(*) as c FROM hotels').get().c;
   if (hotelCount === 0) seedData();
@@ -100,6 +80,8 @@ function createTables() {
     hotel_id INTEGER, username TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL, display_name TEXT NOT NULL,
     role TEXT NOT NULL, service TEXT, active INTEGER DEFAULT 1,
+    created_by INTEGER,
+    last_login DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
   _db.run(`CREATE TABLE IF NOT EXISTS briefings (
@@ -140,6 +122,16 @@ function createTables() {
     review_comment TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP, reviewed_at DATETIME
   )`);
+  _db.run(`CREATE TABLE IF NOT EXISTS deduction_attachments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    deduction_id INTEGER NOT NULL,
+    filename TEXT NOT NULL,
+    mimetype TEXT NOT NULL,
+    size INTEGER NOT NULL,
+    data BLOB NOT NULL,
+    uploaded_by INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
   _db.run(`CREATE TABLE IF NOT EXISTS handovers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     hotel_id INTEGER NOT NULL, date TEXT NOT NULL,
@@ -161,20 +153,14 @@ function createTables() {
 
 function seedData() {
   const hash = (p) => bcrypt.hashSync(p, 10);
-
   _db.run('INSERT INTO hotels (name, slug, address) VALUES (?, ?, ?)',
     ['Hôtel Vernet', 'vernet', '25 rue Vernet, Paris 75008']);
   _db.run('INSERT INTO hotels (name, slug, address) VALUES (?, ?, ?)',
     ['Hôtel Bel Ami', 'bel-ami', '7-11 rue Saint-Benoît, Paris 75006']);
 
-  const vernetId = _db.exec('SELECT last_insert_rowid() as id')[0].values[0][0] - 1;
-
-  const addUser = (hotelId, username, pw, name, role, service) => {
-    _db.run(
-      'INSERT INTO users (hotel_id, username, password_hash, display_name, role, service) VALUES (?, ?, ?, ?, ?, ?)',
-      [hotelId, username, hash(pw), name, role, service]
-    );
-  };
+  const addUser = (hotelId, username, pw, name, role, service) =>
+    _db.run('INSERT INTO users (hotel_id, username, password_hash, display_name, role, service) VALUES (?, ?, ?, ?, ?, ?)',
+      [hotelId, username, hash(pw), name, role, service]);
 
   addUser(null, 'superadmin', 'BSignature2026!', 'Super Admin', 'super_admin', null);
   addUser(1, 'etienne', 'vernet2026', 'Etienne Sangiovanni', 'hotel_admin', null);
@@ -182,7 +168,6 @@ function seedData() {
   addUser(1, 'julien', 'vernet2026', 'Julien', 'chef_service', 'fb');
   addUser(1, 'reception1', 'vernet2026', 'Réception', 'equipe', 'reception');
   addUser(1, 'nuit1', 'vernet2026', 'Équipe Nuit', 'equipe', 'reception');
-
   save();
   console.log('✅ Données de démo créées — mdp: vernet2026');
 }
