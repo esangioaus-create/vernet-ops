@@ -18,7 +18,7 @@ class Statement {
     const params = this._params(args);
     this.dbRef().run(this.sql, params);
     save();
-    const r = this.dbRef().exec('SELECT last_insert_rowid() as id');
+    const r = this.dbRef().exec('SELECT last_insert_rowid()');
     return { lastInsertRowid: r[0]?.values[0][0] ?? 0 };
   }
   get(...args) {
@@ -80,8 +80,7 @@ function createTables() {
     hotel_id INTEGER, username TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL, display_name TEXT NOT NULL,
     role TEXT NOT NULL, service TEXT, active INTEGER DEFAULT 1,
-    created_by INTEGER,
-    last_login DATETIME,
+    created_by INTEGER, last_login DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
   _db.run(`CREATE TABLE IF NOT EXISTS briefings (
@@ -120,15 +119,21 @@ function createTables() {
     status TEXT NOT NULL DEFAULT 'pending',
     created_by INTEGER, reviewed_by INTEGER,
     review_comment TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, reviewed_at DATETIME
+    reviewer_signature TEXT,
+    reviewer_ip TEXT,
+    archived INTEGER DEFAULT 0,
+    archive_path TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    reviewed_at DATETIME
   )`);
   _db.run(`CREATE TABLE IF NOT EXISTS deduction_attachments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     deduction_id INTEGER NOT NULL,
-    filename TEXT NOT NULL,
+    original_filename TEXT NOT NULL,
+    stored_filename TEXT NOT NULL,
+    filepath TEXT NOT NULL,
     mimetype TEXT NOT NULL,
     size INTEGER NOT NULL,
-    data BLOB NOT NULL,
     uploaded_by INTEGER,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
@@ -153,15 +158,12 @@ function createTables() {
 
 function seedData() {
   const hash = (p) => bcrypt.hashSync(p, 10);
-  _db.run('INSERT INTO hotels (name, slug, address) VALUES (?, ?, ?)',
-    ['Hôtel Vernet', 'vernet', '25 rue Vernet, Paris 75008']);
-  _db.run('INSERT INTO hotels (name, slug, address) VALUES (?, ?, ?)',
-    ['Hôtel Bel Ami', 'bel-ami', '7-11 rue Saint-Benoît, Paris 75006']);
-
-  const addUser = (hotelId, username, pw, name, role, service) =>
-    _db.run('INSERT INTO users (hotel_id, username, password_hash, display_name, role, service) VALUES (?, ?, ?, ?, ?, ?)',
-      [hotelId, username, hash(pw), name, role, service]);
-
+  _db.run('INSERT INTO hotels (name, slug, address) VALUES (?, ?, ?)', ['Hôtel Vernet', 'vernet', '25 rue Vernet, Paris 75008']);
+  _db.run('INSERT INTO hotels (name, slug, address) VALUES (?, ?, ?)', ['Hôtel Bel Ami', 'bel-ami', '7-11 rue Saint-Benoît, Paris 75006']);
+  const addUser = (hid, u, pw, n, r, s) => _db.run(
+    'INSERT INTO users (hotel_id, username, password_hash, display_name, role, service) VALUES (?, ?, ?, ?, ?, ?)',
+    [hid, u, hash(pw), n, r, s]
+  );
   addUser(null, 'superadmin', 'BSignature2026!', 'Super Admin', 'super_admin', null);
   addUser(1, 'etienne', 'vernet2026', 'Etienne Sangiovanni', 'hotel_admin', null);
   addUser(1, 'alizee', 'vernet2026', 'Alizée', 'chef_service', 'housekeeping');

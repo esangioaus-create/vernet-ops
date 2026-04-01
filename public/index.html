@@ -790,12 +790,12 @@ function openDedModal() {
      <div class="fields-row c3"><div class="field"><label>Montant (€)</label><input type="number" id="m-da" step="0.01" min="0" placeholder="0.00"></div><div class="field"><label>Code Opera</label><input id="m-dco" placeholder="7001"></div><div class="field"><label>Service</label><select id="m-ds"><option value="">—</option><option value="reception">Réception</option><option value="fb">F&B</option><option value="housekeeping">HK</option><option value="direction">Direction</option></select></div></div>
      <div class="field"><label>Motif *</label><textarea id="m-dre" style="min-height:80px" placeholder="Motif précis de la déduction…"></textarea></div>
      <div class="field"><label>Notes</label><textarea id="m-dn" style="min-height:50px"></textarea></div>
-     <div class="field"><label>Pièce jointe (JPG, PNG, PDF — max 5Mo)</label><div class="upload-zone" id="upload-zone"><input type="file" id="m-file" accept=".jpg,.jpeg,.png,.pdf" onchange="previewFile(this)"><div class="ico">📎</div><div class="txt">Cliquer ou glisser un fichier</div></div><div id="file-preview"></div></div>`,
+     <div class="field"><label>Pièce jointe (JPG, PNG, PDF — max 5Mo)</label><div class="upload-zone" id="upload-zone"><input type="file" id="m-file" accept=".jpg,.jpeg,.png,.pdf" onchange="PreviewFiles(this)"><div class="ico">📎</div><div class="txt">Cliquer ou glisser un fichier</div></div><div id="file-preview"></div></div>`,
     [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Soumettre',cls:'btn-gold',action:submitDed}]
   );
 }
 
-function previewFile(input) {
+function PreviewFiles(input) {
   const file = input.files[0];
   if (!file) return;
   document.getElementById('file-preview').innerHTML = `<div class="attach-item" style="margin-top:8px"><span class="ico">${file.type==='application/pdf'?'📄':'🖼'}</span><span class="name">${esc(file.name)}</span><span class="size">${(file.size/1024).toFixed(0)} Ko</span></div>`;

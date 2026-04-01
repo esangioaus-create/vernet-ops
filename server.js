@@ -12,37 +12,24 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
 // ── Security ──────────────────────────────────────────────────────────────────
-app.use(helmet({
-  contentSecurityPolicy: false // disabled to allow inline scripts in frontend
-}));
+app.use(helmet({ contentSecurityPolicy: false }));
 
-// Rate limiting on API
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 300,
-  message: { error: 'Trop de requêtes, réessayez dans 15 minutes' }
-});
-
-// Strict rate limiting on login
-const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 10,
-  message: { error: 'Trop de tentatives de connexion, réessayez dans 15 minutes' }
-});
-
-app.use('/api/', apiLimiter);
-app.use('/api/auth/login', loginLimiter);
+app.use('/api/', rateLimit({ windowMs: 15*60*1000, max: 500, message: { error: 'Trop de requêtes' } }));
+app.use('/api/auth/login', rateLimit({ windowMs: 15*60*1000, max: 10, message: { error: 'Trop de tentatives' } }));
 
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Serve uploaded/archived files statically (authenticated via route)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET || 'vernet-ops-secret-2026-CHANGE-IN-PROD',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false,
+    secure: false, // false for local network HTTP
     httpOnly: true,
     maxAge: 12 * 60 * 60 * 1000 // 12h
   }
@@ -69,10 +56,16 @@ app.use('/api/deductions', deductionsRouter);
 app.use('/api/handovers', handoverRouter);
 app.use('/api/maintenance', maintenanceRouter);
 
-// SPA fallback
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get('/api/hotels', (req, res) => {
+  if (!req.session.userId) return res.status(401).json({ error: 'Non authentifié' });
+  res.json(db.prepare('SELECT id, name, slug FROM hotels WHERE active = 1 ORDER BY name').all());
 });
+app.get('/api/users', (req, res) => {
+  if (!req.session.userId) return res.status(401).json({ error: 'Non authentifié' });
+  res.json(db.prepare('SELECT id, display_name, username, role, service, active FROM users WHERE hotel_id = ? ORDER BY role, display_name').all(req.session.hotelId));
+});
+
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
 // ── Socket.io ─────────────────────────────────────────────────────────────────
 const { getAllowedServices } = require('./routes/chat');
@@ -89,15 +82,10 @@ io.on('connection', (socket) => {
   socket.on('chat_message', ({ service, message }) => {
     if (!message?.trim() || !service) return;
     const allowed = getAllowedServices(sess);
-    if (!allowed.includes(service)) return; // Security: ignore unauthorized channel
-
+    if (!allowed.includes(service)) return;
     const user = db.prepare('SELECT display_name, service, role FROM users WHERE id = ?').get(sess.userId);
     if (!user) return;
-
-    const result = db.prepare('INSERT INTO chat_messages (hotel_id, service, user_id, message) VALUES (?, ?, ?, ?)')
-      .run(hotelId, service, sess.userId, message.trim());
-
-    // Only emit to users who can see this service
+    const result = db.prepare('INSERT INTO chat_messages (hotel_id, service, user_id, message) VALUES (?, ?, ?, ?)').run(hotelId, service, sess.userId, message.trim());
     io.to(`hotel_${hotelId}`).emit('chat_message', {
       id: result.lastInsertRowid, hotel_id: hotelId, service,
       user_id: sess.userId, author_name: user.display_name,
@@ -109,19 +97,15 @@ io.on('connection', (socket) => {
 
 // ── Start ─────────────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
-
 init().then(() => {
   server.listen(PORT, '0.0.0.0', () => {
     console.log('');
     console.log('╔══════════════════════════════════════════╗');
-    console.log('║         VERNET OPS v2.1 — DÉMARRÉ        ║');
+    console.log('║        VERNET OPS v2.2 — DÉMARRÉ         ║');
     console.log(`║   http://localhost:${PORT}                   ║`);
     console.log('╠══════════════════════════════════════════╣');
-    console.log('║  Sécurité : Helmet + Rate limiting ON    ║');
-    console.log('║  Comptes démo (mdp: vernet2026)          ║');
+    console.log('║  Fichiers → ./uploads/deductions/        ║');
+    console.log('║  Archives → ./archives/deductions/       ║');
     console.log('╚══════════════════════════════════════════╝');
   });
-}).catch(err => {
-  console.error('Erreur démarrage:', err);
-  process.exit(1);
-});
+}).catch(err => { console.error('Erreur démarrage:', err); process.exit(1); });
