@@ -1,13 +1,15 @@
+// Fix 1: deductions route - robust id retrieval
+// Fix 2: return id directly after insert
+
 const express = require('express');
 const multer = require('multer');
 const { db } = require('../database/db');
 const { requireAuth } = require('./auth');
 const router = express.Router();
 
-// Store files in memory (then save to SQLite as blob)
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB max
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const allowed = ['image/jpeg', 'image/png', 'application/pdf'];
     if (allowed.includes(file.mimetype)) cb(null, true);
@@ -18,7 +20,6 @@ const upload = multer({
 router.get('/', requireAuth, (req, res) => {
   const hotelId = req.session.hotelId;
   const { date, status, service } = req.query;
-
   let query = `
     SELECT d.*,
       c.display_name as creator_name, c.service as creator_service,
@@ -30,17 +31,10 @@ router.get('/', requireAuth, (req, res) => {
     WHERE d.hotel_id = ?
   `;
   const params = [hotelId];
-
   if (date) { query += ' AND d.date = ?'; params.push(date); }
   if (status) { query += ' AND d.status = ?'; params.push(status); }
   if (service) { query += ' AND d.service = ?'; params.push(service); }
-
-  // Équipe: only own submissions
-  if (req.session.role === 'equipe') {
-    query += ' AND d.created_by = ?';
-    params.push(req.session.userId);
-  }
-
+  if (req.session.role === 'equipe') { query += ' AND d.created_by = ?'; params.push(req.session.userId); }
   query += ' ORDER BY d.created_at DESC';
   res.json(db.prepare(query).all(...params));
 });
@@ -65,53 +59,56 @@ router.post('/', requireAuth, (req, res) => {
   if (!client_name || !room || !amount || !reason) {
     return res.status(400).json({ error: 'Champs obligatoires manquants' });
   }
+
   const result = db.prepare(`
     INSERT INTO deductions (hotel_id, date, client_name, room, amount, opera_code, service, reason, notes, created_by)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(hotelId, targetDate, client_name, room, parseFloat(amount), opera_code || null, service || null, reason, notes || null, req.session.userId);
 
-  const ded = db.prepare(`
-    SELECT d.*, c.display_name as creator_name, c.service as creator_service
-    FROM deductions d LEFT JOIN users c ON d.created_by = c.id WHERE d.id = ?
-  `).get(result.lastInsertRowid);
+  // Use lastInsertRowid directly, fetch with fallback
+  const newId = result.lastInsertRowid;
+  let ded = null;
+  
+  if (newId) {
+    ded = db.prepare(`
+      SELECT d.*, c.display_name as creator_name, c.service as creator_service
+      FROM deductions d LEFT JOIN users c ON d.created_by = c.id WHERE d.id = ?
+    `).get(newId);
+  }
+  
+  // Fallback: get most recent deduction for this hotel/date/client if id lookup fails
+  if (!ded) {
+    ded = db.prepare(`
+      SELECT d.*, c.display_name as creator_name, c.service as creator_service
+      FROM deductions d LEFT JOIN users c ON d.created_by = c.id
+      WHERE d.hotel_id = ? AND d.client_name = ? AND d.date = ?
+      ORDER BY d.id DESC LIMIT 1
+    `).get(hotelId, client_name, targetDate);
+  }
+
+  if (!ded) return res.status(500).json({ error: 'Erreur création déduction' });
 
   req.io.to(`hotel_${hotelId}`).emit('new_deduction', ded);
   res.json(ded);
 });
 
-// Upload attachment
 router.post('/:id/attachments', requireAuth, upload.single('file'), (req, res) => {
   const { id } = req.params;
   const hotelId = req.session.hotelId;
-
   const ded = db.prepare('SELECT * FROM deductions WHERE id = ? AND hotel_id = ?').get(id, hotelId);
   if (!ded) return res.status(404).json({ error: 'Déduction introuvable' });
   if (!req.file) return res.status(400).json({ error: 'Fichier manquant' });
-
   const result = db.prepare(`
     INSERT INTO deduction_attachments (deduction_id, filename, mimetype, size, data, uploaded_by)
     VALUES (?, ?, ?, ?, ?, ?)
   `).run(id, req.file.originalname, req.file.mimetype, req.file.size, req.file.buffer, req.session.userId);
-
-  res.json({
-    id: result.lastInsertRowid,
-    filename: req.file.originalname,
-    mimetype: req.file.mimetype,
-    size: req.file.size
-  });
+  res.json({ id: result.lastInsertRowid, filename: req.file.originalname, mimetype: req.file.mimetype, size: req.file.size });
 });
 
-// List attachments for a deduction
 router.get('/:id/attachments', requireAuth, (req, res) => {
-  const { id } = req.params;
-  const attachments = db.prepare(`
-    SELECT id, filename, mimetype, size, created_at
-    FROM deduction_attachments WHERE deduction_id = ?
-  `).all(id);
-  res.json(attachments);
+  res.json(db.prepare('SELECT id, filename, mimetype, size, created_at FROM deduction_attachments WHERE deduction_id = ?').all(req.params.id));
 });
 
-// Download/view attachment
 router.get('/attachments/:attachId', requireAuth, (req, res) => {
   const att = db.prepare('SELECT * FROM deduction_attachments WHERE id = ?').get(req.params.attachId);
   if (!att) return res.status(404).json({ error: 'Fichier introuvable' });
@@ -120,12 +117,10 @@ router.get('/attachments/:attachId', requireAuth, (req, res) => {
   res.send(Buffer.from(att.data));
 });
 
-// Delete attachment
 router.delete('/attachments/:attachId', requireAuth, (req, res) => {
   const att = db.prepare('SELECT * FROM deduction_attachments WHERE id = ?').get(req.params.attachId);
   if (!att) return res.status(404).json({ error: 'Fichier introuvable' });
-  if (!['hotel_admin', 'super_admin', 'chef_service'].includes(req.session.role) &&
-      att.uploaded_by !== req.session.userId) {
+  if (!['hotel_admin','super_admin','chef_service'].includes(req.session.role) && att.uploaded_by !== req.session.userId) {
     return res.status(403).json({ error: 'Non autorisé' });
   }
   db.prepare('DELETE FROM deduction_attachments WHERE id = ?').run(req.params.attachId);
@@ -136,28 +131,22 @@ router.patch('/:id/review', requireAuth, (req, res) => {
   const { status, review_comment } = req.body;
   const { id } = req.params;
   const hotelId = req.session.hotelId;
-  if (!['approved', 'rejected'].includes(status)) return res.status(400).json({ error: 'Statut invalide' });
-  if (!['hotel_admin', 'chef_service', 'super_admin'].includes(req.session.role)) {
-    return res.status(403).json({ error: 'Non autorisé' });
-  }
-  db.prepare(`
-    UPDATE deductions SET status = ?, reviewed_by = ?, review_comment = ?, reviewed_at = CURRENT_TIMESTAMP
-    WHERE id = ? AND hotel_id = ?
-  `).run(status, req.session.userId, review_comment || null, id, hotelId);
+  if (!['approved','rejected'].includes(status)) return res.status(400).json({ error: 'Statut invalide' });
+  if (!['hotel_admin','chef_service','super_admin'].includes(req.session.role)) return res.status(403).json({ error: 'Non autorisé' });
+  db.prepare('UPDATE deductions SET status=?, reviewed_by=?, review_comment=?, reviewed_at=CURRENT_TIMESTAMP WHERE id=? AND hotel_id=?')
+    .run(status, req.session.userId, review_comment||null, id, hotelId);
   const ded = db.prepare('SELECT * FROM deductions WHERE id = ?').get(id);
   req.io.to(`hotel_${hotelId}`).emit('deduction_reviewed', ded);
   res.json(ded);
 });
 
 router.delete('/:id', requireAuth, (req, res) => {
-  const ded = db.prepare('SELECT * FROM deductions WHERE id = ? AND hotel_id = ?').get(req.params.id, req.session.hotelId);
+  const ded = db.prepare('SELECT * FROM deductions WHERE id=? AND hotel_id=?').get(req.params.id, req.session.hotelId);
   if (!ded) return res.status(404).json({ error: 'Introuvable' });
-  if (ded.created_by !== req.session.userId && !['hotel_admin', 'super_admin'].includes(req.session.role)) {
-    return res.status(403).json({ error: 'Non autorisé' });
-  }
+  if (ded.created_by !== req.session.userId && !['hotel_admin','super_admin'].includes(req.session.role)) return res.status(403).json({ error: 'Non autorisé' });
   if (ded.status !== 'pending') return res.status(400).json({ error: 'Impossible de supprimer une déduction traitée' });
-  db.prepare('DELETE FROM deduction_attachments WHERE deduction_id = ?').run(req.params.id);
-  db.prepare('DELETE FROM deductions WHERE id = ?').run(req.params.id);
+  db.prepare('DELETE FROM deduction_attachments WHERE deduction_id=?').run(req.params.id);
+  db.prepare('DELETE FROM deductions WHERE id=?').run(req.params.id);
   res.json({ ok: true });
 });
 

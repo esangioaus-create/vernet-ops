@@ -262,6 +262,44 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 /* Animations */
 @keyframes fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{animation:fade-up .3s ease forwards}
+/* Colle ce bloc DANS index.html, juste avant </style> */
+
+/* Dark mode explicit overrides for inputs/selects inside modals */
+[data-theme="dark"] .modal,
+[data-theme="dark"] .field input,
+[data-theme="dark"] .field textarea,
+[data-theme="dark"] .field select {
+  background: #18160f;
+  color: #ede5d0;
+  border-color: #2e2a1e;
+}
+
+[data-theme="dark"] .field input:focus,
+[data-theme="dark"] .field textarea:focus,
+[data-theme="dark"] .field select:focus {
+  border-color: #8a6e30;
+  background: #201d14;
+}
+
+[data-theme="dark"] .modal {
+  background: #111009;
+  border-color: #2e2a1e;
+}
+
+[data-theme="dark"] .upload-zone {
+  border-color: #2e2a1e;
+  color: #6b5c3e;
+}
+
+[data-theme="dark"] .attach-item {
+  background: #18160f;
+  border-color: #2e2a1e;
+}
+
+[data-theme="dark"] select option {
+  background: #18160f;
+  color: #ede5d0;
+}
 </style>
 </head>
 <body>
