@@ -121,8 +121,8 @@ io.on('connection', (socket) => {
 // ── Start ─────────────────────────────────────────────────────────────────────
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log('');
+server.listen(PORT, '0.0.0.0', () => {
+console.log('');
   console.log('╔══════════════════════════════════════════╗');
   console.log('║         VERNET OPS v2.0 — DÉMARRÉ        ║');
   console.log(`║   http://localhost:${PORT}                   ║`);
