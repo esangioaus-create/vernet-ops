@@ -11,7 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 [data-theme="dark"]{
   --bg:#0a0908;--bg2:#111009;--bg3:#18160f;--bg4:#201d14;--bg5:#28251a;
   --text:#ede5d0;--text2:#a89878;--text3:#6b5c3e;--text4:#3d3020;
@@ -31,14 +30,12 @@
   --green:#2a7a48;--green-bg:#f0faf4;--green-dim:#c8ecd8;
   --blue:#2a60a8;--blue-bg:#f0f5ff;
   --orange:#a85020;--orange-bg:#fff5ee;
-  --gold:#b8922a;--gold-light:#d4a840;--gold-dim:#8a6e30;--gold-ultra-dim:#f5edd8;
+  --gold:#a07820;--gold-light:#c49030;--gold-dim:#8a6e30;--gold-ultra-dim:#f5edd8;
   --shadow:0 4px 24px rgba(0,0,0,.1);--shadow-sm:0 2px 8px rgba(0,0,0,.08);
 }
-
 :root{--transition:.2s cubic-bezier(.4,0,.2,1);--r:10px;--r2:14px;--r3:20px;--sidebar-w:230px;--font:'Inter',-apple-system,sans-serif}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;overflow:hidden;-webkit-font-smoothing:antialiased}
 
-/* LOGIN */
 #login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100}
 #login-screen.hidden{display:none}
 .login-wrap{width:100%;max-width:360px;padding:20px}
@@ -50,21 +47,18 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .login-field{margin-bottom:14px}
 .login-field label{display:block;font-size:11px;font-weight:600;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
 .login-field input{width:100%;padding:11px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:14px;font-family:var(--font);outline:none;transition:var(--transition)}
-.login-field input:focus{border-color:var(--gold-dim);background:var(--bg4)}
+.login-field input:focus{border-color:var(--gold-dim)}
 .login-btn{width:100%;padding:12px;background:var(--gold);color:#0a0908;font-weight:700;font-size:14px;border:none;border-radius:var(--r);cursor:pointer;transition:var(--transition);margin-top:6px;font-family:var(--font)}
 .login-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
 .login-error{color:var(--red);font-size:12px;text-align:center;margin-top:10px;min-height:18px;font-weight:500}
 .login-theme{position:absolute;top:16px;right:16px}
 
-/* APP */
 #app{display:flex;height:100vh;overflow:hidden}
 #app.hidden{display:none}
-
-/* Sidebar */
 #sidebar{width:var(--sidebar-w);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
 .sb-header{padding:20px 16px 16px;border-bottom:1px solid var(--border)}
 .sb-hotel{font-size:13px;font-weight:700;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sb-user{font-size:11px;color:var(--text3);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-user{font-size:11px;color:var(--text3);margin-top:3px}
 .sb-badge{display:inline-block;padding:1px 6px;background:var(--gold-ultra-dim);border:1px solid var(--gold-dim);border-radius:8px;font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-top:6px}
 .sb-nav{flex:1;padding:10px 0;overflow-y:auto}
 .nav-section{padding:16px 18px 5px;font-size:10px;font-weight:700;color:var(--text4);letter-spacing:2px;text-transform:uppercase}
@@ -81,7 +75,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .logout-btn{flex:1;padding:8px;background:transparent;border:1px solid var(--border2);border-radius:var(--r);color:var(--text3);cursor:pointer;font-size:12px;font-weight:500;transition:var(--transition);font-family:var(--font)}
 .logout-btn:hover{border-color:var(--red-dim);color:var(--red)}
 
-/* Main */
 #main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 #topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
 #topbar-title{font-size:15px;font-weight:700;color:var(--text)}
@@ -89,21 +82,17 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 #topbar-actions{display:flex;gap:8px}
 #content{flex:1;overflow-y:auto;padding:22px}
 
-/* Components */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:20px;margin-bottom:14px}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.card-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
-.page-title{font-size:18px;font-weight:700;color:var(--text)}
+.card-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-
 .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px;text-align:center;transition:var(--transition)}
 .stat-card:hover{border-color:var(--border2);box-shadow:var(--shadow-sm)}
 .stat-val{font-size:30px;font-weight:700;line-height:1}
 .stat-label{font-size:10px;font-weight:600;color:var(--text3);margin-top:6px;letter-spacing:1px;text-transform:uppercase}
 
-/* Buttons */
 .btn{padding:8px 16px;border-radius:var(--r);border:none;cursor:pointer;font-size:13px;font-weight:600;transition:var(--transition);display:inline-flex;align-items:center;gap:6px;font-family:var(--font);white-space:nowrap;text-decoration:none}
 .btn:active{transform:translateY(1px)}
 .btn-gold{background:var(--gold);color:#0a0908}.btn-gold:hover{background:var(--gold-light)}
@@ -114,7 +103,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .btn-sm{padding:5px 10px;font-size:12px;border-radius:8px}
 .btn-xs{padding:3px 8px;font-size:11px;border-radius:6px}
 
-/* Forms */
 .field{margin-bottom:14px}
 .field label{display:block;font-size:11px;font-weight:600;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
 .field input,.field textarea,.field select{width:100%;padding:10px 13px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:13px;outline:none;transition:var(--transition);font-family:var(--font)}
@@ -125,7 +113,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .fields-row.c2{grid-template-columns:1fr 1fr}
 .fields-row.c3{grid-template-columns:1fr 1fr 1fr}
 
-/* Badges */
 .badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
 .badge-pending{background:var(--orange-bg);color:var(--orange)}
 .badge-approved{background:var(--green-bg);color:var(--green)}
@@ -142,7 +129,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .badge-chef_service{background:var(--orange-bg);color:var(--orange)}
 .badge-equipe{background:var(--bg4);color:var(--text3)}
 
-/* List items */
 .list-item{padding:13px 16px;background:var(--bg3);border-radius:var(--r);margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;transition:var(--transition);border:1px solid transparent}
 .list-item:hover{background:var(--bg4);border-color:var(--border)}
 .list-item-body{flex:1;min-width:0}
@@ -151,10 +137,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .list-item-meta{font-size:11px;color:var(--text3);margin-top:6px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .list-item-actions{display:flex;gap:6px;flex-shrink:0;align-items:flex-start}
 
-/* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:var(--transition)}
 .modal-overlay.visible{opacity:1;pointer-events:all}
-.modal{background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--r3);padding:28px;width:540px;max-width:94vw;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow);transform:translateY(8px);transition:var(--transition)}
+.modal{background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--r3);padding:28px;width:560px;max-width:94vw;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow);transform:translateY(8px);transition:var(--transition)}
 .modal-overlay.visible .modal{transform:translateY(0)}
 .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
 .modal-title{font-size:16px;font-weight:700;color:var(--gold)}
@@ -162,7 +147,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .modal-close:hover{color:var(--text);background:var(--bg3)}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)}
 
-/* Chat */
+/* File picker — reliable approach */
+.file-picker-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;background:var(--bg3);border:1.5px dashed var(--border2);border-radius:var(--r);color:var(--text2);cursor:pointer;font-size:13px;font-weight:500;transition:var(--transition);font-family:var(--font);width:100%;justify-content:center}
+.file-picker-btn:hover{border-color:var(--gold-dim);color:var(--text);background:var(--bg4)}
+.file-picker-input{display:none}
+.files-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.file-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border)}
+.file-row .ico{font-size:15px;flex-shrink:0}
+.file-row .name{flex:1;font-size:12px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-row .sz{font-size:11px;color:var(--text3);flex-shrink:0}
+
 #chat-container{display:flex;flex-direction:column;height:calc(100vh - 152px);gap:12px}
 .chat-channels{display:flex;gap:6px;flex-wrap:wrap}
 .channel-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;font-size:12px;font-weight:600;transition:var(--transition);font-family:var(--font)}
@@ -178,7 +172,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .chat-input-row input{flex:1;padding:10px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:13px;outline:none;transition:var(--transition);font-family:var(--font)}
 .chat-input-row input:focus{border-color:var(--gold-dim)}
 
-/* Critical alert */
 .critical-banner{background:var(--red-bg);border:1px solid var(--red-dim);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;display:flex;align-items:center;gap:10px;animation:slide-in .3s ease}
 @keyframes slide-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 .critical-dot{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
@@ -186,19 +179,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .critical-title{font-size:13px;font-weight:700;color:var(--red)}
 .critical-msg{font-size:12px;color:var(--text2);margin-top:2px}
 
-/* File upload */
-.upload-zone{border:2px dashed var(--border2);border-radius:var(--r);padding:20px;text-align:center;cursor:pointer;transition:var(--transition);position:relative}
-.upload-zone:hover,.upload-zone.drag-over{border-color:var(--gold-dim);background:var(--gold-ultra-dim)}
-.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.upload-zone .ico{font-size:24px;margin-bottom:8px}
-.upload-zone .txt{font-size:12px;color:var(--text3)}
-.attach-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-.attach-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border)}
-.attach-item .ico{font-size:16px;flex-shrink:0}
-.attach-item .name{flex:1;font-size:12px;font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.attach-item .size{font-size:11px;color:var(--text3);flex-shrink:0}
-
-/* Table */
 .tbl{width:100%;border-collapse:collapse;font-size:12px}
 .tbl th{padding:10px 12px;background:var(--bg3);color:var(--text3);font-weight:600;text-align:left;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
 .tbl td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text)}
@@ -206,13 +186,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .tbl tr:hover td{background:var(--bg3)}
 .amount{font-weight:700;color:var(--gold);font-family:monospace;font-size:13px}
 
-/* Briefing */
 #briefing-editor{width:100%;min-height:220px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:14px;line-height:1.8;padding:16px;resize:vertical;outline:none;font-family:var(--font);transition:var(--transition)}
 #briefing-editor:focus{border-color:var(--gold-dim)}
 .briefing-content{font-size:14px;line-height:1.8;color:var(--text);white-space:pre-wrap}
 .briefing-date{font-size:11px;color:var(--text3);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
 
-/* Users */
 .user-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;display:flex;align-items:center;gap:14px;transition:var(--transition);margin-bottom:8px}
 .user-card:hover{border-color:var(--border2);background:var(--bg4)}
 .user-avatar{width:38px;height:38px;border-radius:10px;background:var(--gold-ultra-dim);border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--gold);flex-shrink:0}
@@ -221,7 +199,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .user-meta{font-size:11px;color:var(--text3);margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .user-inactive{opacity:.5}
 
-/* Toast */
 #toast{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:12px 18px;font-size:13px;font-weight:500;color:var(--text);z-index:999;transform:translateY(80px);opacity:0;transition:.3s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:var(--shadow);max-width:320px}
 #toast.show{transform:translateY(0);opacity:1}
 #toast.success{border-color:var(--green-dim);color:var(--green)}
@@ -230,25 +207,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .empty-state{text-align:center;padding:48px 20px;color:var(--text3)}
 .empty-ico{font-size:36px;margin-bottom:12px;opacity:.5}
 .empty-txt{font-size:14px}
-.divider{height:1px;background:var(--border);margin:16px 0}
-.pill{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:var(--bg4);border-radius:20px;font-size:11px;color:var(--text3);border:1px solid var(--border)}
+.pill{display:inline-flex;align-items:center;padding:3px 9px;background:var(--bg4);border-radius:20px;font-size:11px;color:var(--text3);border:1px solid var(--border)}
 @keyframes fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{animation:fade-up .3s ease forwards}
-
-@media(max-width:768px){
-  #sidebar{display:none;position:fixed;inset:0 auto 0 0;z-index:150;width:260px}
-  #sidebar.open{display:flex}
-  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
-  .fields-row.c2,.fields-row.c3{grid-template-columns:1fr}
-  #content{padding:14px}
-}
+@media(max-width:768px){#sidebar{display:none;position:fixed;inset:0 auto 0 0;z-index:150;width:260px}#sidebar.open{display:flex}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.fields-row.c2,.fields-row.c3{grid-template-columns:1fr}#content{padding:14px}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="login-screen">
-  <button class="theme-toggle login-theme" onclick="toggleTheme()" title="Thème">🌙</button>
+  <button class="theme-toggle login-theme" onclick="toggleTheme()">🌙</button>
   <div class="login-wrap">
     <div class="login-card">
       <div class="login-logo">
@@ -264,7 +232,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
   </div>
 </div>
 
-<!-- APP -->
 <div id="app" class="hidden">
   <div id="sidebar">
     <div class="sb-header">
@@ -302,7 +269,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
   </div>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modal-box">
     <div class="modal-header">
@@ -313,10 +279,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
     <div class="modal-footer" id="modal-footer"></div>
   </div>
 </div>
-
 <div id="toast"></div>
+
 <script src="/socket.io/socket.io.js"></script>
 <script>
+// ── STATE & THEME ─────────────────────────────────────────────────────────────
 let currentUser=null,socket=null,currentPage='dashboard',currentChatService='general';
 let currentTheme=localStorage.getItem('theme')||'dark';
 
@@ -324,6 +291,56 @@ function applyTheme(t){currentTheme=t;document.documentElement.setAttribute('dat
 function toggleTheme(){applyTheme(currentTheme==='dark'?'light':'dark');}
 applyTheme(currentTheme);
 
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+async function api(url,method='GET',body=null){
+  const opts={method,headers:{'Content-Type':'application/json'},credentials:'same-origin'};
+  if(body)opts.body=JSON.stringify(body);
+  const r=await fetch(url,opts);const data=await r.json();
+  if(!r.ok)throw new Error(data.error||'Erreur réseau');return data;
+}
+function esc(str){if(!str)return '';return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// Paris timezone for all dates
+const PARIS = 'Europe/Paris';
+function formatDate(dt){
+  if(!dt)return '—';
+  return new Date(dt).toLocaleString('fr-FR',{timeZone:PARIS,day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+function formatDateFr(s){
+  if(!s)return '—';
+  const [y,m,d]=s.split('-');
+  return `${parseInt(d)} ${['','janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'][parseInt(m)]} ${y}`;
+}
+
+function roleLabel(r){return{super_admin:'Super Admin',hotel_admin:'Admin',chef_service:'Chef svc.',equipe:'Équipe'}[r]||r;}
+function serviceLbl(s){return{general:'Général',reception:'Réception',housekeeping:'HK',fb:'F&B',maintenance:'Maint.',direction:'Direction'}[s]||(s||'—');}
+function priorityLbl(p){return{low:'Faible',medium:'Moyenne',high:'Haute',urgent:'Urgent',critical:'Critique'}[p]||p;}
+function fileIco(mt){return mt==='application/pdf'?'📄':'🖼';}
+function fileSize(s){return s>1024*1024?`${(s/1024/1024).toFixed(1)} Mo`:`${(s/1024).toFixed(0)} Ko`;}
+
+let _toast;
+function toast(msg,type=''){const el=document.getElementById('toast');el.textContent=msg;el.className=`show ${type}`;clearTimeout(_toast);_toast=setTimeout(()=>el.className='',3500);}
+
+// ── FILE PICKER (reliable — visible label button, no hidden overlay) ──────────
+function filePicker(inputId, listId, multiple=true) {
+  return `
+    <label class="file-picker-btn" for="${inputId}">
+      📎 Cliquer pour choisir ${multiple?'des fichiers':'un fichier'}
+    </label>
+    <input type="file" class="file-picker-input" id="${inputId}" accept=".jpg,.jpeg,.png,.pdf" ${multiple?'multiple':''} onchange="showFileList('${inputId}','${listId}')">
+    <div class="files-list" id="${listId}"></div>
+  `;
+}
+
+function showFileList(inputId, listId){
+  const files=Array.from(document.getElementById(inputId)?.files||[]);
+  const list=document.getElementById(listId);
+  if(!list)return;
+  if(!files.length){list.innerHTML='';return;}
+  list.innerHTML=files.map(f=>`<div class="file-row"><span class="ico">${fileIco(f.type)}</span><span class="name">${esc(f.name)}</span><span class="sz">${fileSize(f.size)}</span></div>`).join('');
+}
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
 async function doLogin(){
   const u=document.getElementById('login-user').value.trim();
   const p=document.getElementById('login-pass').value;
@@ -334,6 +351,7 @@ async function doLogin(){
 async function doLogout(){await api('/api/auth/logout','POST').catch(()=>{});currentUser=null;if(socket)socket.disconnect();document.getElementById('app').classList.add('hidden');document.getElementById('login-screen').classList.remove('hidden');document.getElementById('login-pass').value='';}
 async function checkAuth(){try{currentUser=await api('/api/auth/me');startApp();}catch{}}
 
+// ── APP START ─────────────────────────────────────────────────────────────────
 function startApp(){
   document.getElementById('login-screen').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
@@ -341,13 +359,17 @@ function startApp(){
   document.getElementById('sb-user').textContent=currentUser.display_name;
   document.getElementById('sb-badge').innerHTML=`<span class="sb-badge">${roleLabel(currentUser.role)}</span>`;
   if(currentUser.role==='super_admin')document.querySelectorAll('.admin-only').forEach(el=>el.style.display='');
-  initSocket();updateDate();setInterval(updateDate,60000);navigate('dashboard');loadBadges();setInterval(loadBadges,30000);
+  initSocket();updateDate();setInterval(updateDate,30000);navigate('dashboard');loadBadges();setInterval(loadBadges,30000);
 }
-function updateDate(){const d=new Date();const days=['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'];const months=['jan','fév','mars','avr','mai','juin','juil','août','sep','oct','nov','déc'];document.getElementById('topbar-date').textContent=`${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;}
-function roleLabel(r){return{super_admin:'Super Admin',hotel_admin:'Admin',chef_service:'Chef svc.',equipe:'Équipe'}[r]||r;}
-function serviceLbl(s){return{general:'Général',reception:'Réception',housekeeping:'HK',fb:'F&B',maintenance:'Maint.',direction:'Direction'}[s]||(s||'—');}
-function priorityLbl(p){return{low:'Faible',medium:'Moyenne',high:'Haute',urgent:'Urgent',critical:'Critique'}[p]||p;}
 
+function updateDate(){
+  const d=new Date();
+  const str=d.toLocaleDateString('fr-FR',{timeZone:PARIS,weekday:'short',day:'numeric',month:'short',year:'numeric'});
+  // Capitalize first letter
+  document.getElementById('topbar-date').textContent=str.charAt(0).toUpperCase()+str.slice(1);
+}
+
+// ── SOCKET ────────────────────────────────────────────────────────────────────
 function initSocket(){
   socket=io();
   socket.on('new_alert',a=>{toast(`⚠ ${a.title}`,a.priority==='critical'?'error':'');loadBadges();if(['dashboard','alerts'].includes(currentPage))navigate(currentPage);});
@@ -358,11 +380,13 @@ function initSocket(){
   socket.on('deduction_reviewed',()=>{loadBadges();if(currentPage==='deductions')navigate('deductions');});
   socket.on('new_maintenance',m=>{toast(`🔧 ${m.location}`);if(currentPage==='maintenance')navigate('maintenance');});
 }
+
 async function loadBadges(){
   try{const a=await api('/api/alerts?active=1');const ab=document.getElementById('badge-alerts');ab.textContent=a.length;ab.style.display=a.length?'':'none';}catch{}
   try{if(['hotel_admin','chef_service','super_admin'].includes(currentUser.role)){const d=await api('/api/deductions?status=pending');const db2=document.getElementById('badge-deductions');db2.textContent=d.length;db2.style.display=d.length?'':'none';}}catch{}
 }
 
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
 function navigate(page){
   currentPage=page;
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
@@ -377,7 +401,7 @@ function navigate(page){
 
 // ── DASHBOARD ─────────────────────────────────────────────────────────────────
 async function dashboard(){
-  const c=document.getElementById('content');c.innerHTML='<div class="text-muted" style="padding:20px">Chargement...</div>';
+  const c=document.getElementById('content');c.innerHTML='';
   try{
     const [activeAlerts,todayBriefing,dedSummary,anns,maint]=await Promise.all([api('/api/alerts?active=1'),api('/api/briefings'),api('/api/deductions/summary'),api('/api/announcements'),api('/api/maintenance?status=open')]);
     let html='<div class="fade-up">';
@@ -395,7 +419,7 @@ async function dashboard(){
     if(!anns.length)html+=`<div class="empty-state" style="padding:20px"><div class="empty-ico">📢</div><div class="empty-txt">Aucune annonce</div></div>`;
     else html+=anns.slice(0,3).map(a=>`<div class="list-item" style="cursor:default"><div class="list-item-body"><div class="list-item-title">${a.pinned?'📌 ':''}${esc(a.title)}</div><div class="list-item-sub">${esc(a.content.substring(0,80))}${a.content.length>80?'…':''}</div></div></div>`).join('');
     html+=`</div></div></div>`;c.innerHTML=html;
-  }catch{c.innerHTML=`<div class="empty-state"><div class="empty-ico">⚠</div><div>Erreur de chargement</div></div>`;}
+  }catch(e){c.innerHTML=`<div class="empty-state"><div class="empty-ico">⚠</div><div>Erreur</div></div>`;console.error(e);}
 }
 
 // ── BRIEFING ──────────────────────────────────────────────────────────────────
@@ -405,7 +429,7 @@ async function briefing(){
     const [current,recent]=await Promise.all([api('/api/briefings'),api('/api/briefings/recent')]);
     let html='<div class="grid-2 fade-up">';
     html+=`<div class="card"><div class="card-header"><div class="card-title">📋 Aujourd'hui</div>${canEdit?'<button class="btn btn-gold btn-sm" onclick="saveBriefing()">💾 Enregistrer</button>':''}</div>`;
-    if(canEdit)html+=`<textarea id="briefing-editor" placeholder="Saisissez le briefing du jour…">${current?esc(current.content):''}</textarea>`;
+    if(canEdit)html+=`<textarea id="briefing-editor" placeholder="Briefing du jour…">${current?esc(current.content):''}</textarea>`;
     else html+=current?`<div class="briefing-date">Par ${esc(current.author_name||'—')}</div><div class="briefing-content">${esc(current.content)}</div>`:`<div class="empty-state" style="padding:20px"><div class="empty-ico">📋</div><div>Aucun briefing</div></div>`;
     html+=`</div><div class="card"><div class="card-header"><div class="card-title">Historique</div></div>`;
     if(!recent.length)html+=`<div class="empty-state" style="padding:20px"><div>Aucun historique</div></div>`;
@@ -423,7 +447,8 @@ async function alerts(){
   try{
     const list=await api('/api/alerts');let html='<div class="fade-up">';
     if(!list.length)html+=`<div class="empty-state"><div class="empty-ico">✅</div><div class="empty-txt">Aucune alerte</div></div>`;
-    else{const active=list.filter(a=>!a.resolved_at);const resolved=list.filter(a=>a.resolved_at);
+    else{
+      const active=list.filter(a=>!a.resolved_at);const resolved=list.filter(a=>a.resolved_at);
       if(active.length){html+=`<div class="card"><div class="card-title" style="margin-bottom:14px">Actives</div>`;html+=active.map(a=>alertItem(a,canCreate)).join('');html+=`</div>`;}
       if(resolved.length){html+=`<div class="card"><div class="card-title" style="margin-bottom:14px">Résolues</div>`;html+=resolved.slice(0,8).map(a=>alertItem(a,false)).join('');html+=`</div>`;}
     }
@@ -450,18 +475,22 @@ async function deleteAnn(id){if(!confirm('Supprimer ?'))return;await api(`/api/a
 
 // ── CHAT ──────────────────────────────────────────────────────────────────────
 async function chat(){
-  const c=document.getElementById('content');const services=await api('/api/chat/services');
-  c.innerHTML=`<div id="chat-container"><div class="chat-channels">${services.map(s=>`<button class="channel-btn ${s.id===currentChatService?'active':''}" onclick="switchChannel('${s.id}')">${s.label}</button>`).join('')}</div><div id="chat-messages"><div class="text-muted" style="padding:12px">Chargement…</div></div><div class="chat-input-row"><input type="text" id="chat-input" placeholder="Message…" onkeydown="if(event.key==='Enter')sendChat()"><button class="btn btn-gold" onclick="sendChat()">Envoyer</button></div></div>`;
-  loadChatMessages();
+  const c=document.getElementById('content');
+  try{
+    const services=await api('/api/chat/services');
+    c.innerHTML=`<div id="chat-container"><div class="chat-channels">${services.map(s=>`<button class="channel-btn ${s.id===currentChatService?'active':''}" onclick="switchChannel('${s.id}')">${s.label}</button>`).join('')}</div><div id="chat-messages"></div><div class="chat-input-row"><input type="text" id="chat-input" placeholder="Message…" onkeydown="if(event.key==='Enter')sendChat()"><button class="btn btn-gold" onclick="sendChat()">Envoyer</button></div></div>`;
+    loadChatMessages();
+  }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
 }
-async function loadChatMessages(){const box=document.getElementById('chat-messages');if(!box)return;try{const msgs=await api(`/api/chat/messages?service=${currentChatService}&limit=60`);box.innerHTML='';if(!msgs.length){box.innerHTML='<div class="empty-state"><div>Aucun message</div></div>';return;}msgs.forEach(m=>appendChatMsg(m));box.scrollTop=box.scrollHeight;}catch{box.innerHTML='<div class="empty-state">Erreur</div>';}}
+async function loadChatMessages(){const box=document.getElementById('chat-messages');if(!box)return;box.innerHTML='<div class="text-muted" style="padding:12px">Chargement…</div>';try{const msgs=await api(`/api/chat/messages?service=${currentChatService}&limit=60`);box.innerHTML='';if(!msgs.length){box.innerHTML='<div class="empty-state" style="padding:20px"><div>Aucun message</div></div>';return;}msgs.forEach(m=>appendChatMsg(m));box.scrollTop=box.scrollHeight;}catch{box.innerHTML='<div class="empty-state">Erreur</div>';}}
 function appendChatMsg(msg){const box=document.getElementById('chat-messages');if(!box)return;const own=msg.user_id===currentUser.id;const d=document.createElement('div');d.className=`chat-msg ${own?'own':''}`;d.innerHTML=`<div class="chat-bubble">${esc(msg.message)}</div><div class="chat-meta">${own?'':`<strong>${esc(msg.author_name)}</strong> · `}${formatDate(msg.created_at)}</div>`;box.appendChild(d);box.scrollTop=box.scrollHeight;}
 async function switchChannel(svc){currentChatService=svc;document.querySelectorAll('.channel-btn').forEach(b=>{const map={general:'Général',reception:'Réception',housekeeping:'HK',fb:'F&B',maintenance:'Maint.',direction:'Direction'};b.classList.toggle('active',b.textContent.trim()===(map[svc]||svc));});await loadChatMessages();}
 function sendChat(){const input=document.getElementById('chat-input');const msg=input?.value.trim();if(!msg||!socket)return;socket.emit('chat_message',{service:currentChatService,message:msg});input.value='';}
 
 // ── DEDUCTIONS ────────────────────────────────────────────────────────────────
 async function deductions(){
-  const c=document.getElementById('content');const canReview=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);const today=new Date().toISOString().split('T')[0];
+  const c=document.getElementById('content');const canReview=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
+  const today=new Date().toLocaleDateString('fr-CA',{timeZone:PARIS}); // YYYY-MM-DD in Paris
   document.getElementById('topbar-actions').innerHTML=`<button class="btn btn-outline btn-sm" onclick="openZipExport()">📦 Export ZIP</button><button class="btn btn-gold btn-sm" onclick="openDedModal()">+ Déduction</button>`;
   try{
     const [list,summary]=await Promise.all([api(`/api/deductions?date=${today}`),api('/api/deductions/summary')]);
@@ -486,34 +515,28 @@ async function deductions(){
         </td>
         <td><span class="badge badge-${d.status}">${{pending:'En attente',approved:'Approuvée',rejected:'Refusée'}[d.status]}</span></td>
         <td><span class="pill">${esc(d.creator_name||'—')}</span></td>
-        ${canReview?`<td>${d.status==='pending'?`<div style="display:flex;gap:4px"><button class="btn btn-green btn-xs" onclick="reviewDed(${d.id},'approved')">✓</button><button class="btn btn-danger btn-xs" onclick="reviewDed(${d.id},'rejected')">✕</button></div>`:`<span class="text-muted" style="font-size:11px">${esc(d.reviewer_name||'—')}</span>`}</td>`:''}
+        ${canReview?`<td>${d.status==='pending'?`<div style="display:flex;gap:4px"><button class="btn btn-green btn-xs" onclick="reviewDed(${d.id},'approved')">✓</button><button class="btn btn-danger btn-xs" onclick="reviewDed(${d.id},'rejected')">✕</button></div>`:`<span style="font-size:11px;color:var(--text3)">${esc(d.reviewer_name||'—')}</span>`}</td>`:''}
       </tr>`).join('');
       html+=`</tbody></table>`;
     }
     html+=`</div></div>`;c.innerHTML=html;
-  }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
+  }catch(e){c.innerHTML='<div class="empty-state">Erreur</div>';console.error(e);}
 }
 
 function openDedModal(){
-  const today=new Date().toISOString().split('T')[0];
+  const today=new Date().toLocaleDateString('fr-CA',{timeZone:PARIS});
   openModal('Nouvelle demande de déduction',
     `<div class="fields-row c2"><div class="field"><label>Date</label><input type="date" id="m-dd" value="${today}"></div><div class="field"><label>N° Chambre</label><input id="m-dr" placeholder="304"></div></div>
      <div class="field"><label>Nom client</label><input id="m-dc" placeholder="DUPONT Jean"></div>
      <div class="fields-row c3"><div class="field"><label>Montant (€)</label><input type="number" id="m-da" step="0.01" min="0" placeholder="0.00"></div><div class="field"><label>Code Opera</label><input id="m-dco" placeholder="7001"></div><div class="field"><label>Service</label><select id="m-ds"><option value="">—</option><option value="reception">Réception</option><option value="fb">F&B</option><option value="housekeeping">HK</option><option value="direction">Direction</option></select></div></div>
      <div class="field"><label>Motif *</label><textarea id="m-dre" style="min-height:80px" placeholder="Motif précis — conservé pour archivage comptable…"></textarea></div>
      <div class="field"><label>Notes</label><textarea id="m-dn" style="min-height:50px" placeholder="Références, numéro folio Opera…"></textarea></div>
-     <div class="field"><label>Pièces jointes — JPG, PNG, PDF — 100 Mo max — plusieurs fichiers possibles</label>
-       <div class="upload-zone"><input type="file" id="m-files" accept=".jpg,.jpeg,.png,.pdf" multiple onchange="previewFiles(this)"><div class="ico">📎</div><div class="txt">Cliquer ou glisser des fichiers (folio, justificatif, email…)</div></div>
-       <div id="files-preview"></div>
+     <div class="field">
+       <label>Pièces jointes (JPG, PNG, PDF — 100 Mo max — sélection multiple possible)</label>
+       ${filePicker('m-files','m-files-list',true)}
      </div>`,
     [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Soumettre la demande',cls:'btn-gold',action:submitDed}]
   );
-}
-
-function previewFiles(input){
-  const files=Array.from(input.files);const preview=document.getElementById('files-preview');
-  if(!files.length){preview.innerHTML='';return;}
-  preview.innerHTML=`<div class="attach-list" style="margin-top:8px">${files.map(f=>`<div class="attach-item"><span class="ico">${f.type==='application/pdf'?'📄':'🖼'}</span><span class="name">${esc(f.name)}</span><span class="size">${(f.size/1024/1024).toFixed(1)} Mo</span></div>`).join('')}</div>`;
 }
 
 async function submitDed(){
@@ -525,24 +548,25 @@ async function submitDed(){
   try{
     const ded=await api('/api/deductions','POST',{client_name,room,amount,reason,opera_code:document.getElementById('m-dco').value.trim(),service:document.getElementById('m-ds').value,notes:document.getElementById('m-dn').value.trim(),date:document.getElementById('m-dd').value});
     const fileInput=document.getElementById('m-files');
-    if(fileInput?.files.length>0){
+    if(fileInput&&fileInput.files.length>0){
       const fd=new FormData();
       Array.from(fileInput.files).forEach(f=>fd.append('files',f));
-      await fetch(`/api/deductions/${ded.id}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});
+      const r=await fetch(`/api/deductions/${ded.id}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});
+      if(!r.ok){const err=await r.json().catch(()=>({}));console.warn('Upload warning:',err);}
     }
     closeModal();toast('Demande soumise ✓','success');
-  }catch(e){toast(e.message,'error');}
+  }catch(e){toast(e.message,'error');console.error(e);}
 }
 
 function reviewDed(id,status){
   const action=status==='approved'?'Approuver':'Refuser';
   const cls=status==='approved'?'btn-green':'btn-danger';
   openModal(`${action} la déduction`,
-    `${status==='rejected'?`<div class="field"><label>Motif du refus</label><textarea id="m-rv-comment" style="min-height:60px" placeholder="Expliquez le motif du refus…"></textarea></div>`:''}
+    `${status==='rejected'?`<div class="field"><label>Motif du refus</label><textarea id="m-rv-comment" style="min-height:60px"></textarea></div>`:''}
      <div class="field">
        <label>Signature électronique *</label>
        <input id="m-rv-sig" placeholder="Tapez votre nom complet pour signer" autocomplete="name">
-       <div style="font-size:11px;color:var(--text3);margin-top:6px">Cette signature horodatée est archivée comme preuve de validation — valeur de contrôle interne.</div>
+       <div style="font-size:11px;color:var(--text3);margin-top:6px">Horodatée et archivée — valeur de contrôle interne.</div>
      </div>`,
     [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:action,cls,action:async()=>{
       const sig=document.getElementById('m-rv-sig').value.trim();
@@ -555,36 +579,47 @@ function reviewDed(id,status){
 }
 
 async function showAttachments(dedId,clientName){
-  const atts=await api(`/api/deductions/${dedId}/attachments`);
-  const canManage=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
-  openModal(`Pièces jointes — ${esc(clientName)}`,
-    `${atts.length===0?`<div class="empty-state" style="padding:20px"><div class="empty-ico">📎</div><div>Aucune pièce jointe</div></div>`:
-    `<div class="attach-list">${atts.map(a=>`<div class="attach-item"><span class="ico">${a.mimetype==='application/pdf'?'📄':'🖼'}</span><span class="name">${esc(a.filename)}</span><span class="size">${(a.size/1024).toFixed(0)} Ko</span><a href="/api/deductions/attachments/${a.id}" target="_blank" class="btn btn-outline btn-xs">Voir</a>${canManage?`<button class="btn btn-danger btn-xs" onclick="deleteAttachment(${a.id})">✕</button>`:''}</div>`).join('')}</div>`}
-     <div class="field" style="margin-top:16px"><label>Ajouter des fichiers</label>
-       <div class="upload-zone"><input type="file" id="m-att-files" accept=".jpg,.jpeg,.png,.pdf" multiple><div class="ico">📎</div><div class="txt">JPG, PNG ou PDF — 100 Mo max</div></div>
-     </div>`,
-    [{label:'Fermer',cls:'btn-outline',action:closeModal},{label:'Uploader',cls:'btn-gold',action:async()=>{
-      const f=document.getElementById('m-att-files')?.files;
-      if(!f||f.length===0){toast('Sélectionnez au moins un fichier','error');return;}
-      const fd=new FormData();Array.from(f).forEach(fi=>fd.append('files',fi));
-      const r=await fetch(`/api/deductions/${dedId}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});
-      if(r.ok){closeModal();toast('Fichier(s) uploadé(s) ✓','success');navigate('deductions');}
-      else toast('Erreur upload','error');
-    }}]
-  );
+  try{
+    const atts=await api(`/api/deductions/${dedId}/attachments`);
+    const canManage=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
+    openModal(`Pièces jointes — ${esc(clientName)}`,
+      `${atts.length===0
+        ?`<div class="empty-state" style="padding:16px"><div class="empty-ico">📎</div><div>Aucune pièce jointe</div></div>`
+        :`<div class="files-list" style="margin-bottom:12px">${atts.map(a=>`<div class="file-row"><span class="ico">${fileIco(a.mimetype)}</span><span class="name">${esc(a.filename)}</span><span class="sz">${fileSize(a.size)}</span><a href="/api/deductions/attachments/${a.id}" target="_blank" class="btn btn-outline btn-xs">Voir</a>${canManage?`<button class="btn btn-danger btn-xs" onclick="deleteAttachment(${a.id},${dedId},'${esc(clientName)}')">✕</button>`:''}</div>`).join('')}</div>`}
+       <div class="field">
+         <label>Ajouter des fichiers</label>
+         ${filePicker('m-att-files','m-att-list',true)}
+       </div>`,
+      [{label:'Fermer',cls:'btn-outline',action:closeModal},{label:'Uploader',cls:'btn-gold',action:async()=>{
+        const fi=document.getElementById('m-att-files');
+        if(!fi||fi.files.length===0){toast('Sélectionnez au moins un fichier','error');return;}
+        const fd=new FormData();
+        Array.from(fi.files).forEach(f=>fd.append('files',f));
+        try{
+          const r=await fetch(`/api/deductions/${dedId}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});
+          if(r.ok){closeModal();toast(`${fi.files.length} fichier(s) uploadé(s) ✓`,'success');navigate('deductions');}
+          else{const err=await r.json().catch(()=>({}));toast(err.error||'Erreur upload','error');}
+        }catch(e){toast('Erreur réseau','error');console.error(e);}
+      }}]
+    );
+  }catch(e){toast('Erreur chargement','error');console.error(e);}
 }
 
-async function deleteAttachment(id){if(!confirm('Supprimer ce fichier ?'))return;await api(`/api/deductions/attachments/${id}`,'DELETE');toast('Fichier supprimé','success');closeModal();}
+async function deleteAttachment(id,dedId,clientName){
+  if(!confirm('Supprimer ce fichier ?'))return;
+  try{await api(`/api/deductions/attachments/${id}`,'DELETE');toast('Supprimé','success');await showAttachments(dedId,clientName);}
+  catch(e){toast(e.message,'error');}
+}
 
 function openZipExport(){
-  const now=new Date();const month=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const now=new Date();const month=now.toLocaleDateString('fr-CA',{timeZone:PARIS}).substring(0,7);
   openModal('Export mensuel — Archivage comptable',
     `<div class="field"><label>Mois à exporter</label><input type="month" id="m-exp-month" value="${month}"></div>
      <div style="font-size:12px;color:var(--text3);margin-top:8px;line-height:1.7;background:var(--bg3);padding:12px;border-radius:var(--r)">
        📦 Le ZIP contient :<br>
-       · Un fichier CSV récapitulatif de toutes les déductions<br>
-       · Un dossier par déduction avec ses pièces jointes<br>
-       · Prêt pour archivage ou transmission au commissaire aux comptes
+       · Récapitulatif CSV (toutes les déductions)<br>
+       · Dossiers par déduction avec pièces jointes<br>
+       · Prêt pour archivage ou commissaire aux comptes
      </div>`,
     [{label:'Fermer',cls:'btn-outline',action:closeModal},{label:'Télécharger le ZIP',cls:'btn-gold',action:()=>{
       const m=document.getElementById('m-exp-month').value;
@@ -597,7 +632,7 @@ function openZipExport(){
 // ── HANDOVERS ─────────────────────────────────────────────────────────────────
 async function handovers(){
   const c=document.getElementById('content');document.getElementById('topbar-actions').innerHTML=`<button class="btn btn-gold btn-sm" onclick="openHandoverModal()">+ Passation</button>`;
-  const today=new Date().toISOString().split('T')[0];
+  const today=new Date().toLocaleDateString('fr-CA',{timeZone:PARIS});
   try{
     const list=await api(`/api/handovers?date=${today}`);let html='<div class="fade-up">';
     [{id:'matin',lbl:'☀️ Matin'},{id:'apres_midi',lbl:'🌤 Après-midi'},{id:'nuit',lbl:'🌙 Nuit'}].forEach(shift=>{
@@ -621,11 +656,11 @@ async function maintenance(){
     const open=list.filter(m=>m.status!=='done');const done=list.filter(m=>m.status==='done');
     if(!open.length)html+=`<div class="empty-state"><div class="empty-ico">✅</div><div class="empty-txt">Aucun ticket ouvert</div></div>`;
     else{html+=`<div class="card"><div class="card-header"><div class="card-title">En cours / Ouverts</div></div>`;html+=open.map(m=>maintItem(m,canUpdate)).join('');html+=`</div>`;}
-    if(done.length){html+=`<div class="card"><div class="card-header"><div class="card-title">Résolus récemment</div></div>`;html+=done.slice(0,5).map(m=>maintItem(m,false)).join('');html+=`</div>`;}
+    if(done.length){html+=`<div class="card"><div class="card-header"><div class="card-title">Résolus</div></div>`;html+=done.slice(0,5).map(m=>maintItem(m,false)).join('');html+=`</div>`;}
     html+='</div>';c.innerHTML=html;
   }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
 }
-function maintItem(m,canUpdate){return `<div class="list-item"><div class="list-item-body"><div class="list-item-title">${esc(m.location)}<span class="badge badge-${m.priority}">${priorityLbl(m.priority)}</span><span class="badge badge-${m.status}">${{open:'Ouvert',in_progress:'En cours',done:'Résolu'}[m.status]}</span></div><div class="list-item-sub">${esc(m.description)}</div><div class="list-item-meta"><span>Par ${esc(m.creator_name||'—')}</span><span>${formatDate(m.created_at)}</span>${m.assignee_name?`<span>→ ${esc(m.assignee_name)}</span>`:''}</div></div>${canUpdate&&m.status!=='done'?`<div class="list-item-actions">${m.status==='open'?`<button class="btn btn-outline btn-sm" onclick="updateMaint(${m.id},'in_progress')">En cours</button>`:''}<button class="btn btn-green btn-sm" onclick="updateMaint(${m.id},'done')">✓ Résolu</button></div>`:''}</div>`;}
+function maintItem(m,canUpdate){return `<div class="list-item"><div class="list-item-body"><div class="list-item-title">${esc(m.location)}<span class="badge badge-${m.priority}">${priorityLbl(m.priority)}</span><span class="badge badge-${m.status}">${{open:'Ouvert',in_progress:'En cours',done:'Résolu'}[m.status]}</span></div><div class="list-item-sub">${esc(m.description)}</div><div class="list-item-meta"><span>Par ${esc(m.creator_name||'—')}</span><span>${formatDate(m.created_at)}</span></div></div>${canUpdate&&m.status!=='done'?`<div class="list-item-actions">${m.status==='open'?`<button class="btn btn-outline btn-sm" onclick="updateMaint(${m.id},'in_progress')">En cours</button>`:''}<button class="btn btn-green btn-sm" onclick="updateMaint(${m.id},'done')">✓ Résolu</button></div>`:''}</div>`;}
 function openMaintModal(){openModal('Nouveau bon de travaux',`<div class="field"><label>Lieu</label><input id="m-ml" placeholder="Ch. 302, Cuisine, Lobby…"></div><div class="field"><label>Description</label><textarea id="m-md"></textarea></div><div class="field"><label>Priorité</label><select id="m-mp"><option value="low">Faible</option><option value="medium" selected>Moyenne</option><option value="high">Haute</option><option value="urgent">🔴 Urgent</option></select></div>`,[{label:'Créer',cls:'btn-gold',action:async()=>{const location=document.getElementById('m-ml').value.trim();const description=document.getElementById('m-md').value.trim();if(!location||!description){toast('Lieu et description requis','error');return;}await api('/api/maintenance','POST',{location,description,priority:document.getElementById('m-mp').value});closeModal();toast('Bon créé ✓','success');navigate('maintenance');}}]);}
 async function updateMaint(id,status){try{await api(`/api/maintenance/${id}`,'PATCH',{status});toast(status==='done'?'Résolu ✓':'Mis à jour','success');}catch(e){toast(e.message,'error');}}
 
@@ -639,7 +674,7 @@ async function users(){
     let html='<div class="fade-up">';
     Object.entries(groups).forEach(([hotel,members])=>{
       html+=`<div class="card"><div class="card-header"><div class="card-title">🏨 ${esc(hotel)}</div><span class="pill">${members.length} compte${members.length>1?'s':''}</span></div>`;
-      html+=members.map(u=>`<div class="user-card ${u.active?'':'user-inactive'}"><div class="user-avatar">${esc(u.display_name[0]||'?')}</div><div class="user-info"><div class="user-name">${esc(u.display_name)}</div><div class="user-meta"><span class="badge badge-${u.role}">${roleLabel(u.role)}</span>${u.service?`<span class="pill">${serviceLbl(u.service)}</span>`:''}<span style="font-size:10px">@${esc(u.username)}</span>${!u.active?'<span style="color:var(--red);font-size:11px">Inactif</span>':''}${u.last_login?`<span>Dernière connexion : ${formatDate(u.last_login)}</span>`:''}</div></div><div class="list-item-actions"><button class="btn btn-outline btn-sm" onclick='openEditUserModal(${JSON.stringify(u)})'>Modifier</button>${u.active?`<button class="btn btn-danger btn-xs" onclick="disableUser(${u.id})">Désactiver</button>`:`<button class="btn btn-green btn-xs" onclick="enableUser(${u.id})">Réactiver</button>`}</div></div>`).join('');
+      html+=members.map(u=>`<div class="user-card ${u.active?'':'user-inactive'}"><div class="user-avatar">${esc(u.display_name[0]||'?')}</div><div class="user-info"><div class="user-name">${esc(u.display_name)}</div><div class="user-meta"><span class="badge badge-${u.role}">${roleLabel(u.role)}</span>${u.service?`<span class="pill">${serviceLbl(u.service)}</span>`:''}<span style="font-size:10px">@${esc(u.username)}</span>${!u.active?'<span style="color:var(--red);font-size:11px">Inactif</span>':''}${u.last_login?`<span>Dernière co : ${formatDate(u.last_login)}</span>`:''}</div></div><div class="list-item-actions"><button class="btn btn-outline btn-sm" onclick='openEditUserModal(${JSON.stringify(u)})'>Modifier</button>${u.active?`<button class="btn btn-danger btn-xs" onclick="disableUser(${u.id})">Désactiver</button>`:`<button class="btn btn-green btn-xs" onclick="enableUser(${u.id})">Réactiver</button>`}</div></div>`).join('');
       html+=`</div>`;
     });
     html+='</div>';c.innerHTML=html;
@@ -650,12 +685,11 @@ async function openCreateUserModal(){
   const hotels=await api('/api/admin/hotels');const hotelOpts=hotels.map(h=>`<option value="${h.id}">${esc(h.name)}</option>`).join('');
   openModal('Créer un utilisateur',
     `<div class="fields-row c2"><div class="field"><label>Identifiant *</label><input id="m-uu" placeholder="prenom.nom"></div><div class="field"><label>Nom affiché *</label><input id="m-un" placeholder="Prénom NOM"></div></div>
-     <div class="field"><label>Mot de passe * (min 8 caractères)</label><input type="password" id="m-upw" placeholder="••••••••"></div>
+     <div class="field"><label>Mot de passe * (min 8 car.)</label><input type="password" id="m-upw"></div>
      <div class="fields-row c2"><div class="field"><label>Rôle *</label><select id="m-ur" onchange="toggleHotelField()"><option value="equipe">Équipe</option><option value="chef_service">Chef de service</option><option value="hotel_admin">Admin Hôtel</option><option value="super_admin">Super Admin</option></select></div><div class="field"><label>Service</label><select id="m-usv"><option value="">—</option><option value="reception">Réception</option><option value="housekeeping">Housekeeping</option><option value="fb">F&B</option><option value="maintenance">Maintenance</option><option value="direction">Direction</option></select></div></div>
      <div class="field" id="hotel-field"><label>Hôtel *</label><select id="m-uh">${hotelOpts}</select></div>`,
     [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Créer le compte',cls:'btn-gold',action:async()=>{
-      const username=document.getElementById('m-uu').value.trim();const display_name=document.getElementById('m-un').value.trim();const password=document.getElementById('m-upw').value;const role=document.getElementById('m-ur').value;const service=document.getElementById('m-usv').value;const hotel_id=document.getElementById('m-uh')?.value;
-      try{await api('/api/admin/users','POST',{username,password,display_name,role,service,hotel_id});closeModal();toast('Compte créé ✓','success');navigate('users');}
+      try{await api('/api/admin/users','POST',{username:document.getElementById('m-uu').value.trim(),password:document.getElementById('m-upw').value,display_name:document.getElementById('m-un').value.trim(),role:document.getElementById('m-ur').value,service:document.getElementById('m-usv').value,hotel_id:document.getElementById('m-uh')?.value});closeModal();toast('Compte créé ✓','success');navigate('users');}
       catch(e){toast(e.message,'error');}
     }}]
   );
@@ -665,13 +699,12 @@ function toggleHotelField(){const role=document.getElementById('m-ur')?.value;co
 async function openEditUserModal(u){
   const hotels=await api('/api/admin/hotels');const hotelOpts=hotels.map(h=>`<option value="${h.id}" ${h.id==u.hotel_id?'selected':''}>${esc(h.name)}</option>`).join('');
   openModal(`Modifier — ${esc(u.display_name)}`,
-    `<div class="fields-row c2"><div class="field"><label>Nom affiché</label><input id="m-en" value="${esc(u.display_name)}"></div><div class="field"><label>Nouveau mot de passe (laisser vide)</label><input type="password" id="m-epw" placeholder="••••••••"></div></div>
+    `<div class="fields-row c2"><div class="field"><label>Nom affiché</label><input id="m-en" value="${esc(u.display_name)}"></div><div class="field"><label>Nouveau mot de passe</label><input type="password" id="m-epw" placeholder="Laisser vide = inchangé"></div></div>
      <div class="fields-row c2"><div class="field"><label>Rôle</label><select id="m-er">${['equipe','chef_service','hotel_admin','super_admin'].map(r=>`<option value="${r}" ${r===u.role?'selected':''}>${roleLabel(r)}</option>`).join('')}</select></div><div class="field"><label>Service</label><select id="m-esv"><option value="">—</option>${['reception','housekeeping','fb','maintenance','direction'].map(s=>`<option value="${s}" ${s===u.service?'selected':''}>${serviceLbl(s)}</option>`).join('')}</select></div></div>
      <div class="field"><label>Hôtel</label><select id="m-eh">${hotelOpts}</select></div>`,
     [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Enregistrer',cls:'btn-gold',action:async()=>{
       const body={display_name:document.getElementById('m-en').value,role:document.getElementById('m-er').value,service:document.getElementById('m-esv').value,hotel_id:document.getElementById('m-eh').value};const pw=document.getElementById('m-epw').value;if(pw)body.password=pw;
-      try{await api(`/api/admin/users/${u.id}`,'PATCH',body);closeModal();toast('Modifié ✓','success');navigate('users');}
-      catch(e){toast(e.message,'error');}
+      try{await api(`/api/admin/users/${u.id}`,'PATCH',body);closeModal();toast('Modifié ✓','success');navigate('users');}catch(e){toast(e.message,'error');}
     }}]
   );
 }
@@ -680,7 +713,8 @@ async function enableUser(id){await api(`/api/admin/users/${id}`,'PATCH',{active
 
 // ── MODAL ─────────────────────────────────────────────────────────────────────
 function openModal(title,body,buttons){
-  document.getElementById('modal-title').textContent=title;document.getElementById('modal-body').innerHTML=body;
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-body').innerHTML=body;
   const footer=document.getElementById('modal-footer');footer.innerHTML='';
   buttons.forEach(b=>{const btn=document.createElement('button');btn.className=`btn ${b.cls}`;btn.textContent=b.label;btn.onclick=b.action;footer.appendChild(btn);});
   document.getElementById('modal-overlay').classList.add('visible');
@@ -688,20 +722,7 @@ function openModal(title,body,buttons){
 function closeModal(){document.getElementById('modal-overlay').classList.remove('visible');}
 function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
 
-// ── UTILS ─────────────────────────────────────────────────────────────────────
-async function api(url,method='GET',body=null){
-  const opts={method,headers:{'Content-Type':'application/json'},credentials:'same-origin'};
-  if(body)opts.body=JSON.stringify(body);
-  const r=await fetch(url,opts);const data=await r.json();
-  if(!r.ok)throw new Error(data.error||'Erreur réseau');return data;
-}
-function esc(str){if(!str)return '';return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function formatDate(dt){if(!dt)return '—';const d=new Date(dt);return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
-function formatDateFr(s){if(!s)return '—';const [y,m,d]=s.split('-');return `${parseInt(d)} ${['','janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'][parseInt(m)]} ${y}`;}
-
-let _toast;
-function toast(msg,type=''){const el=document.getElementById('toast');el.textContent=msg;el.className=`show ${type}`;clearTimeout(_toast);_toast=setTimeout(()=>el.className='',3500);}
-
+// ── INIT ──────────────────────────────────────────────────────────────────────
 document.getElementById('login-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 checkAuth();
 </script>
