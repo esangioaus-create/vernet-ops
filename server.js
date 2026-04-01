@@ -5,14 +5,10 @@ const session = require('express-session');
 const path = require('path');
 const { db, init } = require('./database/db');
 
-// Init DB
-init();
-
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -25,8 +21,6 @@ const sessionMiddleware = session({
 
 app.use(sessionMiddleware);
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Inject io into requests
 app.use((req, res, next) => { req.io = io; next(); });
 
 // Routes
@@ -47,88 +41,64 @@ app.use('/api/deductions', deductionsRouter);
 app.use('/api/handovers', handoverRouter);
 app.use('/api/maintenance', maintenanceRouter);
 
-// Admin: get hotels list
 app.get('/api/hotels', (req, res) => {
   if (!req.session.userId) return res.status(401).json({ error: 'Non authentifié' });
-  const hotels = db.prepare('SELECT id, name, slug FROM hotels WHERE active = 1').all();
-  res.json(hotels);
+  res.json(db.prepare('SELECT id, name, slug FROM hotels WHERE active = 1').all());
 });
 
-// Admin: get users
 app.get('/api/users', (req, res) => {
   if (!req.session.userId) return res.status(401).json({ error: 'Non authentifié' });
-  const hotelId = req.session.hotelId;
-  const users = db.prepare(`
+  res.json(db.prepare(`
     SELECT id, display_name, username, role, service, active
     FROM users WHERE hotel_id = ? ORDER BY role, display_name
-  `).all(hotelId);
-  res.json(users);
+  `).all(req.session.hotelId));
 });
 
-// SPA fallback
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// ── Socket.io ─────────────────────────────────────────────────────────────────
-
-// Share session with Socket.io
-const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
+// Socket.io
+const wrap = m => (socket, next) => m(socket.request, {}, next);
 io.use(wrap(sessionMiddleware));
 
 io.on('connection', (socket) => {
-  const session = socket.request.session;
-  if (!session.userId) { socket.disconnect(); return; }
-
-  const hotelId = session.hotelId;
+  const sess = socket.request.session;
+  if (!sess.userId) { socket.disconnect(); return; }
+  const hotelId = sess.hotelId;
   if (hotelId) socket.join(`hotel_${hotelId}`);
-  socket.join(`user_${session.userId}`);
+  socket.join(`user_${sess.userId}`);
 
-  console.log(`🔌 ${session.userId} connecté (hôtel ${hotelId})`);
-
-  // Chat message
   socket.on('chat_message', ({ service, message }) => {
     if (!message || !service) return;
-
-    const user = db.prepare('SELECT display_name, service, role FROM users WHERE id = ?').get(session.userId);
+    const user = db.prepare('SELECT display_name, service, role FROM users WHERE id = ?').get(sess.userId);
     if (!user) return;
-
-    const result = db.prepare(`
-      INSERT INTO chat_messages (hotel_id, service, user_id, message)
-      VALUES (?, ?, ?, ?)
-    `).run(hotelId, service, session.userId, message.trim());
-
-    const msg = {
-      id: result.lastInsertRowid,
-      hotel_id: hotelId,
-      service,
-      user_id: session.userId,
-      author_name: user.display_name,
-      author_service: user.service,
-      author_role: user.role,
-      message: message.trim(),
-      created_at: new Date().toISOString()
-    };
-
-    io.to(`hotel_${hotelId}`).emit('chat_message', msg);
-  });
-
-  socket.on('disconnect', () => {
-    console.log(`🔌 ${session.userId} déconnecté`);
+    const result = db.prepare('INSERT INTO chat_messages (hotel_id, service, user_id, message) VALUES (?, ?, ?, ?)')
+      .run(hotelId, service, sess.userId, message.trim());
+    io.to(`hotel_${hotelId}`).emit('chat_message', {
+      id: result.lastInsertRowid, hotel_id: hotelId, service,
+      user_id: sess.userId, author_name: user.display_name,
+      author_service: user.service, author_role: user.role,
+      message: message.trim(), created_at: new Date().toISOString()
+    });
   });
 });
 
-// ── Start ─────────────────────────────────────────────────────────────────────
-
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, '0.0.0.0', () => {
-console.log('');
-  console.log('╔══════════════════════════════════════════╗');
-  console.log('║         VERNET OPS v2.0 — DÉMARRÉ        ║');
-  console.log(`║   http://localhost:${PORT}                   ║`);
-  console.log('╠══════════════════════════════════════════╣');
-  console.log('║  Comptes démo (mdp: vernet2026)          ║');
-  console.log('║  etienne / alizee / julien / reception1  ║');
-  console.log('╚══════════════════════════════════════════╝');
-  console.log('');
+
+// Init DB then start server
+init().then(() => {
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log('');
+    console.log('╔══════════════════════════════════════════╗');
+    console.log('║         VERNET OPS v2.0 — DÉMARRÉ        ║');
+    console.log(`║   http://localhost:${PORT}                   ║`);
+    console.log('╠══════════════════════════════════════════╣');
+    console.log('║  Comptes démo (mdp: vernet2026)          ║');
+    console.log('║  etienne / alizee / julien / reception1  ║');
+    console.log('╚══════════════════════════════════════════╝');
+  });
+}).catch(err => {
+  console.error('Erreur démarrage:', err);
+  process.exit(1);
 });

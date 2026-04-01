@@ -1,157 +1,190 @@
-const Database = require('better-sqlite3');
 const path = require('path');
+const fs = require('fs');
 const bcrypt = require('bcryptjs');
 
 const DB_PATH = path.join(__dirname, 'vernet_ops.db');
-const db = new Database(DB_PATH);
 
-db.pragma('journal_mode = WAL');
-db.pragma('foreign_keys = ON');
+let _sqlJs = null;
+let _db = null;
 
-function init() {
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS hotels (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      slug TEXT UNIQUE NOT NULL,
-      address TEXT,
-      active INTEGER DEFAULT 1,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
+// ── Compatibility wrapper (mimics better-sqlite3 synchronous API) ──────────
 
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      hotel_id INTEGER REFERENCES hotels(id),
-      username TEXT UNIQUE NOT NULL,
-      password_hash TEXT NOT NULL,
-      display_name TEXT NOT NULL,
-      role TEXT NOT NULL CHECK(role IN ('super_admin','hotel_admin','chef_service','equipe')),
-      service TEXT,
-      active INTEGER DEFAULT 1,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
+class Statement {
+  constructor(dbRef, sql) {
+    this.dbRef = dbRef;
+    this.sql = sql;
+  }
 
-    CREATE TABLE IF NOT EXISTS briefings (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      hotel_id INTEGER NOT NULL REFERENCES hotels(id),
-      date TEXT NOT NULL,
-      content TEXT NOT NULL,
-      created_by INTEGER REFERENCES users(id),
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
+  _params(args) {
+    if (args.length === 0) return [];
+    if (args.length === 1 && Array.isArray(args[0])) return args[0];
+    return args;
+  }
 
-    CREATE TABLE IF NOT EXISTS alerts (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      hotel_id INTEGER NOT NULL REFERENCES hotels(id),
-      title TEXT NOT NULL,
-      message TEXT NOT NULL,
-      priority TEXT NOT NULL CHECK(priority IN ('low','medium','high','critical')) DEFAULT 'medium',
-      created_by INTEGER REFERENCES users(id),
-      resolved_by INTEGER REFERENCES users(id),
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      resolved_at DATETIME
-    );
+  run(...args) {
+    const params = this._params(args);
+    this.dbRef().run(this.sql, params);
+    save();
+    const r = this.dbRef().exec('SELECT last_insert_rowid() as id');
+    const lastInsertRowid = r[0]?.values[0][0] ?? 0;
+    return { lastInsertRowid };
+  }
 
-    CREATE TABLE IF NOT EXISTS announcements (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      hotel_id INTEGER NOT NULL REFERENCES hotels(id),
-      title TEXT NOT NULL,
-      content TEXT NOT NULL,
-      pinned INTEGER DEFAULT 0,
-      created_by INTEGER REFERENCES users(id),
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      expires_at DATETIME
-    );
+  get(...args) {
+    const params = this._params(args);
+    const stmt = this.dbRef().prepare(this.sql);
+    if (params.length) stmt.bind(params);
+    let row = null;
+    if (stmt.step()) row = stmt.getAsObject();
+    stmt.free();
+    return row;
+  }
 
-    CREATE TABLE IF NOT EXISTS chat_messages (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      hotel_id INTEGER NOT NULL REFERENCES hotels(id),
-      service TEXT NOT NULL,
-      user_id INTEGER REFERENCES users(id),
-      message TEXT NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-
-    CREATE TABLE IF NOT EXISTS deductions (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      hotel_id INTEGER NOT NULL REFERENCES hotels(id),
-      date TEXT NOT NULL,
-      client_name TEXT NOT NULL,
-      room TEXT NOT NULL,
-      amount REAL NOT NULL,
-      opera_code TEXT,
-      service TEXT,
-      reason TEXT NOT NULL,
-      notes TEXT,
-      status TEXT NOT NULL CHECK(status IN ('pending','approved','rejected')) DEFAULT 'pending',
-      created_by INTEGER REFERENCES users(id),
-      reviewed_by INTEGER REFERENCES users(id),
-      review_comment TEXT,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      reviewed_at DATETIME
-    );
-
-    CREATE TABLE IF NOT EXISTS handovers (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      hotel_id INTEGER NOT NULL REFERENCES hotels(id),
-      date TEXT NOT NULL,
-      shift TEXT NOT NULL CHECK(shift IN ('matin','apres_midi','nuit')),
-      service TEXT NOT NULL,
-      content TEXT NOT NULL,
-      created_by INTEGER REFERENCES users(id),
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-
-    CREATE TABLE IF NOT EXISTS maintenance_requests (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      hotel_id INTEGER NOT NULL REFERENCES hotels(id),
-      location TEXT NOT NULL,
-      description TEXT NOT NULL,
-      priority TEXT NOT NULL CHECK(priority IN ('low','medium','high','urgent')) DEFAULT 'medium',
-      status TEXT NOT NULL CHECK(status IN ('open','in_progress','done')) DEFAULT 'open',
-      created_by INTEGER REFERENCES users(id),
-      assigned_to INTEGER REFERENCES users(id),
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      resolved_at DATETIME
-    );
-  `);
-
-  // Seed initial data if no hotels exist
-  const hotelCount = db.prepare('SELECT COUNT(*) as c FROM hotels').get().c;
-  if (hotelCount === 0) {
-    seedData();
+  all(...args) {
+    const params = this._params(args);
+    const stmt = this.dbRef().prepare(this.sql);
+    if (params.length) stmt.bind(params);
+    const rows = [];
+    while (stmt.step()) rows.push(stmt.getAsObject());
+    stmt.free();
+    return rows;
   }
 }
 
+class DB {
+  prepare(sql) {
+    return new Statement(() => _db, sql);
+  }
+
+  exec(sql) {
+    _db.run(sql);
+    save();
+  }
+
+  pragma() {} // no-op, sql.js doesn't need pragmas for WAL
+}
+
+function save() {
+  const data = _db.export();
+  fs.writeFileSync(DB_PATH, Buffer.from(data));
+}
+
+const db = new DB();
+
+async function init() {
+  const initSqlJs = require('sql.js');
+  _sqlJs = await initSqlJs();
+
+  if (fs.existsSync(DB_PATH)) {
+    const buf = fs.readFileSync(DB_PATH);
+    _db = new _sqlJs.Database(buf);
+  } else {
+    _db = new _sqlJs.Database();
+  }
+
+  createTables();
+  const hotelCount = db.prepare('SELECT COUNT(*) as c FROM hotels').get().c;
+  if (hotelCount === 0) seedData();
+  console.log('✅ Base de données initialisée');
+}
+
+function createTables() {
+  _db.run(`CREATE TABLE IF NOT EXISTS hotels (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL, slug TEXT UNIQUE NOT NULL,
+    address TEXT, active INTEGER DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
+  _db.run(`CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    hotel_id INTEGER, username TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL, display_name TEXT NOT NULL,
+    role TEXT NOT NULL, service TEXT, active INTEGER DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
+  _db.run(`CREATE TABLE IF NOT EXISTS briefings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    hotel_id INTEGER NOT NULL, date TEXT NOT NULL,
+    content TEXT NOT NULL, created_by INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
+  _db.run(`CREATE TABLE IF NOT EXISTS alerts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    hotel_id INTEGER NOT NULL, title TEXT NOT NULL,
+    message TEXT NOT NULL, priority TEXT NOT NULL DEFAULT 'medium',
+    created_by INTEGER, resolved_by INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, resolved_at DATETIME
+  )`);
+  _db.run(`CREATE TABLE IF NOT EXISTS announcements (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    hotel_id INTEGER NOT NULL, title TEXT NOT NULL,
+    content TEXT NOT NULL, pinned INTEGER DEFAULT 0,
+    created_by INTEGER, created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    expires_at DATETIME
+  )`);
+  _db.run(`CREATE TABLE IF NOT EXISTS chat_messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    hotel_id INTEGER NOT NULL, service TEXT NOT NULL,
+    user_id INTEGER, message TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
+  _db.run(`CREATE TABLE IF NOT EXISTS deductions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    hotel_id INTEGER NOT NULL, date TEXT NOT NULL,
+    client_name TEXT NOT NULL, room TEXT NOT NULL,
+    amount REAL NOT NULL, opera_code TEXT, service TEXT,
+    reason TEXT NOT NULL, notes TEXT,
+    status TEXT NOT NULL DEFAULT 'pending',
+    created_by INTEGER, reviewed_by INTEGER,
+    review_comment TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, reviewed_at DATETIME
+  )`);
+  _db.run(`CREATE TABLE IF NOT EXISTS handovers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    hotel_id INTEGER NOT NULL, date TEXT NOT NULL,
+    shift TEXT NOT NULL, service TEXT NOT NULL,
+    content TEXT NOT NULL, created_by INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
+  _db.run(`CREATE TABLE IF NOT EXISTS maintenance_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    hotel_id INTEGER NOT NULL, location TEXT NOT NULL,
+    description TEXT NOT NULL, priority TEXT NOT NULL DEFAULT 'medium',
+    status TEXT NOT NULL DEFAULT 'open',
+    created_by INTEGER, assigned_to INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, resolved_at DATETIME
+  )`);
+  save();
+}
+
 function seedData() {
-  // Hotels
-  const insertHotel = db.prepare('INSERT INTO hotels (name, slug, address) VALUES (?, ?, ?)');
-  const vernet = insertHotel.run('Hôtel Vernet', 'vernet', '25 rue Vernet, Paris 75008');
-  insertHotel.run('Hôtel Bel Ami', 'bel-ami', '7-11 rue Saint-Benoît, Paris 75006');
-
-  // Users
-  const insertUser = db.prepare(`
-    INSERT INTO users (hotel_id, username, password_hash, display_name, role, service)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `);
-
   const hash = (p) => bcrypt.hashSync(p, 10);
 
-  // Super Admin (no hotel)
-  insertUser.run(null, 'superadmin', hash('BSignature2026!'), 'Super Admin', 'super_admin', null);
+  _db.run('INSERT INTO hotels (name, slug, address) VALUES (?, ?, ?)',
+    ['Hôtel Vernet', 'vernet', '25 rue Vernet, Paris 75008']);
+  _db.run('INSERT INTO hotels (name, slug, address) VALUES (?, ?, ?)',
+    ['Hôtel Bel Ami', 'bel-ami', '7-11 rue Saint-Benoît, Paris 75006']);
 
-  // Hôtel Vernet
-  insertUser.run(vernet.lastInsertRowid, 'etienne', hash('vernet2026'), 'Etienne Sangiovanni', 'hotel_admin', null);
-  insertUser.run(vernet.lastInsertRowid, 'alizee', hash('vernet2026'), 'Alizée', 'chef_service', 'housekeeping');
-  insertUser.run(vernet.lastInsertRowid, 'julien', hash('vernet2026'), 'Julien', 'chef_service', 'fb');
-  insertUser.run(vernet.lastInsertRowid, 'reception1', hash('vernet2026'), 'Réception', 'equipe', 'reception');
-  insertUser.run(vernet.lastInsertRowid, 'nuit1', hash('vernet2026'), 'Équipe Nuit', 'equipe', 'reception');
+  const vernetId = _db.exec('SELECT last_insert_rowid() as id')[0].values[0][0] - 1;
 
-  console.log('✅ Base de données initialisée avec les données de démo');
-  console.log('   Comptes : etienne / alizee / julien / reception1 (mdp: vernet2026)');
-  console.log('   Super Admin : superadmin / BSignature2026!');
+  const addUser = (hotelId, username, pw, name, role, service) => {
+    _db.run(
+      'INSERT INTO users (hotel_id, username, password_hash, display_name, role, service) VALUES (?, ?, ?, ?, ?, ?)',
+      [hotelId, username, hash(pw), name, role, service]
+    );
+  };
+
+  addUser(null, 'superadmin', 'BSignature2026!', 'Super Admin', 'super_admin', null);
+  addUser(1, 'etienne', 'vernet2026', 'Etienne Sangiovanni', 'hotel_admin', null);
+  addUser(1, 'alizee', 'vernet2026', 'Alizée', 'chef_service', 'housekeeping');
+  addUser(1, 'julien', 'vernet2026', 'Julien', 'chef_service', 'fb');
+  addUser(1, 'reception1', 'vernet2026', 'Réception', 'equipe', 'reception');
+  addUser(1, 'nuit1', 'vernet2026', 'Équipe Nuit', 'equipe', 'reception');
+
+  save();
+  console.log('✅ Données de démo créées — mdp: vernet2026');
 }
 
 module.exports = { db, init };
