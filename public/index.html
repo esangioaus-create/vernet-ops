@@ -289,8 +289,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 @media(max-width:768px){
   #sidebar{display:none;position:fixed;inset:0 auto 0 0;z-index:150;width:260px;box-shadow:4px 0 20px rgba(0,0,0,.5)}
   #sidebar.open{display:flex}
-  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:149}
-  .sidebar-overlay.visible{display:block}
+  .sidebar-overlay{display:none;position:fixed;top:0;left:260px;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:149}
+.sidebar-overlay.visible{display:block}
   #hamburger{display:flex}
   .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
   .fields-row.c2,.fields-row.c3,.fields-row.c4{grid-template-columns:1fr 1fr}
