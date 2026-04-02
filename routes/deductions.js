@@ -41,7 +41,7 @@ function getArchiveDir(dedId, date) {
 
 // ── LIST ──────────────────────────────────────────────────────────────────────
 router.get('/', requireAuth, (req, res) => {
-  const { date, status, service } = req.query;
+  const { date, date_from, date_to, status, service, search } = req.query;
   let query = `
     SELECT d.*, c.display_name as creator_name, c.service as creator_service,
       r.display_name as reviewer_name,
@@ -53,10 +53,16 @@ router.get('/', requireAuth, (req, res) => {
   `;
   const params = [req.session.hotelId];
   if (date) { query += ' AND d.date = ?'; params.push(date); }
-  if (status) { query += ' AND d.status = ?'; params.push(status); }
+  if (date_from) { query += ' AND d.date >= ?'; params.push(date_from); }
+  if (date_to) { query += ' AND d.date <= ?'; params.push(date_to); }
+  if (status && status !== 'all') { query += ' AND d.status = ?'; params.push(status); }
   if (service) { query += ' AND d.service = ?'; params.push(service); }
+  if (search) {
+    query += ` AND (d.client_name LIKE ? OR d.reason LIKE ? OR d.room LIKE ? OR d.opera_code LIKE ?)`;
+    const s = `%${search}%`; params.push(s, s, s, s);
+  }
   if (req.session.role === 'equipe') { query += ' AND d.created_by = ?'; params.push(req.session.userId); }
-  query += ' ORDER BY d.created_at DESC';
+  query += ' ORDER BY d.date DESC, d.created_at DESC LIMIT 200';
   res.json(db.prepare(query).all(...params));
 });
 
@@ -355,6 +361,10 @@ ${ded.reviewer_signature ? `
 </body>
 </html>`;
 
+  if (req.query.dl === '1') {
+    const fname = `deduction_${String(id).padStart(5,'0')}_${(ded.client_name||'client').replace(/[^a-z0-9]/gi,'_')}.html`;
+    res.setHeader('Content-Disposition', `attachment; filename="${fname}"`);
+  }
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.send(html);
 });

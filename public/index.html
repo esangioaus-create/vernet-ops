@@ -36,13 +36,14 @@
 :root{--transition:.2s cubic-bezier(.4,0,.2,1);--r:10px;--r2:14px;--r3:20px;--sidebar-w:230px;--font:'Inter',-apple-system,sans-serif}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;overflow:hidden;-webkit-font-smoothing:antialiased}
 
+/* ── LOGIN ── */
 #login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100}
 #login-screen.hidden{display:none}
 .login-wrap{width:100%;max-width:360px;padding:20px}
 .login-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:40px 36px;box-shadow:var(--shadow)}
 .login-logo{text-align:center;margin-bottom:36px}
 .login-logo .logo-mark{width:52px;height:52px;background:linear-gradient(135deg,var(--gold-dim),var(--gold));border-radius:14px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:22px}
-.login-logo .name{font-size:20px;font-weight:700;color:var(--text);letter-spacing:.5px}
+.login-logo .name{font-size:20px;font-weight:700;color:var(--text)}
 .login-logo .sub{font-size:11px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
 .login-field{margin-bottom:14px}
 .login-field label{display:block;font-size:11px;font-weight:600;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
@@ -53,6 +54,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .login-error{color:var(--red);font-size:12px;text-align:center;margin-top:10px;min-height:18px;font-weight:500}
 .login-theme{position:absolute;top:16px;right:16px}
 
+/* ── APP LAYOUT ── */
 #app{display:flex;height:100vh;overflow:hidden}
 #app.hidden{display:none}
 #sidebar{width:var(--sidebar-w);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
@@ -82,6 +84,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 #topbar-actions{display:flex;gap:8px}
 #content{flex:1;overflow-y:auto;padding:22px}
 
+/* ── COMPONENTS ── */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:20px;margin-bottom:14px}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .card-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase}
@@ -89,7 +92,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px;text-align:center;transition:var(--transition)}
-.stat-card:hover{border-color:var(--border2);box-shadow:var(--shadow-sm)}
 .stat-val{font-size:30px;font-weight:700;line-height:1}
 .stat-label{font-size:10px;font-weight:600;color:var(--text3);margin-top:6px;letter-spacing:1px;text-transform:uppercase}
 
@@ -112,6 +114,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .fields-row{display:grid;gap:12px}
 .fields-row.c2{grid-template-columns:1fr 1fr}
 .fields-row.c3{grid-template-columns:1fr 1fr 1fr}
+.fields-row.c4{grid-template-columns:1fr 1fr 1fr 1fr}
 
 .badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
 .badge-pending{background:var(--orange-bg);color:var(--orange)}
@@ -147,16 +150,17 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .modal-close:hover{color:var(--text);background:var(--bg3)}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)}
 
-/* File picker — reliable approach */
-.file-picker-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;background:var(--bg3);border:1.5px dashed var(--border2);border-radius:var(--r);color:var(--text2);cursor:pointer;font-size:13px;font-weight:500;transition:var(--transition);font-family:var(--font);width:100%;justify-content:center}
+/* File picker */
+.file-picker-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:var(--bg3);border:2px dashed var(--border2);border-radius:var(--r);color:var(--text2);cursor:pointer;font-size:13px;font-weight:500;transition:var(--transition);font-family:var(--font);width:100%;justify-content:center}
 .file-picker-btn:hover{border-color:var(--gold-dim);color:var(--text);background:var(--bg4)}
 .file-picker-input{display:none}
-.files-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.files-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
 .file-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border)}
 .file-row .ico{font-size:15px;flex-shrink:0}
-.file-row .name{flex:1;font-size:12px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-row .name{flex:1;font-size:12px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)}
 .file-row .sz{font-size:11px;color:var(--text3);flex-shrink:0}
 
+/* Chat */
 #chat-container{display:flex;flex-direction:column;height:calc(100vh - 152px);gap:12px}
 .chat-channels{display:flex;gap:6px;flex-wrap:wrap}
 .channel-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;font-size:12px;font-weight:600;transition:var(--transition);font-family:var(--font)}
@@ -172,6 +176,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .chat-input-row input{flex:1;padding:10px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:13px;outline:none;transition:var(--transition);font-family:var(--font)}
 .chat-input-row input:focus{border-color:var(--gold-dim)}
 
+/* Critical banner */
 .critical-banner{background:var(--red-bg);border:1px solid var(--red-dim);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;display:flex;align-items:center;gap:10px;animation:slide-in .3s ease}
 @keyframes slide-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 .critical-dot{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
@@ -179,18 +184,74 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .critical-title{font-size:13px;font-weight:700;color:var(--red)}
 .critical-msg{font-size:12px;color:var(--text2);margin-top:2px}
 
+/* Table */
 .tbl{width:100%;border-collapse:collapse;font-size:12px}
-.tbl th{padding:10px 12px;background:var(--bg3);color:var(--text3);font-weight:600;text-align:left;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
-.tbl td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text)}
+.tbl th{padding:10px 12px;background:var(--bg3);color:var(--text3);font-weight:600;text-align:left;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text)}
 .tbl tr:last-child td{border-bottom:none}
 .tbl tr:hover td{background:var(--bg3)}
 .amount{font-weight:700;color:var(--gold);font-family:monospace;font-size:13px}
 
+/* Filter bar */
+.filter-bar{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px;padding:14px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2)}
+.filter-bar .field{margin:0;min-width:120px}
+.filter-bar .field input,.filter-bar .field select{padding:7px 10px;font-size:12px}
+.filter-bar .field label{font-size:10px;margin-bottom:4px}
+.search-input{flex:1;min-width:160px;padding:7px 12px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:13px;outline:none;font-family:var(--font);transition:var(--transition)}
+.search-input:focus{border-color:var(--gold-dim)}
+.search-input::placeholder{color:var(--text3)}
+
+/* Calendar */
+.cal-layout{display:flex;gap:16px;height:calc(100vh - 160px)}
+.cal-grid-wrap{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+.cal-nav{display:flex;align-items:center;gap:12px}
+.cal-month-title{font-size:16px;font-weight:700;color:var(--text);flex:1;text-align:center}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;flex:1}
+.cal-day-header{text-align:center;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;padding:6px 0;text-transform:uppercase}
+.cal-day{background:var(--bg3);border-radius:8px;padding:6px;cursor:pointer;transition:var(--transition);border:1.5px solid transparent;min-height:56px;display:flex;flex-direction:column}
+.cal-day:hover{background:var(--bg4);border-color:var(--border2)}
+.cal-day.today{border-color:var(--gold-dim)!important;background:var(--gold-ultra-dim)}
+.cal-day.selected{border-color:var(--gold)!important;background:var(--gold-ultra-dim)}
+.cal-day.other-month{opacity:.35}
+.cal-day.other-month:hover{opacity:.55}
+.cal-day-num{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:4px}
+.cal-day.today .cal-day-num{color:var(--gold);font-weight:700}
+.cal-dots{display:flex;gap:3px;flex-wrap:wrap;margin-top:auto}
+.cal-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.cal-dot-matin{background:#f0a030}
+.cal-dot-apres_midi{background:#4a80c8}
+.cal-dot-nuit{background:#8a6e30}
+.cal-day-count{font-size:10px;color:var(--text3);margin-top:2px}
+
+.cal-panel{width:320px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);display:flex;flex-direction:column;overflow:hidden}
+.cal-panel-header{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cal-panel-title{font-size:13px;font-weight:700;color:var(--text)}
+.cal-panel-body{flex:1;overflow-y:auto;padding:12px}
+.cal-panel-footer{padding:12px;border-top:1px solid var(--border)}
+.ho-item{background:var(--bg3);border-radius:var(--r);padding:10px 12px;margin-bottom:8px;border-left:3px solid var(--border3)}
+.ho-item.shift-matin{border-left-color:#f0a030}
+.ho-item.shift-apres_midi{border-left-color:#4a80c8}
+.ho-item.shift-nuit{border-left-color:#8a6e30}
+.ho-shift-badge{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.ho-content{font-size:13px;color:var(--text);line-height:1.6;white-space:pre-wrap}
+.ho-meta{font-size:11px;color:var(--text3);margin-top:6px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ho-actions{display:flex;gap:4px;margin-left:auto}
+
+/* Briefing */
 #briefing-editor{width:100%;min-height:220px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:14px;line-height:1.8;padding:16px;resize:vertical;outline:none;font-family:var(--font);transition:var(--transition)}
 #briefing-editor:focus{border-color:var(--gold-dim)}
 .briefing-content{font-size:14px;line-height:1.8;color:var(--text);white-space:pre-wrap}
 .briefing-date{font-size:11px;color:var(--text3);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
 
+/* Settings */
+.settings-tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--bg3);padding:4px;border-radius:var(--r);width:fit-content}
+.settings-tab{padding:7px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text3);transition:var(--transition);border:none;background:transparent;font-family:var(--font)}
+.settings-tab.active{background:var(--bg2);color:var(--text);box-shadow:var(--shadow-sm)}
+.settings-section{display:none}
+.settings-section.active{display:block}
+.info-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:14px;font-size:12px;color:var(--text3);line-height:1.6}
+
+/* Users */
 .user-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;display:flex;align-items:center;gap:14px;transition:var(--transition);margin-bottom:8px}
 .user-card:hover{border-color:var(--border2);background:var(--bg4)}
 .user-avatar{width:38px;height:38px;border-radius:10px;background:var(--gold-ultra-dim);border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--gold);flex-shrink:0}
@@ -199,18 +260,21 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .user-meta{font-size:11px;color:var(--text3);margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .user-inactive{opacity:.5}
 
+/* Toast */
 #toast{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:12px 18px;font-size:13px;font-weight:500;color:var(--text);z-index:999;transform:translateY(80px);opacity:0;transition:.3s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:var(--shadow);max-width:320px}
 #toast.show{transform:translateY(0);opacity:1}
 #toast.success{border-color:var(--green-dim);color:var(--green)}
 #toast.error{border-color:var(--red-dim);color:var(--red)}
 
-.empty-state{text-align:center;padding:48px 20px;color:var(--text3)}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text3)}
 .empty-ico{font-size:36px;margin-bottom:12px;opacity:.5}
 .empty-txt{font-size:14px}
 .pill{display:inline-flex;align-items:center;padding:3px 9px;background:var(--bg4);border-radius:20px;font-size:11px;color:var(--text3);border:1px solid var(--border)}
 @keyframes fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{animation:fade-up .3s ease forwards}
-@media(max-width:768px){#sidebar{display:none;position:fixed;inset:0 auto 0 0;z-index:150;width:260px}#sidebar.open{display:flex}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.fields-row.c2,.fields-row.c3{grid-template-columns:1fr}#content{padding:14px}}
+
+@media(max-width:900px){.cal-layout{flex-direction:column}.cal-panel{width:100%;max-height:300px}}
+@media(max-width:768px){#sidebar{display:none;position:fixed;inset:0 auto 0 0;z-index:150;width:260px}#sidebar.open{display:flex}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.fields-row.c2,.fields-row.c3,.fields-row.c4{grid-template-columns:1fr 1fr}#content{padding:14px}}
 </style>
 </head>
 <body>
@@ -248,10 +312,10 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
       <div class="nav-item" onclick="navigate('chat')"><span class="ico">💬</span><span class="lbl">Chat</span></div>
       <div class="nav-section">Contrôle</div>
       <div class="nav-item" onclick="navigate('deductions')"><span class="ico">🧾</span><span class="lbl">Déductions</span><span class="nav-badge" id="badge-deductions" style="display:none">0</span></div>
-      <div class="nav-item" onclick="navigate('handovers')"><span class="ico">🔄</span><span class="lbl">Passations</span></div>
+      <div class="nav-item" onclick="navigate('handovers')"><span class="ico">📅</span><span class="lbl">Consignes</span></div>
       <div class="nav-item" onclick="navigate('maintenance')"><span class="ico">🔧</span><span class="lbl">Maintenance</span></div>
-      <div class="nav-section admin-only" style="display:none">Administration</div>
-      <div class="nav-item admin-only" style="display:none" onclick="navigate('users')"><span class="ico">👥</span><span class="lbl">Utilisateurs</span></div>
+      <div class="nav-section">Compte</div>
+      <div class="nav-item" onclick="navigate('settings')"><span class="ico">⚙️</span><span class="lbl">Paramètres</span></div>
     </nav>
     <div class="sb-footer">
       <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">🌙</button>
@@ -283,15 +347,20 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-// ── STATE & THEME ─────────────────────────────────────────────────────────────
+// ── STATE ──────────────────────────────────────────────────────────────────
 let currentUser=null,socket=null,currentPage='dashboard',currentChatService='general';
 let currentTheme=localStorage.getItem('theme')||'dark';
+let calendarDate=new Date(); // current month shown in calendar
+let calendarSelected=null;   // selected day string YYYY-MM-DD
+let calendarData={};         // { 'YYYY-MM-DD': [handovers] }
+const PARIS='Europe/Paris';
 
+// ── THEME ──────────────────────────────────────────────────────────────────
 function applyTheme(t){currentTheme=t;document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);const ico=t==='dark'?'☀️':'🌙';document.querySelectorAll('#theme-btn').forEach(b=>b.textContent=ico);}
 function toggleTheme(){applyTheme(currentTheme==='dark'?'light':'dark');}
 applyTheme(currentTheme);
 
-// ── UTILS ─────────────────────────────────────────────────────────────────────
+// ── UTILS ──────────────────────────────────────────────────────────────────
 async function api(url,method='GET',body=null){
   const opts={method,headers:{'Content-Type':'application/json'},credentials:'same-origin'};
   if(body)opts.body=JSON.stringify(body);
@@ -299,48 +368,22 @@ async function api(url,method='GET',body=null){
   if(!r.ok)throw new Error(data.error||'Erreur réseau');return data;
 }
 function esc(str){if(!str)return '';return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-// Paris timezone for all dates
-const PARIS = 'Europe/Paris';
-function formatDate(dt){
-  if(!dt)return '—';
-  return new Date(dt).toLocaleString('fr-FR',{timeZone:PARIS,day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
-}
-function formatDateFr(s){
-  if(!s)return '—';
-  const [y,m,d]=s.split('-');
-  return `${parseInt(d)} ${['','janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'][parseInt(m)]} ${y}`;
-}
-
+function formatDate(dt){if(!dt)return '—';return new Date(dt).toLocaleString('fr-FR',{timeZone:PARIS,day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function formatDateFr(s){if(!s)return '—';const [y,m,d]=s.split('-');return `${parseInt(d)} ${['','janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'][parseInt(m)]} ${y}`;}
+function todayStr(){return new Date().toLocaleDateString('fr-CA',{timeZone:PARIS});}
+function monthStr(d){return d.toLocaleDateString('fr-CA',{timeZone:PARIS}).substring(0,7);}
 function roleLabel(r){return{super_admin:'Super Admin',hotel_admin:'Admin',chef_service:'Chef svc.',equipe:'Équipe'}[r]||r;}
 function serviceLbl(s){return{general:'Général',reception:'Réception',housekeeping:'HK',fb:'F&B',maintenance:'Maint.',direction:'Direction'}[s]||(s||'—');}
+function shiftLbl(s){return{matin:'☀️ Matin',apres_midi:'🌤 Après-midi',nuit:'🌙 Nuit'}[s]||s;}
 function priorityLbl(p){return{low:'Faible',medium:'Moyenne',high:'Haute',urgent:'Urgent',critical:'Critique'}[p]||p;}
 function fileIco(mt){return mt==='application/pdf'?'📄':'🖼';}
 function fileSize(s){return s>1024*1024?`${(s/1024/1024).toFixed(1)} Mo`:`${(s/1024).toFixed(0)} Ko`;}
-
+function filePicker(inputId,listId,multiple=true){return `<label class="file-picker-btn" for="${inputId}">📎 Cliquer pour choisir ${multiple?'des fichiers':'un fichier'}</label><input type="file" class="file-picker-input" id="${inputId}" accept=".jpg,.jpeg,.png,.pdf" ${multiple?'multiple':''} onchange="showFileList('${inputId}','${listId}')"><div class="files-list" id="${listId}"></div>`;}
+function showFileList(inputId,listId){const files=Array.from(document.getElementById(inputId)?.files||[]);const list=document.getElementById(listId);if(!list)return;if(!files.length){list.innerHTML='';return;}list.innerHTML=files.map(f=>`<div class="file-row"><span class="ico">${fileIco(f.type)}</span><span class="name">${esc(f.name)}</span><span class="sz">${fileSize(f.size)}</span></div>`).join('');}
 let _toast;
 function toast(msg,type=''){const el=document.getElementById('toast');el.textContent=msg;el.className=`show ${type}`;clearTimeout(_toast);_toast=setTimeout(()=>el.className='',3500);}
 
-// ── FILE PICKER (reliable — visible label button, no hidden overlay) ──────────
-function filePicker(inputId, listId, multiple=true) {
-  return `
-    <label class="file-picker-btn" for="${inputId}">
-      📎 Cliquer pour choisir ${multiple?'des fichiers':'un fichier'}
-    </label>
-    <input type="file" class="file-picker-input" id="${inputId}" accept=".jpg,.jpeg,.png,.pdf" ${multiple?'multiple':''} onchange="showFileList('${inputId}','${listId}')">
-    <div class="files-list" id="${listId}"></div>
-  `;
-}
-
-function showFileList(inputId, listId){
-  const files=Array.from(document.getElementById(inputId)?.files||[]);
-  const list=document.getElementById(listId);
-  if(!list)return;
-  if(!files.length){list.innerHTML='';return;}
-  list.innerHTML=files.map(f=>`<div class="file-row"><span class="ico">${fileIco(f.type)}</span><span class="name">${esc(f.name)}</span><span class="sz">${fileSize(f.size)}</span></div>`).join('');
-}
-
-// ── AUTH ──────────────────────────────────────────────────────────────────────
+// ── AUTH ──────────────────────────────────────────────────────────────────
 async function doLogin(){
   const u=document.getElementById('login-user').value.trim();
   const p=document.getElementById('login-pass').value;
@@ -351,25 +394,17 @@ async function doLogin(){
 async function doLogout(){await api('/api/auth/logout','POST').catch(()=>{});currentUser=null;if(socket)socket.disconnect();document.getElementById('app').classList.add('hidden');document.getElementById('login-screen').classList.remove('hidden');document.getElementById('login-pass').value='';}
 async function checkAuth(){try{currentUser=await api('/api/auth/me');startApp();}catch{}}
 
-// ── APP START ─────────────────────────────────────────────────────────────────
 function startApp(){
   document.getElementById('login-screen').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
   document.getElementById('sb-hotel').textContent=currentUser.hotel_name||'B Signature';
   document.getElementById('sb-user').textContent=currentUser.display_name;
   document.getElementById('sb-badge').innerHTML=`<span class="sb-badge">${roleLabel(currentUser.role)}</span>`;
-  if(currentUser.role==='super_admin')document.querySelectorAll('.admin-only').forEach(el=>el.style.display='');
   initSocket();updateDate();setInterval(updateDate,30000);navigate('dashboard');loadBadges();setInterval(loadBadges,30000);
 }
+function updateDate(){const d=new Date();const str=d.toLocaleDateString('fr-FR',{timeZone:PARIS,weekday:'short',day:'numeric',month:'short',year:'numeric'});document.getElementById('topbar-date').textContent=str.charAt(0).toUpperCase()+str.slice(1);}
 
-function updateDate(){
-  const d=new Date();
-  const str=d.toLocaleDateString('fr-FR',{timeZone:PARIS,weekday:'short',day:'numeric',month:'short',year:'numeric'});
-  // Capitalize first letter
-  document.getElementById('topbar-date').textContent=str.charAt(0).toUpperCase()+str.slice(1);
-}
-
-// ── SOCKET ────────────────────────────────────────────────────────────────────
+// ── SOCKET ────────────────────────────────────────────────────────────────
 function initSocket(){
   socket=io();
   socket.on('new_alert',a=>{toast(`⚠ ${a.title}`,a.priority==='critical'?'error':'');loadBadges();if(['dashboard','alerts'].includes(currentPage))navigate(currentPage);});
@@ -379,27 +414,29 @@ function initSocket(){
   socket.on('new_deduction',d=>{if(['hotel_admin','chef_service','super_admin'].includes(currentUser.role)){toast(`🧾 ${d.client_name} — ${parseFloat(d.amount).toFixed(2)} €`);loadBadges();}if(currentPage==='deductions')navigate('deductions');});
   socket.on('deduction_reviewed',()=>{loadBadges();if(currentPage==='deductions')navigate('deductions');});
   socket.on('new_maintenance',m=>{toast(`🔧 ${m.location}`);if(currentPage==='maintenance')navigate('maintenance');});
+  socket.on('new_handover',()=>{if(currentPage==='handovers')loadCalendarMonth();});
+  socket.on('handover_updated',()=>{if(currentPage==='handovers')loadCalendarMonth();});
+  socket.on('handover_deleted',()=>{if(currentPage==='handovers')loadCalendarMonth();});
 }
-
 async function loadBadges(){
   try{const a=await api('/api/alerts?active=1');const ab=document.getElementById('badge-alerts');ab.textContent=a.length;ab.style.display=a.length?'':'none';}catch{}
   try{if(['hotel_admin','chef_service','super_admin'].includes(currentUser.role)){const d=await api('/api/deductions?status=pending');const db2=document.getElementById('badge-deductions');db2.textContent=d.length;db2.style.display=d.length?'':'none';}}catch{}
 }
 
-// ── NAVIGATION ────────────────────────────────────────────────────────────────
+// ── NAVIGATION ────────────────────────────────────────────────────────────
 function navigate(page){
   currentPage=page;
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   const found=[...document.querySelectorAll('.nav-item')].find(el=>el.getAttribute('onclick')===`navigate('${page}')`);
   if(found)found.classList.add('active');
-  const titles={dashboard:'Dashboard',briefing:'Briefing quotidien',alerts:'Alertes urgentes',announcements:'Annonces',chat:'Chat',deductions:'Déductions',handovers:'Passations de service',maintenance:'Maintenance',users:'Gestion des utilisateurs'};
+  const titles={dashboard:'Dashboard',briefing:'Briefing quotidien',alerts:'Alertes urgentes',announcements:'Annonces',chat:'Chat',deductions:'Déductions',handovers:'Consignes & Passations',maintenance:'Maintenance',settings:'Paramètres'};
   document.getElementById('topbar-title').textContent=titles[page]||page;
   document.getElementById('topbar-actions').innerHTML='';
-  const pages={dashboard,briefing,alerts,announcements,chat,deductions,handovers,maintenance,users};
+  const pages={dashboard,briefing,alerts,announcements,chat,deductions,handovers,maintenance,settings};
   if(pages[page])pages[page]();
 }
 
-// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+// ── DASHBOARD ─────────────────────────────────────────────────────────────
 async function dashboard(){
   const c=document.getElementById('content');c.innerHTML='';
   try{
@@ -413,7 +450,7 @@ async function dashboard(){
       <div class="stat-card"><div class="stat-val" style="color:var(--gold)">${(dedSummary.total_approved_amount||0).toFixed(0)} €</div><div class="stat-label">Déductions approuvées</div></div>
     </div><div class="grid-2">`;
     html+=`<div class="card"><div class="card-header"><div class="card-title">📋 Briefing du jour</div><button class="btn btn-outline btn-sm" onclick="navigate('briefing')">Voir →</button></div>`;
-    if(todayBriefing){const prev=todayBriefing.content.length>220?todayBriefing.content.substring(0,220)+'…':todayBriefing.content;html+=`<div class="briefing-content">${esc(prev)}</div><div class="briefing-date" style="margin-top:10px">Par ${esc(todayBriefing.author_name||'—')}</div>`;}
+    if(todayBriefing){const prev=todayBriefing.content.length>200?todayBriefing.content.substring(0,200)+'…':todayBriefing.content;html+=`<div class="briefing-content">${esc(prev)}</div><div class="briefing-date" style="margin-top:10px">Par ${esc(todayBriefing.author_name||'—')}</div>`;}
     else html+=`<div class="empty-state" style="padding:20px"><div class="empty-ico">📋</div><div class="empty-txt">Aucun briefing aujourd'hui</div></div>`;
     html+=`</div><div class="card"><div class="card-header"><div class="card-title">📢 Annonces</div><button class="btn btn-outline btn-sm" onclick="navigate('announcements')">Voir →</button></div>`;
     if(!anns.length)html+=`<div class="empty-state" style="padding:20px"><div class="empty-ico">📢</div><div class="empty-txt">Aucune annonce</div></div>`;
@@ -422,7 +459,7 @@ async function dashboard(){
   }catch(e){c.innerHTML=`<div class="empty-state"><div class="empty-ico">⚠</div><div>Erreur</div></div>`;console.error(e);}
 }
 
-// ── BRIEFING ──────────────────────────────────────────────────────────────────
+// ── BRIEFING ──────────────────────────────────────────────────────────────
 async function briefing(){
   const c=document.getElementById('content');const canEdit=['hotel_admin','super_admin','chef_service'].includes(currentUser.role);
   try{
@@ -440,15 +477,14 @@ async function briefing(){
 async function saveBriefing(){const content=document.getElementById('briefing-editor')?.value.trim();if(!content){toast('Contenu vide','error');return;}try{await api('/api/briefings','POST',{content});toast('Briefing enregistré ✓','success');}catch(e){toast(e.message,'error');}}
 function showBriefingDetail(date,content,author){openModal(`Briefing — ${formatDateFr(date)}`,`<div class="briefing-date">Par ${esc(author||'—')}</div><div class="briefing-content" style="margin-top:12px">${esc(content)}</div>`,[]);}
 
-// ── ALERTS ────────────────────────────────────────────────────────────────────
+// ── ALERTS ────────────────────────────────────────────────────────────────
 async function alerts(){
   const c=document.getElementById('content');const canCreate=['hotel_admin','super_admin','chef_service'].includes(currentUser.role);
   document.getElementById('topbar-actions').innerHTML=canCreate?`<button class="btn btn-gold btn-sm" onclick="openAlertModal()">+ Alerte</button>`:'';
   try{
     const list=await api('/api/alerts');let html='<div class="fade-up">';
     if(!list.length)html+=`<div class="empty-state"><div class="empty-ico">✅</div><div class="empty-txt">Aucune alerte</div></div>`;
-    else{
-      const active=list.filter(a=>!a.resolved_at);const resolved=list.filter(a=>a.resolved_at);
+    else{const active=list.filter(a=>!a.resolved_at);const resolved=list.filter(a=>a.resolved_at);
       if(active.length){html+=`<div class="card"><div class="card-title" style="margin-bottom:14px">Actives</div>`;html+=active.map(a=>alertItem(a,canCreate)).join('');html+=`</div>`;}
       if(resolved.length){html+=`<div class="card"><div class="card-title" style="margin-bottom:14px">Résolues</div>`;html+=resolved.slice(0,8).map(a=>alertItem(a,false)).join('');html+=`</div>`;}
     }
@@ -459,7 +495,7 @@ function alertItem(a,canResolve){return `<div class="list-item"><div class="list
 async function resolveAlert(id){try{await api(`/api/alerts/${id}/resolve`,'PATCH',{});toast('Alerte résolue ✓','success');}catch(e){toast(e.message,'error');}}
 function openAlertModal(){openModal('Nouvelle alerte',`<div class="field"><label>Titre</label><input id="m-at" placeholder="Ex: Ascenseur HS"></div><div class="field"><label>Message</label><textarea id="m-am"></textarea></div><div class="field"><label>Priorité</label><select id="m-ap"><option value="low">Faible</option><option value="medium" selected>Moyenne</option><option value="high">Haute</option><option value="critical">🔴 CRITIQUE</option></select></div>`,[{label:'Envoyer',cls:'btn-gold',action:async()=>{const title=document.getElementById('m-at').value.trim();const message=document.getElementById('m-am').value.trim();const priority=document.getElementById('m-ap').value;if(!title||!message){toast('Titre et message requis','error');return;}await api('/api/alerts','POST',{title,message,priority});closeModal();toast('Alerte envoyée ✓','success');}}]);}
 
-// ── ANNOUNCEMENTS ─────────────────────────────────────────────────────────────
+// ── ANNOUNCEMENTS ─────────────────────────────────────────────────────────
 async function announcements(){
   const c=document.getElementById('content');const canCreate=['hotel_admin','super_admin','chef_service'].includes(currentUser.role);
   document.getElementById('topbar-actions').innerHTML=canCreate?`<button class="btn btn-gold btn-sm" onclick="openAnnModal()">+ Annonce</button>`:'';
@@ -473,7 +509,7 @@ async function announcements(){
 function openAnnModal(){openModal('Nouvelle annonce',`<div class="field"><label>Titre</label><input id="m-ant"></div><div class="field"><label>Contenu</label><textarea id="m-anc" style="min-height:100px"></textarea></div><div class="fields-row c2"><div class="field"><label>Épingler</label><select id="m-anp"><option value="0">Non</option><option value="1">Oui</option></select></div><div class="field"><label>Expiration</label><input type="date" id="m-ane"></div></div>`,[{label:'Publier',cls:'btn-gold',action:async()=>{const title=document.getElementById('m-ant').value.trim();const content=document.getElementById('m-anc').value.trim();if(!title||!content){toast('Titre et contenu requis','error');return;}await api('/api/announcements','POST',{title,content,pinned:document.getElementById('m-anp').value==='1',expires_at:document.getElementById('m-ane').value||null});closeModal();toast('Annonce publiée ✓','success');}}]);}
 async function deleteAnn(id){if(!confirm('Supprimer ?'))return;await api(`/api/announcements/${id}`,'DELETE');navigate('announcements');}
 
-// ── CHAT ──────────────────────────────────────────────────────────────────────
+// ── CHAT ──────────────────────────────────────────────────────────────────
 async function chat(){
   const c=document.getElementById('content');
   try{
@@ -482,60 +518,116 @@ async function chat(){
     loadChatMessages();
   }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
 }
-async function loadChatMessages(){const box=document.getElementById('chat-messages');if(!box)return;box.innerHTML='<div class="text-muted" style="padding:12px">Chargement…</div>';try{const msgs=await api(`/api/chat/messages?service=${currentChatService}&limit=60`);box.innerHTML='';if(!msgs.length){box.innerHTML='<div class="empty-state" style="padding:20px"><div>Aucun message</div></div>';return;}msgs.forEach(m=>appendChatMsg(m));box.scrollTop=box.scrollHeight;}catch{box.innerHTML='<div class="empty-state">Erreur</div>';}}
+async function loadChatMessages(){const box=document.getElementById('chat-messages');if(!box)return;box.innerHTML='';try{const msgs=await api(`/api/chat/messages?service=${currentChatService}&limit=60`);if(!msgs.length){box.innerHTML='<div class="empty-state" style="padding:20px"><div>Aucun message</div></div>';return;}msgs.forEach(m=>appendChatMsg(m));box.scrollTop=box.scrollHeight;}catch{box.innerHTML='<div class="empty-state">Erreur</div>';}}
 function appendChatMsg(msg){const box=document.getElementById('chat-messages');if(!box)return;const own=msg.user_id===currentUser.id;const d=document.createElement('div');d.className=`chat-msg ${own?'own':''}`;d.innerHTML=`<div class="chat-bubble">${esc(msg.message)}</div><div class="chat-meta">${own?'':`<strong>${esc(msg.author_name)}</strong> · `}${formatDate(msg.created_at)}</div>`;box.appendChild(d);box.scrollTop=box.scrollHeight;}
 async function switchChannel(svc){currentChatService=svc;document.querySelectorAll('.channel-btn').forEach(b=>{const map={general:'Général',reception:'Réception',housekeeping:'HK',fb:'F&B',maintenance:'Maint.',direction:'Direction'};b.classList.toggle('active',b.textContent.trim()===(map[svc]||svc));});await loadChatMessages();}
 function sendChat(){const input=document.getElementById('chat-input');const msg=input?.value.trim();if(!msg||!socket)return;socket.emit('chat_message',{service:currentChatService,message:msg});input.value='';}
 
-// ── DEDUCTIONS ────────────────────────────────────────────────────────────────
+// ── DEDUCTIONS ────────────────────────────────────────────────────────────
+let dedFilters={date_from:todayStr(),date_to:todayStr(),status:'',service:'',search:''};
+
 async function deductions(){
   const c=document.getElementById('content');const canReview=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
-  const today=new Date().toLocaleDateString('fr-CA',{timeZone:PARIS}); // YYYY-MM-DD in Paris
   document.getElementById('topbar-actions').innerHTML=`<button class="btn btn-outline btn-sm" onclick="openZipExport()">📦 Export ZIP</button><button class="btn btn-gold btn-sm" onclick="openDedModal()">+ Déduction</button>`;
+  c.innerHTML=`
+    <div class="fade-up">
+      <div class="filter-bar">
+        <div class="field"><label>Du</label><input type="date" id="f-from" value="${dedFilters.date_from}" onchange="dedFilters.date_from=this.value;loadDedTable()"></div>
+        <div class="field"><label>Au</label><input type="date" id="f-to" value="${dedFilters.date_to}" onchange="dedFilters.date_to=this.value;loadDedTable()"></div>
+        <div class="field"><label>Statut</label><select id="f-status" onchange="dedFilters.status=this.value;loadDedTable()">
+          <option value="">Tous</option>
+          <option value="pending">En attente</option>
+          <option value="approved">Approuvées</option>
+          <option value="rejected">Refusées</option>
+        </select></div>
+        <div class="field"><label>Service</label><select id="f-service" onchange="dedFilters.service=this.value;loadDedTable()">
+          <option value="">Tous</option>
+          <option value="reception">Réception</option>
+          <option value="fb">F&B</option>
+          <option value="housekeeping">HK</option>
+          <option value="direction">Direction</option>
+        </select></div>
+        <input type="text" class="search-input" id="f-search" placeholder="🔍 Rechercher client, motif, chambre…" value="${dedFilters.search}" oninput="dedFilters.search=this.value;clearTimeout(window._st);window._st=setTimeout(loadDedTable,400)">
+        <button class="btn btn-outline btn-sm" onclick="resetDedFilters()">Réinitialiser</button>
+      </div>
+      <div id="ded-summary-row" class="grid-3" style="margin-bottom:16px"></div>
+      <div class="card" style="padding:0;overflow:hidden" id="ded-table-card">
+        <div class="empty-state" style="padding:30px"><div>Chargement…</div></div>
+      </div>
+    </div>`;
+
+  // Set select values
+  document.getElementById('f-status').value = dedFilters.status;
+  document.getElementById('f-service').value = dedFilters.service;
+  loadDedTable();
+}
+
+function resetDedFilters(){
+  dedFilters={date_from:todayStr(),date_to:todayStr(),status:'',service:'',search:''};
+  deductions();
+}
+
+async function loadDedTable(){
+  const canReview=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
+  const params=new URLSearchParams();
+  if(dedFilters.date_from)params.set('date_from',dedFilters.date_from);
+  if(dedFilters.date_to)params.set('date_to',dedFilters.date_to);
+  if(dedFilters.status)params.set('status',dedFilters.status);
+  if(dedFilters.service)params.set('service',dedFilters.service);
+  if(dedFilters.search)params.set('search',dedFilters.search);
+
   try{
-    const [list,summary]=await Promise.all([api(`/api/deductions?date=${today}`),api('/api/deductions/summary')]);
-    let html=`<div class="fade-up"><div class="grid-3" style="margin-bottom:16px">
+    const [list,summary]=await Promise.all([
+      api(`/api/deductions?${params}`),
+      api(`/api/deductions/summary?date_from=${dedFilters.date_from}&date_to=${dedFilters.date_to}`)
+    ]);
+
+    // Summary
+    document.getElementById('ded-summary-row').innerHTML=`
       <div class="stat-card"><div class="stat-val" style="color:var(--orange)">${summary.pending||0}</div><div class="stat-label">En attente</div></div>
       <div class="stat-card"><div class="stat-val" style="color:var(--green)">${summary.approved||0}</div><div class="stat-label">Approuvées</div></div>
-      <div class="stat-card"><div class="stat-val" style="color:var(--gold)">${(summary.total_approved_amount||0).toFixed(2)} €</div><div class="stat-label">Montant approuvé</div></div>
-    </div><div class="card" style="padding:0;overflow:hidden">`;
-    if(!list.length)html+=`<div class="empty-state" style="padding:40px"><div class="empty-ico">🧾</div><div class="empty-txt">Aucune déduction aujourd'hui</div></div>`;
-    else{
-      html+=`<table class="tbl"><thead><tr><th>Client</th><th>Ch.</th><th>Montant</th><th>Code</th><th>Service</th><th>Motif</th><th>PJ</th><th>Statut</th><th>Par</th>${canReview?'<th>Actions</th>':''}</tr></thead><tbody>`;
-      html+=list.map(d=>`<tr>
-        <td><strong>${esc(d.client_name)}</strong></td>
-        <td>${esc(d.room)}</td>
-        <td class="amount">−${parseFloat(d.amount).toFixed(2)} €</td>
-        <td><code style="font-size:10px;color:var(--text3)">${esc(d.opera_code||'—')}</code></td>
-        <td>${serviceLbl(d.service)}</td>
-        <td style="max-width:160px"><span title="${esc(d.reason)}" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(d.reason)}</span>${d.review_comment?`<span style="font-size:10px;color:var(--text3)">💬 ${esc(d.review_comment)}</span>`:''}</td>
-        <td style="white-space:nowrap">
-          <button class="btn btn-ghost btn-xs" onclick="showAttachments(${d.id},'${esc(d.client_name)}')" title="Pièces jointes">${d.attachment_count>0?`📎 ${d.attachment_count}`:'📎'}</button>
-          <a href="/api/deductions/${d.id}/pdf" target="_blank" class="btn btn-ghost btn-xs" title="Export PDF">📄</a>
-        </td>
-        <td><span class="badge badge-${d.status}">${{pending:'En attente',approved:'Approuvée',rejected:'Refusée'}[d.status]}</span></td>
-        <td><span class="pill">${esc(d.creator_name||'—')}</span></td>
-        ${canReview?`<td>${d.status==='pending'?`<div style="display:flex;gap:4px"><button class="btn btn-green btn-xs" onclick="reviewDed(${d.id},'approved')">✓</button><button class="btn btn-danger btn-xs" onclick="reviewDed(${d.id},'rejected')">✕</button></div>`:`<span style="font-size:11px;color:var(--text3)">${esc(d.reviewer_name||'—')}</span>`}</td>`:''}
-      </tr>`).join('');
-      html+=`</tbody></table>`;
-    }
-    html+=`</div></div>`;c.innerHTML=html;
-  }catch(e){c.innerHTML='<div class="empty-state">Erreur</div>';console.error(e);}
+      <div class="stat-card"><div class="stat-val" style="color:var(--gold)">${(summary.total_approved_amount||0).toFixed(2)} €</div><div class="stat-label">Montant approuvé</div></div>`;
+
+    const card=document.getElementById('ded-table-card');
+    if(!list.length){card.innerHTML=`<div class="empty-state" style="padding:40px"><div class="empty-ico">🧾</div><div class="empty-txt">Aucune déduction pour cette sélection</div></div>`;return;}
+
+    let html=`<table class="tbl"><thead><tr>
+      <th>Date demande</th><th>Client</th><th>Ch.</th><th>Montant</th><th>Code</th><th>Service</th><th>Motif</th><th>PJ</th><th>Statut</th><th>Date validation</th><th>Validé par</th>
+      ${canReview?'<th>Actions</th>':''}
+    </tr></thead><tbody>`;
+    html+=list.map(d=>`<tr>
+      <td style="white-space:nowrap;color:var(--text3)">${formatDate(d.created_at).split(' ')[0]}</td>
+      <td><strong>${esc(d.client_name)}</strong></td>
+      <td>${esc(d.room)}</td>
+      <td class="amount">−${parseFloat(d.amount).toFixed(2)} €</td>
+      <td><code style="font-size:10px;color:var(--text3)">${esc(d.opera_code||'—')}</code></td>
+      <td>${serviceLbl(d.service)}</td>
+      <td style="max-width:150px"><span title="${esc(d.reason)}" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(d.reason)}</span>${d.review_comment?`<span style="font-size:10px;color:var(--text3)">💬 ${esc(d.review_comment)}</span>`:''}</td>
+      <td style="white-space:nowrap">
+        <button class="btn btn-ghost btn-xs" onclick="showAttachments(${d.id},'${esc(d.client_name)}')">${d.attachment_count>0?`📎 ${d.attachment_count}`:'📎'}</button>
+        <a href="/api/deductions/${d.id}/pdf" target="_blank" class="btn btn-ghost btn-xs" title="Voir PDF">📄</a>
+        <a href="/api/deductions/${d.id}/pdf?dl=1" class="btn btn-ghost btn-xs" title="Télécharger PDF">⬇️</a>
+      </td>
+      <td><span class="badge badge-${d.status}">${{pending:'En attente',approved:'Approuvée',rejected:'Refusée'}[d.status]}</span></td>
+      <td style="white-space:nowrap;color:var(--text3);font-size:11px">${d.reviewed_at?formatDate(d.reviewed_at).split(' ')[0]:'—'}</td>
+      <td><span class="pill" style="font-size:10px">${esc(d.reviewer_name||'—')}</span></td>
+      ${canReview?`<td>${d.status==='pending'?`<div style="display:flex;gap:4px"><button class="btn btn-green btn-xs" onclick="reviewDed(${d.id},'approved')">✓</button><button class="btn btn-danger btn-xs" onclick="reviewDed(${d.id},'rejected')">✕</button></div>`:'—'}</td>`:''}
+    </tr>`).join('');
+    html+=`</tbody></table>`;
+    card.innerHTML=html;
+  }catch(e){console.error(e);document.getElementById('ded-table-card').innerHTML='<div class="empty-state"><div>Erreur chargement</div></div>';}
 }
 
 function openDedModal(){
-  const today=new Date().toLocaleDateString('fr-CA',{timeZone:PARIS});
+  const today=todayStr();
   openModal('Nouvelle demande de déduction',
     `<div class="fields-row c2"><div class="field"><label>Date</label><input type="date" id="m-dd" value="${today}"></div><div class="field"><label>N° Chambre</label><input id="m-dr" placeholder="304"></div></div>
      <div class="field"><label>Nom client</label><input id="m-dc" placeholder="DUPONT Jean"></div>
      <div class="fields-row c3"><div class="field"><label>Montant (€)</label><input type="number" id="m-da" step="0.01" min="0" placeholder="0.00"></div><div class="field"><label>Code Opera</label><input id="m-dco" placeholder="7001"></div><div class="field"><label>Service</label><select id="m-ds"><option value="">—</option><option value="reception">Réception</option><option value="fb">F&B</option><option value="housekeeping">HK</option><option value="direction">Direction</option></select></div></div>
      <div class="field"><label>Motif *</label><textarea id="m-dre" style="min-height:80px" placeholder="Motif précis — conservé pour archivage comptable…"></textarea></div>
-     <div class="field"><label>Notes</label><textarea id="m-dn" style="min-height:50px" placeholder="Références, numéro folio Opera…"></textarea></div>
-     <div class="field">
-       <label>Pièces jointes (JPG, PNG, PDF — 100 Mo max — sélection multiple possible)</label>
-       ${filePicker('m-files','m-files-list',true)}
-     </div>`,
-    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Soumettre la demande',cls:'btn-gold',action:submitDed}]
+     <div class="field"><label>Notes</label><textarea id="m-dn" style="min-height:50px" placeholder="Références, folio Opera…"></textarea></div>
+     <div class="field"><label>Pièces jointes (JPG, PNG, PDF — 100 Mo — sélection multiple)</label>${filePicker('m-files','m-files-list',true)}</div>`,
+    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Soumettre',cls:'btn-gold',action:submitDed}]
   );
 }
 
@@ -547,32 +639,23 @@ async function submitDed(){
   if(!client_name||!room||!amount||!reason){toast('Champs obligatoires manquants','error');return;}
   try{
     const ded=await api('/api/deductions','POST',{client_name,room,amount,reason,opera_code:document.getElementById('m-dco').value.trim(),service:document.getElementById('m-ds').value,notes:document.getElementById('m-dn').value.trim(),date:document.getElementById('m-dd').value});
-    const fileInput=document.getElementById('m-files');
-    if(fileInput&&fileInput.files.length>0){
-      const fd=new FormData();
-      Array.from(fileInput.files).forEach(f=>fd.append('files',f));
-      const r=await fetch(`/api/deductions/${ded.id}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});
-      if(!r.ok){const err=await r.json().catch(()=>({}));console.warn('Upload warning:',err);}
-    }
-    closeModal();toast('Demande soumise ✓','success');
+    const fi=document.getElementById('m-files');
+    if(fi&&fi.files.length>0){const fd=new FormData();Array.from(fi.files).forEach(f=>fd.append('files',f));await fetch(`/api/deductions/${ded.id}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});}
+    closeModal();toast('Demande soumise ✓','success');loadDedTable();
   }catch(e){toast(e.message,'error');console.error(e);}
 }
 
 function reviewDed(id,status){
-  const action=status==='approved'?'Approuver':'Refuser';
   const cls=status==='approved'?'btn-green':'btn-danger';
+  const action=status==='approved'?'Approuver':'Refuser';
   openModal(`${action} la déduction`,
     `${status==='rejected'?`<div class="field"><label>Motif du refus</label><textarea id="m-rv-comment" style="min-height:60px"></textarea></div>`:''}
-     <div class="field">
-       <label>Signature électronique *</label>
-       <input id="m-rv-sig" placeholder="Tapez votre nom complet pour signer" autocomplete="name">
-       <div style="font-size:11px;color:var(--text3);margin-top:6px">Horodatée et archivée — valeur de contrôle interne.</div>
-     </div>`,
+     <div class="field"><label>Signature électronique *</label><input id="m-rv-sig" placeholder="Votre nom complet" autocomplete="name"><div style="font-size:11px;color:var(--text3);margin-top:6px">Horodatée et archivée — valeur de contrôle interne.</div></div>`,
     [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:action,cls,action:async()=>{
       const sig=document.getElementById('m-rv-sig').value.trim();
       const comment=document.getElementById('m-rv-comment')?.value.trim()||'';
       if(!sig){toast('Signature requise','error');return;}
-      try{await api(`/api/deductions/${id}/review`,'PATCH',{status,review_comment:comment,signature:sig});closeModal();toast(status==='approved'?'Approuvée et archivée ✓':'Refusée','success');}
+      try{await api(`/api/deductions/${id}/review`,'PATCH',{status,review_comment:comment,signature:sig});closeModal();toast(status==='approved'?'Approuvée ✓':'Refusée','success');loadDedTable();}
       catch(e){toast(e.message,'error');}
     }}]
   );
@@ -583,26 +666,19 @@ async function showAttachments(dedId,clientName){
     const atts=await api(`/api/deductions/${dedId}/attachments`);
     const canManage=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
     openModal(`Pièces jointes — ${esc(clientName)}`,
-      `${atts.length===0
-        ?`<div class="empty-state" style="padding:16px"><div class="empty-ico">📎</div><div>Aucune pièce jointe</div></div>`
-        :`<div class="files-list" style="margin-bottom:12px">${atts.map(a=>`<div class="file-row"><span class="ico">${fileIco(a.mimetype)}</span><span class="name">${esc(a.filename)}</span><span class="sz">${fileSize(a.size)}</span><a href="/api/deductions/attachments/${a.id}" target="_blank" class="btn btn-outline btn-xs">Voir</a>${canManage?`<button class="btn btn-danger btn-xs" onclick="deleteAttachment(${a.id},${dedId},'${esc(clientName)}')">✕</button>`:''}</div>`).join('')}</div>`}
-       <div class="field">
-         <label>Ajouter des fichiers</label>
-         ${filePicker('m-att-files','m-att-list',true)}
-       </div>`,
+      `${atts.length===0?`<div class="empty-state" style="padding:16px"><div class="empty-ico">📎</div><div>Aucune pièce jointe</div></div>`
+        :`<div class="files-list" style="margin-bottom:12px">${atts.map(a=>`<div class="file-row"><span class="ico">${fileIco(a.mimetype)}</span><span class="name">${esc(a.filename)}</span><span class="sz">${fileSize(a.size)}</span><a href="/api/deductions/attachments/${a.id}" target="_blank" class="btn btn-outline btn-xs">Voir</a><a href="/api/deductions/attachments/${a.id}" download="${esc(a.filename)}" class="btn btn-ghost btn-xs">⬇️</a>${canManage?`<button class="btn btn-danger btn-xs" onclick="deleteAttachment(${a.id},${dedId},'${esc(clientName)}')">✕</button>`:''}</div>`).join('')}</div>`}
+       <div class="field"><label>Ajouter des fichiers</label>${filePicker('m-att-files','m-att-list',true)}</div>`,
       [{label:'Fermer',cls:'btn-outline',action:closeModal},{label:'Uploader',cls:'btn-gold',action:async()=>{
         const fi=document.getElementById('m-att-files');
-        if(!fi||fi.files.length===0){toast('Sélectionnez au moins un fichier','error');return;}
-        const fd=new FormData();
-        Array.from(fi.files).forEach(f=>fd.append('files',f));
-        try{
-          const r=await fetch(`/api/deductions/${dedId}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});
-          if(r.ok){closeModal();toast(`${fi.files.length} fichier(s) uploadé(s) ✓`,'success');navigate('deductions');}
-          else{const err=await r.json().catch(()=>({}));toast(err.error||'Erreur upload','error');}
-        }catch(e){toast('Erreur réseau','error');console.error(e);}
+        if(!fi||fi.files.length===0){toast('Sélectionnez un fichier','error');return;}
+        const fd=new FormData();Array.from(fi.files).forEach(f=>fd.append('files',f));
+        const r=await fetch(`/api/deductions/${dedId}/attachments`,{method:'POST',body:fd,credentials:'same-origin'});
+        if(r.ok){closeModal();toast('Uploadé ✓','success');loadDedTable();}
+        else toast('Erreur upload','error');
       }}]
     );
-  }catch(e){toast('Erreur chargement','error');console.error(e);}
+  }catch(e){toast('Erreur','error');console.error(e);}
 }
 
 async function deleteAttachment(id,dedId,clientName){
@@ -612,42 +688,211 @@ async function deleteAttachment(id,dedId,clientName){
 }
 
 function openZipExport(){
-  const now=new Date();const month=now.toLocaleDateString('fr-CA',{timeZone:PARIS}).substring(0,7);
+  const now=new Date();const month=monthStr(now);
   openModal('Export mensuel — Archivage comptable',
     `<div class="field"><label>Mois à exporter</label><input type="month" id="m-exp-month" value="${month}"></div>
-     <div style="font-size:12px;color:var(--text3);margin-top:8px;line-height:1.7;background:var(--bg3);padding:12px;border-radius:var(--r)">
-       📦 Le ZIP contient :<br>
-       · Récapitulatif CSV (toutes les déductions)<br>
-       · Dossiers par déduction avec pièces jointes<br>
-       · Prêt pour archivage ou commissaire aux comptes
-     </div>`,
-    [{label:'Fermer',cls:'btn-outline',action:closeModal},{label:'Télécharger le ZIP',cls:'btn-gold',action:()=>{
-      const m=document.getElementById('m-exp-month').value;
-      if(!m){toast('Mois requis','error');return;}
-      window.open(`/api/deductions/export/zip?month=${m}`,'_blank');closeModal();
+     <div style="font-size:12px;color:var(--text3);margin-top:8px;line-height:1.7;background:var(--bg3);padding:12px;border-radius:var(--r)">📦 CSV récapitulatif + pièces jointes par déduction<br>Prêt pour archivage comptable</div>`,
+    [{label:'Fermer',cls:'btn-outline',action:closeModal},{label:'Télécharger ZIP',cls:'btn-gold',action:()=>{const m=document.getElementById('m-exp-month').value;if(!m){toast('Mois requis','error');return;}window.open(`/api/deductions/export/zip?month=${m}`,'_blank');closeModal();}}]
+  );
+}
+
+// ── HANDOVERS — CALENDAR ─────────────────────────────────────────────────
+
+async function handovers(){
+  const c=document.getElementById('content');
+  document.getElementById('topbar-actions').innerHTML='';
+  c.innerHTML=`
+    <div class="cal-layout fade-up">
+      <div class="cal-grid-wrap">
+        <div class="cal-nav">
+          <button class="btn btn-ghost btn-sm" onclick="calNav(-1)">◀</button>
+          <div class="cal-month-title" id="cal-month-title">—</div>
+          <button class="btn btn-ghost btn-sm" onclick="calNav(1)">▶</button>
+          <button class="btn btn-outline btn-sm" onclick="calGoToday()">Aujourd'hui</button>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+      <div class="cal-panel" id="cal-panel">
+        <div class="cal-panel-header">
+          <div class="cal-panel-title" id="cal-panel-title">Sélectionnez un jour</div>
+        </div>
+        <div class="cal-panel-body" id="cal-panel-body">
+          <div class="empty-state"><div class="empty-ico">📅</div><div>Cliquez sur un jour<br>pour voir ses consignes</div></div>
+        </div>
+        <div class="cal-panel-footer" id="cal-panel-footer"></div>
+      </div>
+    </div>`;
+  await loadCalendarMonth();
+}
+
+async function loadCalendarMonth(){
+  const month=monthStr(calendarDate);
+  try{
+    const list=await api(`/api/handovers?month=${month}`);
+    // Group by date
+    calendarData={};
+    list.forEach(h=>{if(!calendarData[h.date])calendarData[h.date]=[];calendarData[h.date].push(h);});
+    renderCalendar();
+    // Refresh selected day panel
+    if(calendarSelected)renderDayPanel(calendarSelected);
+  }catch(e){console.error(e);}
+}
+
+function renderCalendar(){
+  const d=new Date(calendarDate);
+  const year=d.getFullYear();
+  const month=d.getMonth();
+  const months=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  document.getElementById('cal-month-title').textContent=`${months[month]} ${year}`;
+
+  const grid=document.getElementById('cal-grid');
+  const days=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  let html=days.map(d=>`<div class="cal-day-header">${d}</div>`).join('');
+
+  const first=new Date(year,month,1);
+  const last=new Date(year,month+1,0);
+  const today=todayStr();
+
+  // Start from Monday
+  let startDow=first.getDay()-1;if(startDow<0)startDow=6;
+
+  // Previous month padding
+  for(let i=0;i<startDow;i++){
+    const pd=new Date(year,month,1-startDow+i);
+    const ds=pd.toLocaleDateString('fr-CA',{timeZone:PARIS});
+    const count=(calendarData[ds]||[]).length;
+    html+=`<div class="cal-day other-month" onclick="selectCalDay('${ds}')">
+      <div class="cal-day-num">${pd.getDate()}</div>
+      ${count>0?`<div class="cal-dots">${renderDots(calendarData[ds])}</div>`:''}</div>`;
+  }
+
+  for(let day=1;day<=last.getDate();day++){
+    const ds=`${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const isToday=ds===today;
+    const isSelected=ds===calendarSelected;
+    const hos=calendarData[ds]||[];
+    html+=`<div class="cal-day ${isToday?'today':''} ${isSelected?'selected':''}" onclick="selectCalDay('${ds}')">
+      <div class="cal-day-num">${day}</div>
+      ${hos.length>0?`<div class="cal-dots">${renderDots(hos)}</div><div class="cal-day-count">${hos.length} consigne${hos.length>1?'s':''}</div>`:''}
+    </div>`;
+  }
+
+  // Next month padding to complete the grid
+  const totalCells=startDow+last.getDate();const remainder=(7-totalCells%7)%7;
+  for(let i=1;i<=remainder;i++){
+    const nd=new Date(year,month+1,i);const ds=nd.toLocaleDateString('fr-CA',{timeZone:PARIS});
+    html+=`<div class="cal-day other-month" onclick="selectCalDay('${ds}')"><div class="cal-day-num">${i}</div></div>`;
+  }
+
+  grid.innerHTML=html;
+}
+
+function renderDots(hos){
+  const shifts=[...new Set(hos.map(h=>h.shift))];
+  return shifts.map(s=>`<div class="cal-dot cal-dot-${s}" title="${shiftLbl(s)}"></div>`).join('');
+}
+
+function calNav(dir){
+  calendarDate=new Date(calendarDate.getFullYear(),calendarDate.getMonth()+dir,1);
+  loadCalendarMonth();
+}
+
+function calGoToday(){
+  calendarDate=new Date();
+  calendarSelected=todayStr();
+  loadCalendarMonth();
+}
+
+function selectCalDay(dateStr){
+  calendarSelected=dateStr;
+  renderCalendar(); // re-render to update selected state
+  renderDayPanel(dateStr);
+}
+
+function renderDayPanel(dateStr){
+  const hos=calendarData[dateStr]||[];
+  const isOwn=(h)=>h.created_by===currentUser.id;
+  const isManager=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
+  const canEdit=(h)=>isOwn(h)||isManager;
+
+  document.getElementById('cal-panel-title').textContent=formatDateFr(dateStr);
+
+  const shifts=[{id:'matin',lbl:'☀️ Matin'},{id:'apres_midi',lbl:'🌤 Après-midi'},{id:'nuit',lbl:'🌙 Nuit'}];
+  let html='';
+  if(!hos.length){html='<div class="empty-state" style="padding:20px"><div class="empty-ico">📋</div><div>Aucune consigne ce jour</div></div>';}
+  else{
+    shifts.forEach(shift=>{
+      const items=hos.filter(h=>h.shift===shift.id);
+      if(!items.length)return;
+      html+=`<div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin:10px 0 6px">${shift.lbl}</div>`;
+      items.forEach(h=>{
+        html+=`<div class="ho-item shift-${h.shift}">
+          <div class="ho-content">${esc(h.content)}</div>
+          <div class="ho-meta">
+            <span>${esc(h.author_name||'—')}</span>
+            <span>${serviceLbl(h.service)}</span>
+            ${canEdit(h)?`<span class="ho-actions">
+              <button class="btn btn-ghost btn-xs" onclick="editHandover(${h.id},'${esc(h.content).replace(/'/g,"\\'")}','${h.shift}','${h.service}')">✏️</button>
+              <button class="btn btn-ghost btn-xs" onclick="deleteHandover(${h.id},'${dateStr}')">🗑</button>
+            </span>`:''}
+          </div>
+        </div>`;
+      });
+    });
+  }
+
+  document.getElementById('cal-panel-body').innerHTML=html;
+  document.getElementById('cal-panel-footer').innerHTML=`<button class="btn btn-gold" style="width:100%" onclick="openAddHandoverModal('${dateStr}')">+ Ajouter une consigne</button>`;
+}
+
+function openAddHandoverModal(dateStr){
+  const defaultService=currentUser.service||'general';
+  openModal(`Consigne — ${formatDateFr(dateStr)}`,
+    `<div class="fields-row c2">
+       <div class="field"><label>Shift</label><select id="m-hos"><option value="matin">☀️ Matin</option><option value="apres_midi">🌤 Après-midi</option><option value="nuit">🌙 Nuit</option></select></div>
+       <div class="field"><label>Service</label><select id="m-hosv">
+         <option value="reception" ${defaultService==='reception'?'selected':''}>Réception</option>
+         <option value="housekeeping" ${defaultService==='housekeeping'?'selected':''}>Housekeeping</option>
+         <option value="fb" ${defaultService==='fb'?'selected':''}>F&B</option>
+         <option value="maintenance" ${defaultService==='maintenance'?'selected':''}>Maintenance</option>
+         <option value="general">Général</option>
+       </select></div>
+     </div>
+     <div class="field"><label>Consigne</label><textarea id="m-hoc" style="min-height:120px" placeholder="Informations à transmettre…"></textarea></div>`,
+    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Enregistrer',cls:'btn-gold',action:async()=>{
+      const content=document.getElementById('m-hoc').value.trim();
+      if(!content){toast('Contenu requis','error');return;}
+      try{
+        await api('/api/handovers','POST',{content,shift:document.getElementById('m-hos').value,service:document.getElementById('m-hosv').value,date:dateStr});
+        closeModal();toast('Consigne enregistrée ✓','success');await loadCalendarMonth();
+      }catch(e){toast(e.message,'error');}
     }}]
   );
 }
 
-// ── HANDOVERS ─────────────────────────────────────────────────────────────────
-async function handovers(){
-  const c=document.getElementById('content');document.getElementById('topbar-actions').innerHTML=`<button class="btn btn-gold btn-sm" onclick="openHandoverModal()">+ Passation</button>`;
-  const today=new Date().toLocaleDateString('fr-CA',{timeZone:PARIS});
-  try{
-    const list=await api(`/api/handovers?date=${today}`);let html='<div class="fade-up">';
-    [{id:'matin',lbl:'☀️ Matin'},{id:'apres_midi',lbl:'🌤 Après-midi'},{id:'nuit',lbl:'🌙 Nuit'}].forEach(shift=>{
-      const items=list.filter(h=>h.shift===shift.id);
-      html+=`<div class="card"><div class="card-header"><div class="card-title">${shift.lbl}</div></div>`;
-      if(!items.length)html+=`<div class="text-muted" style="font-size:13px">Aucune passation</div>`;
-      else items.forEach(h=>{html+=`<div class="list-item"><div class="list-item-body"><div class="list-item-title">${serviceLbl(h.service)}</div><div style="font-size:13px;color:var(--text2);line-height:1.7;margin-top:6px;white-space:pre-wrap">${esc(h.content)}</div><div class="list-item-meta"><span>Par ${esc(h.author_name||'—')}</span><span>${formatDate(h.created_at)}</span></div></div></div>`;});
-      html+=`</div>`;
-    });
-    html+='</div>';c.innerHTML=html;
-  }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
+function editHandover(id,content,shift,service){
+  openModal('Modifier la consigne',
+    `<div class="fields-row c2">
+       <div class="field"><label>Shift</label><select id="m-ehs">${['matin','apres_midi','nuit'].map(s=>`<option value="${s}" ${s===shift?'selected':''}>${shiftLbl(s)}</option>`).join('')}</select></div>
+       <div class="field"><label>Service</label><select id="m-ehsv">${['reception','housekeeping','fb','maintenance','general'].map(s=>`<option value="${s}" ${s===service?'selected':''}>${serviceLbl(s)}</option>`).join('')}</select></div>
+     </div>
+     <div class="field"><label>Consigne</label><textarea id="m-ehc" style="min-height:120px">${esc(content)}</textarea></div>`,
+    [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Enregistrer',cls:'btn-gold',action:async()=>{
+      const c=document.getElementById('m-ehc').value.trim();
+      if(!c){toast('Contenu requis','error');return;}
+      try{await api(`/api/handovers/${id}`,'PATCH',{content:c,shift:document.getElementById('m-ehs').value,service:document.getElementById('m-ehsv').value});closeModal();toast('Modifié ✓','success');await loadCalendarMonth();}
+      catch(e){toast(e.message,'error');}
+    }}]
+  );
 }
-function openHandoverModal(){openModal('Nouvelle passation',`<div class="fields-row c2"><div class="field"><label>Shift</label><select id="m-hos"><option value="matin">Matin</option><option value="apres_midi">Après-midi</option><option value="nuit">Nuit</option></select></div><div class="field"><label>Service</label><select id="m-hosv"><option value="reception">Réception</option><option value="housekeeping">Housekeeping</option><option value="fb">F&B</option><option value="maintenance">Maintenance</option><option value="general">Général</option></select></div></div><div class="field"><label>Contenu</label><textarea id="m-hoc" style="min-height:120px" placeholder="Informations à transmettre…"></textarea></div>`,[{label:'Enregistrer',cls:'btn-gold',action:async()=>{const content=document.getElementById('m-hoc').value.trim();if(!content){toast('Contenu requis','error');return;}await api('/api/handovers','POST',{content,shift:document.getElementById('m-hos').value,service:document.getElementById('m-hosv').value});closeModal();toast('Passation enregistrée ✓','success');navigate('handovers');}}]);}
 
-// ── MAINTENANCE ───────────────────────────────────────────────────────────────
+async function deleteHandover(id,dateStr){
+  if(!confirm('Supprimer cette consigne ?'))return;
+  try{await api(`/api/handovers/${id}`,'DELETE');toast('Supprimée','success');await loadCalendarMonth();}
+  catch(e){toast(e.message,'error');}
+}
+
+// ── MAINTENANCE ────────────────────────────────────────────────────────────
 async function maintenance(){
   const c=document.getElementById('content');const canUpdate=['hotel_admin','chef_service','super_admin'].includes(currentUser.role);
   document.getElementById('topbar-actions').innerHTML=`<button class="btn btn-gold btn-sm" onclick="openMaintModal()">+ Bon de travaux</button>`;
@@ -655,7 +900,7 @@ async function maintenance(){
     const list=await api('/api/maintenance');let html='<div class="fade-up">';
     const open=list.filter(m=>m.status!=='done');const done=list.filter(m=>m.status==='done');
     if(!open.length)html+=`<div class="empty-state"><div class="empty-ico">✅</div><div class="empty-txt">Aucun ticket ouvert</div></div>`;
-    else{html+=`<div class="card"><div class="card-header"><div class="card-title">En cours / Ouverts</div></div>`;html+=open.map(m=>maintItem(m,canUpdate)).join('');html+=`</div>`;}
+    else{html+=`<div class="card"><div class="card-header"><div class="card-title">En cours</div></div>`;html+=open.map(m=>maintItem(m,canUpdate)).join('');html+=`</div>`;}
     if(done.length){html+=`<div class="card"><div class="card-header"><div class="card-title">Résolus</div></div>`;html+=done.slice(0,5).map(m=>maintItem(m,false)).join('');html+=`</div>`;}
     html+='</div>';c.innerHTML=html;
   }catch{c.innerHTML='<div class="empty-state">Erreur</div>';}
@@ -664,32 +909,123 @@ function maintItem(m,canUpdate){return `<div class="list-item"><div class="list-
 function openMaintModal(){openModal('Nouveau bon de travaux',`<div class="field"><label>Lieu</label><input id="m-ml" placeholder="Ch. 302, Cuisine, Lobby…"></div><div class="field"><label>Description</label><textarea id="m-md"></textarea></div><div class="field"><label>Priorité</label><select id="m-mp"><option value="low">Faible</option><option value="medium" selected>Moyenne</option><option value="high">Haute</option><option value="urgent">🔴 Urgent</option></select></div>`,[{label:'Créer',cls:'btn-gold',action:async()=>{const location=document.getElementById('m-ml').value.trim();const description=document.getElementById('m-md').value.trim();if(!location||!description){toast('Lieu et description requis','error');return;}await api('/api/maintenance','POST',{location,description,priority:document.getElementById('m-mp').value});closeModal();toast('Bon créé ✓','success');navigate('maintenance');}}]);}
 async function updateMaint(id,status){try{await api(`/api/maintenance/${id}`,'PATCH',{status});toast(status==='done'?'Résolu ✓':'Mis à jour','success');}catch(e){toast(e.message,'error');}}
 
-// ── USERS ─────────────────────────────────────────────────────────────────────
-async function users(){
-  if(currentUser.role!=='super_admin'){navigate('dashboard');return;}
-  const c=document.getElementById('content');document.getElementById('topbar-actions').innerHTML=`<button class="btn btn-gold btn-sm" onclick="openCreateUserModal()">+ Utilisateur</button>`;
+// ── SETTINGS ──────────────────────────────────────────────────────────────
+async function settings(){
+  const c=document.getElementById('content');
+  const isSuperAdmin=currentUser.role==='super_admin';
+  const isAdmin=['hotel_admin','super_admin'].includes(currentUser.role);
+
+  let tabsHtml=`<div class="settings-tabs">
+    <button class="settings-tab active" onclick="switchSettingsTab('profil',this)">👤 Mon profil</button>`;
+  if(isSuperAdmin) tabsHtml+=`<button class="settings-tab" onclick="switchSettingsTab('users',this)">👥 Utilisateurs</button>`;
+  tabsHtml+=`</div>`;
+
+  c.innerHTML=`<div class="fade-up">${tabsHtml}
+    <div id="settings-profil" class="settings-section active"></div>
+    ${isSuperAdmin?'<div id="settings-users" class="settings-section"></div>':''}
+  </div>`;
+
+  loadSettingsProfil();
+  if(isSuperAdmin) loadSettingsUsers();
+}
+
+function switchSettingsTab(id,btn){
+  document.querySelectorAll('.settings-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.settings-section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  const el=document.getElementById(`settings-${id}`);
+  if(el)el.classList.add('active');
+}
+
+function loadSettingsProfil(){
+  const el=document.getElementById('settings-profil');
+  if(!el)return;
+  el.innerHTML=`
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Informations</div></div>
+        <div class="info-box">
+          <strong>Nom :</strong> ${esc(currentUser.display_name)}<br>
+          <strong>Identifiant :</strong> @${esc(currentUser.username)}<br>
+          <strong>Rôle :</strong> ${roleLabel(currentUser.role)}<br>
+          <strong>Service :</strong> ${serviceLbl(currentUser.service)}<br>
+          <strong>Hôtel :</strong> ${esc(currentUser.hotel_name||'—')}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Changer le mot de passe</div></div>
+        <div class="field"><label>Mot de passe actuel</label><input type="password" id="pw-current" placeholder="••••••••"></div>
+        <div class="field"><label>Nouveau mot de passe</label><input type="password" id="pw-new" placeholder="Min. 8 caractères"></div>
+        <div class="field"><label>Confirmation</label><input type="password" id="pw-confirm" placeholder="••••••••"></div>
+        <button class="btn btn-gold" onclick="changePassword()">Mettre à jour</button>
+      </div>
+    </div>`;
+}
+
+async function changePassword(){
+  const cur=document.getElementById('pw-current').value;
+  const nw=document.getElementById('pw-new').value;
+  const conf=document.getElementById('pw-confirm').value;
+  if(!cur||!nw){toast('Tous les champs sont requis','error');return;}
+  if(nw!==conf){toast('Les mots de passe ne correspondent pas','error');return;}
+  if(nw.length<8){toast('Minimum 8 caractères','error');return;}
+  try{
+    await api('/api/auth/change-password','POST',{current_password:cur,new_password:nw});
+    toast('Mot de passe mis à jour ✓','success');
+    document.getElementById('pw-current').value='';
+    document.getElementById('pw-new').value='';
+    document.getElementById('pw-confirm').value='';
+  }catch(e){toast(e.message,'error');}
+}
+
+async function loadSettingsUsers(){
+  const el=document.getElementById('settings-users');if(!el)return;
+  el.innerHTML='<div class="text-muted" style="padding:16px">Chargement…</div>';
   try{
     const [list,hotels]=await Promise.all([api('/api/admin/users'),api('/api/admin/hotels')]);
     const groups={};list.forEach(u=>{const key=u.hotel_name||'Super Admin';if(!groups[key])groups[key]=[];groups[key].push(u);});
-    let html='<div class="fade-up">';
+    let html=`<div style="display:flex;justify-content:flex-end;margin-bottom:16px"><button class="btn btn-gold" onclick="openCreateUserModal()">+ Nouveau compte</button></div>`;
     Object.entries(groups).forEach(([hotel,members])=>{
       html+=`<div class="card"><div class="card-header"><div class="card-title">🏨 ${esc(hotel)}</div><span class="pill">${members.length} compte${members.length>1?'s':''}</span></div>`;
-      html+=members.map(u=>`<div class="user-card ${u.active?'':'user-inactive'}"><div class="user-avatar">${esc(u.display_name[0]||'?')}</div><div class="user-info"><div class="user-name">${esc(u.display_name)}</div><div class="user-meta"><span class="badge badge-${u.role}">${roleLabel(u.role)}</span>${u.service?`<span class="pill">${serviceLbl(u.service)}</span>`:''}<span style="font-size:10px">@${esc(u.username)}</span>${!u.active?'<span style="color:var(--red);font-size:11px">Inactif</span>':''}${u.last_login?`<span>Dernière co : ${formatDate(u.last_login)}</span>`:''}</div></div><div class="list-item-actions"><button class="btn btn-outline btn-sm" onclick='openEditUserModal(${JSON.stringify(u)})'>Modifier</button>${u.active?`<button class="btn btn-danger btn-xs" onclick="disableUser(${u.id})">Désactiver</button>`:`<button class="btn btn-green btn-xs" onclick="enableUser(${u.id})">Réactiver</button>`}</div></div>`).join('');
+      html+=members.map(u=>`<div class="user-card ${u.active?'':'user-inactive'}">
+        <div class="user-avatar">${esc(u.display_name[0]||'?')}</div>
+        <div class="user-info">
+          <div class="user-name">${esc(u.display_name)}</div>
+          <div class="user-meta">
+            <span class="badge badge-${u.role}">${roleLabel(u.role)}</span>
+            ${u.service?`<span class="pill">${serviceLbl(u.service)}</span>`:''}
+            <span style="font-size:10px">@${esc(u.username)}</span>
+            ${!u.active?'<span style="color:var(--red);font-size:11px">Inactif</span>':''}
+            ${u.last_login?`<span>Dernière co : ${formatDate(u.last_login)}</span>`:''}
+          </div>
+        </div>
+        <div class="list-item-actions">
+          <button class="btn btn-outline btn-sm" onclick='openEditUserModal(${JSON.stringify(u)})'>Modifier</button>
+          ${u.active?`<button class="btn btn-danger btn-xs" onclick="disableUser(${u.id})">Désactiver</button>`:`<button class="btn btn-green btn-xs" onclick="enableUser(${u.id})">Réactiver</button>`}
+        </div>
+      </div>`).join('');
       html+=`</div>`;
     });
-    html+='</div>';c.innerHTML=html;
-  }catch(e){c.innerHTML='<div class="empty-state">Erreur</div>';console.error(e);}
+    el.innerHTML=html;
+  }catch(e){el.innerHTML='<div class="empty-state">Erreur</div>';console.error(e);}
 }
 
 async function openCreateUserModal(){
   const hotels=await api('/api/admin/hotels');const hotelOpts=hotels.map(h=>`<option value="${h.id}">${esc(h.name)}</option>`).join('');
-  openModal('Créer un utilisateur',
-    `<div class="fields-row c2"><div class="field"><label>Identifiant *</label><input id="m-uu" placeholder="prenom.nom"></div><div class="field"><label>Nom affiché *</label><input id="m-un" placeholder="Prénom NOM"></div></div>
-     <div class="field"><label>Mot de passe * (min 8 car.)</label><input type="password" id="m-upw"></div>
-     <div class="fields-row c2"><div class="field"><label>Rôle *</label><select id="m-ur" onchange="toggleHotelField()"><option value="equipe">Équipe</option><option value="chef_service">Chef de service</option><option value="hotel_admin">Admin Hôtel</option><option value="super_admin">Super Admin</option></select></div><div class="field"><label>Service</label><select id="m-usv"><option value="">—</option><option value="reception">Réception</option><option value="housekeeping">Housekeeping</option><option value="fb">F&B</option><option value="maintenance">Maintenance</option><option value="direction">Direction</option></select></div></div>
+  openModal('Nouveau compte utilisateur',
+    `<div class="info-box">Seul un Super Admin peut créer des comptes. Le mot de passe doit faire minimum 8 caractères.</div>
+     <div class="fields-row c2"><div class="field"><label>Identifiant *</label><input id="m-uu" placeholder="prenom.nom"></div><div class="field"><label>Nom affiché *</label><input id="m-un" placeholder="Prénom NOM"></div></div>
+     <div class="field"><label>Mot de passe *</label><input type="password" id="m-upw"></div>
+     <div class="fields-row c2"><div class="field"><label>Rôle *</label><select id="m-ur" onchange="toggleHotelField()">
+       <option value="equipe">Équipe</option>
+       <option value="chef_service">Chef de service</option>
+       <option value="hotel_admin">Admin Hôtel</option>
+       <option value="super_admin">Super Admin</option>
+     </select></div>
+     <div class="field"><label>Service</label><select id="m-usv"><option value="">—</option><option value="reception">Réception</option><option value="housekeeping">Housekeeping</option><option value="fb">F&B</option><option value="maintenance">Maintenance</option><option value="direction">Direction</option></select></div></div>
      <div class="field" id="hotel-field"><label>Hôtel *</label><select id="m-uh">${hotelOpts}</select></div>`,
     [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Créer le compte',cls:'btn-gold',action:async()=>{
-      try{await api('/api/admin/users','POST',{username:document.getElementById('m-uu').value.trim(),password:document.getElementById('m-upw').value,display_name:document.getElementById('m-un').value.trim(),role:document.getElementById('m-ur').value,service:document.getElementById('m-usv').value,hotel_id:document.getElementById('m-uh')?.value});closeModal();toast('Compte créé ✓','success');navigate('users');}
+      try{await api('/api/admin/users','POST',{username:document.getElementById('m-uu').value.trim(),password:document.getElementById('m-upw').value,display_name:document.getElementById('m-un').value.trim(),role:document.getElementById('m-ur').value,service:document.getElementById('m-usv').value,hotel_id:document.getElementById('m-uh')?.value});closeModal();toast('Compte créé ✓','success');loadSettingsUsers();}
       catch(e){toast(e.message,'error');}
     }}]
   );
@@ -704,14 +1040,14 @@ async function openEditUserModal(u){
      <div class="field"><label>Hôtel</label><select id="m-eh">${hotelOpts}</select></div>`,
     [{label:'Annuler',cls:'btn-outline',action:closeModal},{label:'Enregistrer',cls:'btn-gold',action:async()=>{
       const body={display_name:document.getElementById('m-en').value,role:document.getElementById('m-er').value,service:document.getElementById('m-esv').value,hotel_id:document.getElementById('m-eh').value};const pw=document.getElementById('m-epw').value;if(pw)body.password=pw;
-      try{await api(`/api/admin/users/${u.id}`,'PATCH',body);closeModal();toast('Modifié ✓','success');navigate('users');}catch(e){toast(e.message,'error');}
+      try{await api(`/api/admin/users/${u.id}`,'PATCH',body);closeModal();toast('Modifié ✓','success');loadSettingsUsers();}catch(e){toast(e.message,'error');}
     }}]
   );
 }
-async function disableUser(id){if(!confirm('Désactiver ce compte ?'))return;await api(`/api/admin/users/${id}`,'PATCH',{active:false});toast('Désactivé','success');navigate('users');}
-async function enableUser(id){await api(`/api/admin/users/${id}`,'PATCH',{active:true});toast('Réactivé ✓','success');navigate('users');}
+async function disableUser(id){if(!confirm('Désactiver ce compte ?'))return;await api(`/api/admin/users/${id}`,'PATCH',{active:false});toast('Désactivé','success');loadSettingsUsers();}
+async function enableUser(id){await api(`/api/admin/users/${id}`,'PATCH',{active:true});toast('Réactivé ✓','success');loadSettingsUsers();}
 
-// ── MODAL ─────────────────────────────────────────────────────────────────────
+// ── MODAL ─────────────────────────────────────────────────────────────────
 function openModal(title,body,buttons){
   document.getElementById('modal-title').textContent=title;
   document.getElementById('modal-body').innerHTML=body;
@@ -722,7 +1058,7 @@ function openModal(title,body,buttons){
 function closeModal(){document.getElementById('modal-overlay').classList.remove('visible');}
 function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────────────────
 document.getElementById('login-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 checkAuth();
 </script>
