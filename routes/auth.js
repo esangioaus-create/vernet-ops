@@ -17,7 +17,6 @@ router.post('/login', (req, res) => {
     return res.status(401).json({ error: 'Identifiants incorrects' });
   }
 
-  // Update last login
   db.prepare('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?').run(user.id);
 
   req.session.userId = user.id;
@@ -26,10 +25,18 @@ router.post('/login', (req, res) => {
   req.session.service = user.service;
 
   res.json({
-    id: user.id, username: user.username,
-    display_name: user.display_name, role: user.role,
-    service: user.service, hotel_id: user.hotel_id,
-    hotel_name: user.hotel_name, hotel_slug: user.hotel_slug
+    id: user.id,
+    username: user.username,
+    display_name: user.display_name,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    poste: user.poste,
+    role: user.role,
+    service: user.service,
+    hotel_id: user.hotel_id,
+    hotel_name: user.hotel_name,
+    hotel_slug: user.hotel_slug,
+    must_change_password: user.must_change_password === 1
   });
 });
 
@@ -46,10 +53,10 @@ router.get('/me', requireAuth, (req, res) => {
   `).get(req.session.userId);
   if (!user) return res.status(401).json({ error: 'Non authentifié' });
   const { password_hash, ...safe } = user;
+  safe.must_change_password = safe.must_change_password === 1;
   res.json(safe);
 });
 
-// Change own password
 router.post('/change-password', requireAuth, (req, res) => {
   const { current_password, new_password } = req.body;
   if (!current_password || !new_password) return res.status(400).json({ error: 'Champs requis' });
@@ -59,8 +66,25 @@ router.post('/change-password', requireAuth, (req, res) => {
   if (!bcrypt.compareSync(current_password, user.password_hash)) {
     return res.status(401).json({ error: 'Mot de passe actuel incorrect' });
   }
-  db.prepare('UPDATE users SET password_hash = ? WHERE id = ?')
+
+  db.prepare('UPDATE users SET password_hash = ?, must_change_password = 0 WHERE id = ?')
     .run(bcrypt.hashSync(new_password, 12), req.session.userId);
+
+  res.json({ ok: true });
+});
+
+// First login: set new password without knowing the old one (only if must_change_password = 1)
+router.post('/first-login', requireAuth, (req, res) => {
+  const { new_password } = req.body;
+  if (!new_password) return res.status(400).json({ error: 'Mot de passe requis' });
+  if (new_password.length < 8) return res.status(400).json({ error: 'Minimum 8 caractères' });
+
+  const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.session.userId);
+  if (!user.must_change_password) return res.status(400).json({ error: 'Non applicable' });
+
+  db.prepare('UPDATE users SET password_hash = ?, must_change_password = 0 WHERE id = ?')
+    .run(bcrypt.hashSync(new_password, 12), req.session.userId);
+
   res.json({ ok: true });
 });
 
