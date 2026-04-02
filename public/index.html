@@ -220,7 +220,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .cal-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .cal-dot-matin{background:#f0a030}
 .cal-dot-apres_midi{background:#4a80c8}
-.cal-dot-nuit{background:#8a6e30}
+.cal-dot-nuit{background:#6a5090}
+.svc-reception{border-left-color:#4a80c8!important}
+.svc-housekeeping{border-left-color:#4a9460!important}
+.svc-fb{border-left-color:#c87830!important}
+.svc-maintenance{border-left-color:#d94f4f!important}
+.svc-direction{border-left-color:#c9a84c!important}
+.svc-general{border-left-color:#6b5c3e!important}
+.alert-notif-bar{position:fixed;top:0;left:0;right:0;z-index:500;background:var(--red);color:#fff;padding:10px 20px;display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;animation:slide-down .3s ease;box-shadow:0 4px 16px rgba(217,79,79,.4)}
+@keyframes slide-down{from{transform:translateY(-100%)}to{transform:translateY(0)}}
+.alert-notif-bar button{margin-left:auto;background:rgba(255,255,255,.25);border:none;color:#fff;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700}
 .cal-day-count{font-size:10px;color:var(--text3);margin-top:2px}
 
 .cal-panel{width:320px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);display:flex;flex-direction:column;overflow:hidden}
@@ -407,7 +416,18 @@ function updateDate(){const d=new Date();const str=d.toLocaleDateString('fr-FR',
 // ── SOCKET ────────────────────────────────────────────────────────────────
 function initSocket(){
   socket=io();
-  socket.on('new_alert',a=>{toast(`⚠ ${a.title}`,a.priority==='critical'?'error':'');loadBadges();if(['dashboard','alerts'].includes(currentPage))navigate(currentPage);});
+  socket.on('new_alert',a=>{
+  if(['high','critical'].includes(a.priority)){
+    document.getElementById('alert-notif-bar')?.remove();
+    const bar=document.createElement('div');bar.id='alert-notif-bar';bar.className='alert-notif-bar';
+    bar.innerHTML=`<span>🚨</span><span><strong>${esc(a.title)}</strong> — ${esc(a.message)}</span><button onclick="this.parentElement.remove()">✕</button>`;
+    document.body.prepend(bar);
+    if(a.priority!=='critical')setTimeout(()=>bar.remove(),30000);
+  }
+  toast(`⚠ ${a.title}`,a.priority==='critical'?'error':'');
+  loadBadges();
+  if(['dashboard','alerts'].includes(currentPage))navigate(currentPage);
+});
   socket.on('alert_resolved',()=>{loadBadges();if(['dashboard','alerts'].includes(currentPage))navigate(currentPage);});
   socket.on('new_announcement',a=>{toast(`📢 ${a.title}`);if(currentPage==='announcements')navigate('announcements');});
   socket.on('chat_message',msg=>{if(currentPage==='chat'&&msg.service===currentChatService)appendChatMsg(msg);});
@@ -788,8 +808,10 @@ function renderCalendar(){
 }
 
 function renderDots(hos){
-  const shifts=[...new Set(hos.map(h=>h.shift))];
-  return shifts.map(s=>`<div class="cal-dot cal-dot-${s}" title="${shiftLbl(s)}"></div>`).join('');
+  const seen=new Set();const dots=[];
+  hos.forEach(h=>{const key=`${h.shift}_${h.service||'general'}`;if(!seen.has(key)){seen.add(key);dots.push(h);}});
+  const colors={reception:'#4a80c8',housekeeping:'#4a9460',fb:'#c87830',maintenance:'#d94f4f',direction:'#c9a84c',general:'#6b5c3e'};
+  return dots.slice(0,6).map(h=>`<div class="cal-dot" style="background:${colors[h.service||'general']||'#6b5c3e'}" title="${serviceLbl(h.service)} · ${shiftLbl(h.shift)}"></div>`).join('');
 }
 
 function calNav(dir){
