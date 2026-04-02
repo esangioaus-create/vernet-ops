@@ -282,8 +282,24 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 @keyframes fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{animation:fade-up .3s ease forwards}
 
+#hamburger{display:none;width:34px;height:34px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);cursor:pointer;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+#hamburger:hover{border-color:var(--gold-dim)}
+
 @media(max-width:900px){.cal-layout{flex-direction:column}.cal-panel{width:100%;max-height:300px}}
-@media(max-width:768px){#sidebar{display:none;position:fixed;inset:0 auto 0 0;z-index:150;width:260px}#sidebar.open{display:flex}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.fields-row.c2,.fields-row.c3,.fields-row.c4{grid-template-columns:1fr 1fr}#content{padding:14px}}
+@media(max-width:768px){
+  #sidebar{display:none;position:fixed;inset:0 auto 0 0;z-index:150;width:260px;box-shadow:4px 0 20px rgba(0,0,0,.5)}
+  #sidebar.open{display:flex}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:149}
+  .sidebar-overlay.visible{display:block}
+  #hamburger{display:flex}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .fields-row.c2,.fields-row.c3,.fields-row.c4{grid-template-columns:1fr 1fr}
+  #content{padding:14px}
+  .cal-layout{flex-direction:column}
+  .cal-panel{width:100%;max-height:300px}
+  .tbl{font-size:11px}
+  .tbl th,.tbl td{padding:7px 8px}
+}
 </style>
 </head>
 <body>
@@ -307,6 +323,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 
 <div id="app" class="hidden">
   <div id="sidebar">
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div class="sb-header">
       <div class="sb-hotel" id="sb-hotel">—</div>
       <div class="sb-user" id="sb-user">—</div>
@@ -334,6 +351,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 
   <div id="main">
     <div id="topbar">
+<button id="hamburger" onclick="toggleSidebar()">☰</button>
       <div id="topbar-title">Dashboard</div>
       <div id="topbar-date"></div>
       <div id="topbar-actions"></div>
@@ -444,7 +462,8 @@ async function loadBadges(){
 }
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────
-function navigate(page){
+function navigate(page){document.getElementById('sidebar')?.classList.remove('open');
+document.getElementById('sidebar-overlay')?.classList.remove('visible');
   currentPage=page;
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   const found=[...document.querySelectorAll('.nav-item')].find(el=>el.getAttribute('onclick')===`navigate('${page}')`);
@@ -1082,6 +1101,13 @@ function closeModalOutside(e){if(e.target===document.getElementById('modal-overl
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 document.getElementById('login-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const ov=document.getElementById('sidebar-overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('visible');
+}
 checkAuth();
 </script>
 </body>
